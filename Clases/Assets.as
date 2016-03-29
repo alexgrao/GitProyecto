@@ -58,6 +58,12 @@ package
 			//fondos
 			[Embed(source = "../media/graphics/HUD_1Player.png")]
 			public static const HUD1Player:Class;
+
+			[Embed(source = "../media/graphics/Fondo_SOL.png")]
+			public static const FondoSol:Class;
+			
+			[Embed(source="../media/graphics/fondo_LLUVIA.png")]
+			public static const FondoLluvia:Class;
 			
 			
 			private static var gameTextures:Dictionary = new Dictionary();

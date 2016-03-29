@@ -19,7 +19,7 @@ package screens
 		var tablero:Tablero;
 		var _jugador:Jugador;
 		
-		
+		var _imagenFondo:Image;
 		var _hub:Image;
 		
 		var inicioX:int;
@@ -73,6 +73,8 @@ package screens
 			moveTimer.addEventListener(TimerEvent.TIMER,moveTimerHandler);
 			moveTimer.start();
 			
+			_imagenFondo = new Image(Assets.getTexture("FondoSol"));
+			addChild(_imagenFondo);
 			_hub = new Image(Assets.getTexture("HUD1Player"));
 			addChild(_hub);
 			
@@ -85,15 +87,21 @@ package screens
 		
 		private function moveTimerHandler(e:TimerEvent):void 
 		{
+			trace("Entramos en juego.moveTimerHandler");
+
 			tablero.añadirFilaRandom();
 			pintarTablero();
+			
+			trace("salimos en juego.moveTimerHandler");
 		}
 		
 		private function playGame(e:Event):void 
 		{
+			//trace("Entramos en juego.playGame");
 			//pintarTablero();
 			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(columna);
 			//movePlayer();
+			//trace("Salimos en juego.playGame");
 		}
 		
 		private function movePlayer():void 
@@ -116,6 +124,7 @@ package screens
 		
 		private function checkKeysDown(e:KeyboardEvent):void
 		{
+			//trace("Entramos en juego.checkKeyDown");
 			if (e.keyCode == 37) 
 			{
 				if (columna > 0) columna--;
@@ -135,37 +144,46 @@ package screens
 			
 			if (e.keyCode == 83)
 			{
-				if (_jugador.tirarBolas(columna)) {
-					puntuacionMensaje.text = _jugador.puntuacionActual.toString();
-					pintarTablero();
-					tablero.imprime();
-				}
-				else{
-					pintarTablero();
+				if(_jugador.colorActualRetenido != 0){
+					if (_jugador.tirarBolas(columna)) {
+						puntuacionMensaje.text = _jugador.puntuacionActual.toString();
+						pintarTablero();
+						tablero.imprime();
+					}
+					else{
+						pintarTablero();
+					}
 				}
 			}
+			//trace("Salimos en juego.checkKeyDown");
 		}
 		
 		private function onAddedToStage(e:Event):void 
 		{
+			//trace("Entramos en juego.onAddedToStage");
 			trace("empezamos juego");
 			//pintarJugador();//cada frame
 			//pintarBackground();
 			iniciarPlayer();
 			//iniciarTablero();
 			pintarTablero();//
+			//trace("Salimos en juego.onAddedToStage");
 		}
 		
 		private function iniciarPlayer():void 
 		{
+			//trace("Entramos en juego.iniciaPlayer");
 			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(columna);
 			_jugador.jugadorImagen.y = 550;
 			_jugador.jugadorImagen.width = anchuraCelda;
 			_jugador.jugadorImagen.height = alturaCelda;
 			addChild(_jugador.jugadorImagen);
+			//trace("Salimos en juego.iniciaPlayer");
 		}
+		
 		private function pasoAImagen(tipoBola:int):Image
 		{
+			//trace("Entramos y salimos en juego.pasoAimagen");
 			if (Math.floor(tipoBola / 10) == 1) {
 				if (tipoBola % 10 == 1) {
 					img = new Image(Assets.getTexture("BolaRojaPts"));
@@ -227,6 +245,7 @@ package screens
 			}
 			return null;
 		}
+		
 		/*private function iniciarTablero():void
 		{
 			tablero.imprime();
@@ -240,11 +259,13 @@ package screens
 		
 		private function comprobarPosicionXColumnaJugador(col:int):int
 		{
+			//trace("Entramos y salimos en juego.comprobarPosicionXColumnaJugador");
 			return anchuraCelda * col + inicioX;
 		}
 		
 		private function pintarTablero():void
 		{
+			trace("Entramos en juego.pintarTablero");
 			tablero.imprime();
 			for (var i:int = 0; i < numeroColumnas ;i++ ) {
 					for (var j:int = 0; j < numeroFilas; j++ ) {
@@ -263,16 +284,18 @@ package screens
 						}
 					}
 			}
+			trace("Salimos en juego.PintarTablero");
 		}
 		
 		private function borrarImagenesDeColumna():void
 		{
-			
+			trace("Entramos en juego.BorrarImagenesDeColumna");
 			for (var i:int = 0; i < numeroFilas ; i++ ) {
 				if (tablero._tablero[i][columna] == -1) {
 						removeChild(tablero._tableroImagenes[i][columna]);
 				}
 			}
+			trace("Salimos en juego.borrarImagenesDeColumna");
 		}	
 	}
 
