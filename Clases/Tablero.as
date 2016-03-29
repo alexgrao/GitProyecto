@@ -74,6 +74,10 @@ package
 			_fila2 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila3 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila4 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
+			//_fila1 = new Array(40, 0, 30, 20, 10, 40, 10);
+			//_fila2 = new Array(40, 10, 30, 30, 40, 10, 10);
+			//_fila3 = new Array(-1, 30, -1, 20, 20, 30, 10);
+			//_fila4 = new Array(-1, -1, -1, 10, 20, 30, 30);
 			_fila5 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila6 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila7 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
@@ -113,13 +117,16 @@ package
 		
 		public function iniciaTablero():void 
 		{
+			//trace("Entramos en tablero.iniciaTablero");
 			añadirFilaRandom();
 			añadirFilaRandom();
 			añadirFilaRandom();
+			//trace("salimos en tablero.iniciaTablero");
 		}
 		
 		public function añadirFilaRandom():void 
 		{
+			//trace("Entramos en tablero.añadirFilaRandom");
 			bajarUnaFila();
 			for (var col:int = 0; col < _fila1.length; col++ ) {
 				var RANDOM_probabilidad:int = Math.floor(Math.random() * 101); //num radom entre 0 y 100(incluido el 100)
@@ -177,20 +184,24 @@ package
 				}
 				
 			}
+			//trace("Salimos en tablero.añadirFilaRandom");
 			
 		}
 		
 		private function bajarUnaFila():void 
 		{
+			//trace("Entramos en tablero.bajarUnaFila");
 			for ( var i:int = _tablero.length-2; i > -1; i-- ) {
 				for (var j:int = 0; j < _fila1.length; j++ ) {
 					_tablero[i + 1][j] = _tablero[i][j];
 				}
 			}
+			//trace("Salimos en tablero.bajarUnaFila");
 		}
 		
 		public function eliminaUltsBolasColumna(colu:int):Array
 		{
+			//trace("Entramos en tablero.eliminaUltsBolasColumna");
 			var bolasTotalesEliminadas:int = 0; //contador de las bolas que eliminamos
 			var bolasConPuntosEliminadas:int = 0; //contador de bolas con puntos
 			var bolasConTiempoEliminadas:int = 0; //"	  	 "	 "	  con tiempo
@@ -219,11 +230,14 @@ package
 				}
 			}
 			var Eliminacion:Array = new Array(ColorDeBolasEliminadas, bolasTotalesEliminadas, bolasConPuntosEliminadas, bolasConTiempoEliminadas);
+			//trace("Salimos en tablero.eliminaUltsBolasColumna");
 			return Eliminacion;
+
 		}
 		
 		public function insertaNBolas(colorBolas:int, numBolas:int, colu:int):void 
 		{
+			//trace("Entramos en tablero.insertaNBolas");
 			var filaUltimo:int = buscaUltimoEnColumna(colu);
 			
 			for (var i:int = 0; i < numBolas; i++ ) {
@@ -231,10 +245,12 @@ package
 					_tablero[i + filaUltimo + 1][colu] = colorBolas * 10;
 				}
 			}
+			//trace("Salimos en tablero.insertaNBolas");
 		}
 		
 		private function buscaUltimoEnColumna(colu:int):int
 		{
+			//trace("Entramos en tablero.buscarUltimoEnColumna");
 			var filaUltimo:int = -1;
 			for (var fil:int = _tablero.length - 1; fil > -1; fil-- ) {
 				if (_tablero[fil][colu] != -1) {
@@ -242,11 +258,14 @@ package
 					break;
 				}
 			}
+			//trace("Salimos en tablero.buscarUltimoEnColumna");
+
 			return filaUltimo;
 		}
 		
 		public function eliminaSeguidos(colu:int):Array 
 		{
+			//trace("Entramos en tablero.eliminaSeguidos");
 			var filaUltimo:int = buscaUltimoEnColumna(colu);
 			
 			var colorQueElimina:int = Math.floor(_tablero[filaUltimo][colu] / 10);
@@ -255,17 +274,20 @@ package
 			trace(datosEliminados);
 			
 			equilibraTablero();
+			//trace("Salimos en tablero.eliminaSeguidos");
+
 			return datosEliminados;
 		}
 		
 		private function equilibraTablero():void 
 		{
+			trace("Entramos en tablero.equilibraTablero");
 			var seSube:Boolean = false;
 			
 				/* De abajo a arriba
 				 * De izquierda de derecha*/
 			for (var i:int = _tablero.length - 1; i >= 0; i-- ) {
-				for (var j:int = 0; j < _fila1.length - 1; j++ ) {
+				for (var j:int = 0; j < _fila1.length; j++ ) {
 					if ((i != 0) && (_tablero[i][j] != VACIO) && (_tablero[i - 1][j] == VACIO)) { // si es una bola y arriba no tiene nada
 						//intercambio de filas
 						intercambioBolasEnColumna(i-1, i, j);
@@ -277,22 +299,28 @@ package
 					seSube = false;
 				}
 			}
+			trace("Salimos en tablero.equilibraTablero");
 		}
 		
 		private function intercambioBolasEnColumna(filSup:int, filInf:int, colu:int):void 
 		{
+			trace("Entramos en tablero.intercambioBolasEnColumna");
 			var aux:int = _tablero[filSup][colu];
 			_tablero[filSup][colu] = _tablero[filInf][colu];
 			_tablero[filInf][colu] = aux;
+			trace("Salimos en tablero.intercambioBolasEnColumna");
 		}
 		
 		private function eliminaBola(filAct:int, colAct:int):void 
 		{
+			//trace("Entramos en tablero.eliminaBola");
 			_tablero[filAct][colAct] = VACIO;
+			//trace("Salimos en tablero.eliminaBola");
 		}
 		
 		public function eliminaYcompruebaLados(filAct:int, coluAct:int, colorBola:int):Array 
 		{
+			//trace("Entramos en tablero.eliminaYCompruebaLados");
 			var Ar_array:Array = new Array(0,0,0);
 			var Ab_array:Array = new Array(0,0,0);
 			var D_array:Array = new Array(0,0,0);
@@ -336,100 +364,122 @@ package
 			devolver[1] = Ar_array[1] + Ab_array[1] + D_array[1] + I_array[1] + bolasConPuntosEliminadas;
 			devolver[2]	= Ar_array[2] + Ab_array[2] + D_array[2] + I_array[2] + bolasConTiempoEliminadas;
 			
+			//trace("Salimos en tablero.eliminaYCompruebaLados");
+			
 			return devolver;
 		}
 		
 		private function explotaBomba(filAct:int, coluAct:int):int 
 		{
+			//trace("Entramos en tablero.explotaBomba");
 			_tablero[filAct][coluAct] = VACIO;
 			
 			var numEliminados:int = 0;
 			
-			if(_tablero[filAct - 1][coluAct - 1] != -1){
-				if (_tablero[filAct - 1][coluAct - 1] == 0) {
-					_tablero[filAct - 1][coluAct - 1] = VACIO;
-					numEliminados += explotaBomba(filAct - 1, coluAct - 1);
-				}else {
-					_tablero[filAct - 1][coluAct - 1] = VACIO;
+			if(filAct != 0 && coluAct != 0){
+				if((_tablero[filAct - 1][coluAct - 1] != -1)){
+					if (_tablero[filAct - 1][coluAct - 1] == 0) {
+						_tablero[filAct - 1][coluAct - 1] = VACIO;
+						numEliminados += explotaBomba(filAct - 1, coluAct - 1);
+					}else {
+						_tablero[filAct - 1][coluAct - 1] = VACIO;
+					}
+					numEliminados++;
 				}
-				numEliminados++;
 			}
 			
-			if(_tablero[filAct][coluAct - 1] != -1){
-				if (_tablero[filAct][coluAct - 1] == 0) {
-					_tablero[filAct][coluAct-1] = VACIO;
-					numEliminados += explotaBomba(filAct, coluAct - 1);
-				}else {
-					_tablero[filAct][coluAct-1] = VACIO;
+			if(coluAct != 0){
+				if(_tablero[filAct][coluAct - 1] != -1){
+					if (_tablero[filAct][coluAct - 1] == 0) {
+						_tablero[filAct][coluAct-1] = VACIO;
+						numEliminados += explotaBomba(filAct, coluAct - 1);
+					}else {
+						_tablero[filAct][coluAct-1] = VACIO;
+					}
+					numEliminados++;
 				}
-				numEliminados++;
 			}
 			
-			if(_tablero[filAct + 1][coluAct - 1] != -1){
-				if (_tablero[filAct + 1][coluAct - 1] == 0) {
-					_tablero[filAct+1][coluAct-1] = VACIO;
-					numEliminados += explotaBomba(filAct + 1, coluAct - 1);
-				}else {
-					_tablero[filAct+1][coluAct-1] = VACIO;
+			if(filAct != _tablero.length - 1 && coluAct != 0){
+				if(_tablero[filAct + 1][coluAct - 1] != -1){
+					if (_tablero[filAct + 1][coluAct - 1] == 0) {
+						_tablero[filAct+1][coluAct-1] = VACIO;
+						numEliminados += explotaBomba(filAct + 1, coluAct - 1);
+					}else {
+						_tablero[filAct+1][coluAct-1] = VACIO;
+					}
+					numEliminados++;
 				}
-				numEliminados++;
 			}
 			
-			if(_tablero[filAct - 1][coluAct] != -1){
-				if (_tablero[filAct - 1][coluAct] == 0) {
-					_tablero[filAct-1][coluAct] = VACIO;
-					numEliminados += explotaBomba(filAct - 1, coluAct);
-				}else {
-					_tablero[filAct-1][coluAct] = VACIO;
+			if(filAct != 0){
+				if(_tablero[filAct - 1][coluAct] != -1){
+					if (_tablero[filAct - 1][coluAct] == 0) {
+						_tablero[filAct-1][coluAct] = VACIO;
+						numEliminados += explotaBomba(filAct - 1, coluAct);
+					}else {
+						_tablero[filAct-1][coluAct] = VACIO;
+					}
+					numEliminados++;
 				}
-				numEliminados++;
 			}
 			
-			if(_tablero[filAct + 1][coluAct] != -1){
-				if (_tablero[filAct + 1][coluAct] == 0) {
-					_tablero[filAct+1][coluAct] = VACIO;
-					numEliminados += explotaBomba(filAct + 1, coluAct);
-				}else {
-					_tablero[filAct+1][coluAct] = VACIO;
+			if(filAct != _tablero.length){
+				if(_tablero[filAct + 1][coluAct] != -1){
+					if (_tablero[filAct + 1][coluAct] == 0) {
+						_tablero[filAct+1][coluAct] = VACIO;
+						numEliminados += explotaBomba(filAct + 1, coluAct);
+					}else {
+						_tablero[filAct+1][coluAct] = VACIO;
+					}
+					numEliminados++;
 				}
-				numEliminados++;
 			}
 			
-			if(_tablero[filAct - 1][coluAct + 1] != -1){
-				if (_tablero[filAct - 1][coluAct + 1] == 0) {
-					_tablero[filAct-1][coluAct+1] = VACIO;
-					numEliminados += explotaBomba(filAct - 1, coluAct + 1);
-				}else {
-					_tablero[filAct][coluAct+1] = VACIO;
+			if(filAct != 0 && coluAct != _fila1.length - 1){
+				if(_tablero[filAct - 1][coluAct + 1] != -1){
+					if (_tablero[filAct - 1][coluAct + 1] == 0) {
+						_tablero[filAct-1][coluAct+1] = VACIO;
+						numEliminados += explotaBomba(filAct - 1, coluAct + 1);
+					}else {
+						_tablero[filAct][coluAct+1] = VACIO;
+					}
+					numEliminados++;
 				}
-				numEliminados++;
 			}
 			
-			if(_tablero[filAct][coluAct + 1] != -1){
-				if (_tablero[filAct][coluAct + 1] == 0) {
-					_tablero[filAct][coluAct+1] = VACIO;
-					numEliminados += explotaBomba(filAct, coluAct + 1);
-				}else {
-					_tablero[filAct][coluAct+1] = VACIO;
+			if(coluAct != _fila1.length - 1){
+				if(_tablero[filAct][coluAct + 1] != -1){
+					if (_tablero[filAct][coluAct + 1] == 0) {
+						_tablero[filAct][coluAct+1] = VACIO;
+						numEliminados += explotaBomba(filAct, coluAct + 1);
+					}else {
+						_tablero[filAct][coluAct+1] = VACIO;
+					}
+					numEliminados++;
 				}
-				numEliminados++;
 			}
 			
-			if(_tablero[filAct + 1][coluAct + 1] != -1){
-				if (_tablero[filAct + 1][coluAct + 1] == 0) {
-					_tablero[filAct+1][coluAct+1] = VACIO;
-					numEliminados += explotaBomba(filAct + 1, coluAct + 1);
-				}else {
-					_tablero[filAct+1][coluAct+1] = VACIO;
+			if(filAct != _tablero.length && coluAct != _fila1.length - 1){
+				if(_tablero[filAct + 1][coluAct + 1] != -1){
+					if (_tablero[filAct + 1][coluAct + 1] == 0) {
+						_tablero[filAct+1][coluAct+1] = VACIO;
+						numEliminados += explotaBomba(filAct + 1, coluAct + 1);
+					}else {
+						_tablero[filAct+1][coluAct+1] = VACIO;
+					}
+					numEliminados++;
 				}
-				numEliminados++;
 			}
+			
+			//trace("Salimos en tablero.explotaBomba");
 			
 			return numEliminados;
 		}
 		
 		public function comprobarPrimerColorColumna(col:int):int
 		{
+			//trace("Entramos en tablero.comprobarPrimerColorColumna");
 			var colorDevolver:int;
 			for (var fil:int = _tablero.length - 1; fil > -1; fil-- ) {
 				if (_tablero[fil][col] != BOMBA && _tablero[fil][col] != VACIO) {
@@ -437,11 +487,14 @@ package
 						break;
 				}
 			}
+			//trace("Salimos en tablero.comprobarPrimerColorColumna");
+
 			return colorDevolver;
 		}
 		
 		public function comprobarSeguidasMismoColor(col:int,color:int):int
 		{
+			//trace("Entramos en tablero.comprobarSeguidasMismoColor");
 			var bolasMismoColor:int = 0;
 			for (var fil:int = _tablero.length - 1; fil > -1; fil-- ) {
 				if (_tablero[fil][col] != BOMBA && _tablero[fil][col] != VACIO) {
@@ -453,11 +506,15 @@ package
 						}
 				}
 			}
+			
+			//trace("Salimos en tablero.comprobarSeguidasMismoColor");
+
 			return bolasMismoColor;
 		}
 		
 		public function imprime():void 
 		{
+			trace("------");
 			for (var i:int = 0; i < _tablero.length; i++) {
 				trace(_tablero[i]);
 			}
