@@ -11,7 +11,11 @@ package screens
 	public class PantallaInicio extends Sprite
 	{
 		private var _textoInicio:TextField;
-		private var _textoJugar:TextField;
+		private var _textoIndividual:TextField;
+		private var _textoMulti:TextField;
+		
+		//Pantallas
+		private var seleccionIndividual:seleccionPersonajeIndividual;
 		private var juego:Juego;
 		
 		public function PantallaInicio() 
@@ -22,24 +26,48 @@ package screens
 		
 		private function onAddedToStage(e:Event):void 
 		{
+			trace("inicia pantalla inicio");
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			dibujarInicio();
-			_textoJugar.addEventListener(TouchEvent.TOUCH, clickJuego);
+			_textoIndividual.addEventListener(TouchEvent.TOUCH, clickJuegoInidivual);
+			_textoMulti.addEventListener(TouchEvent.TOUCH, clickJuegoMulti);
 		}
 		
-		private function clickJuego(e:TouchEvent):void 
+		private function clickJuegoMulti(e:TouchEvent):void 
 		{
 			var touch:Touch = e.getTouch(this, TouchPhase.ENDED);
 			if (touch)
 			{
-				removeEventListener(TouchEvent.TOUCH, clickJuego);
+				removeEventListener(TouchEvent.TOUCH, clickJuegoInidivual);
+				removeEventListener(TouchEvent.TOUCH, clickJuegoMulti);
+				
 				removeChildren();
 				
 				_textoInicio = null;
-				_textoJugar = null;
+				_textoIndividual = null;
+				_textoMulti = null;
 				
-				juego = new Juego();
+				juego = new Juego(1);
 				addChild(juego);
+			}
+		}
+		
+		private function clickJuegoInidivual(e:TouchEvent):void 
+		{
+			var touch:Touch = e.getTouch(this, TouchPhase.ENDED);
+			if (touch)
+			{
+				removeEventListener(TouchEvent.TOUCH, clickJuegoInidivual);
+				removeEventListener(TouchEvent.TOUCH, clickJuegoMulti);
+				
+				removeChildren();
+				
+				_textoInicio = null;
+				_textoIndividual = null;
+				_textoMulti = null;
+				
+				seleccionIndividual = new seleccionPersonajeIndividual();
+				addChild(seleccionIndividual);
 			}
 		}
 		
@@ -47,15 +75,21 @@ package screens
 		{
 			_textoInicio = new TextField(0, 0, "Bienvenido", "Arial", 24, 0x111111, true);
 			_textoInicio.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
-			_textoInicio.x = stage.stageWidth / 2 - _textoInicio.width / 2;
-			_textoInicio.y = stage.stageHeight / 4;
+			_textoInicio.x = 100;
+			_textoInicio.y = 100;
 			addChild(_textoInicio);
 			
-			_textoJugar = new TextField(0, 0, "Jugar", "Arial", 24, 0x111111, true);
-			_textoJugar.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
-			_textoJugar.x = stage.stageWidth / 2 - _textoInicio.width / 2;
-			_textoJugar.y = stage.stageHeight / 2;
-			addChild(_textoJugar);
+			_textoIndividual = new TextField(0, 0, "Individual", "Arial", 24, 0x111111, true);
+			_textoIndividual.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
+			_textoIndividual.x = 100;
+			_textoIndividual.y = 200;
+			addChild(_textoIndividual);
+			
+			_textoMulti = new TextField(0, 0, "Multijugador", "Arial", 24, 0x111111, true);
+			_textoMulti.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
+			_textoMulti.x = 100;
+			_textoMulti.y = 300;
+			addChild(_textoMulti);
 		}
 		
 	}
