@@ -8,7 +8,7 @@ package
 	import flash.system.Capabilities;
 	import starling.display.Stage;
 	
-	[SWF(frameRate = "60",width = "500",height="650",backgroundColor = "0xffffff")]
+	[SWF(frameRate = "60",width = "1200",height="720",backgroundColor = "0xffffff")]
 	
 	public class Main extends Sprite 
 	{

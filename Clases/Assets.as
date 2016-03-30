@@ -1,6 +1,8 @@
 package 
 {
 	import flash.display.Bitmap;
+	import starling.text.BitmapFont;
+	import starling.text.TextField;
 	import starling.textures.Texture;
 	import flash.utils.Dictionary;
 	import starling.textures.TextureAtlas;
@@ -55,9 +57,6 @@ package
 			[Embed(source = "../media/graphics/FlechaJugador.jpg")]
 			public static const FlechaJugador:Class;
 			
-			[Embed(source = "../media/graphics/FlechaJugadorRoja.png")]
-			public static const FlechaJugadorRoja:Class;
-			
 			//fondos
 			[Embed(source = "../media/graphics/HUD_1Player.png")]
 			public static const HUD1Player:Class;
@@ -68,8 +67,36 @@ package
 			[Embed(source="../media/graphics/fondo_LLUVIA.png")]
 			public static const FondoLluvia:Class;
 			
+			[Embed(source = "../media/graphics/FlechaJugadorRoja.png")]
+			public static const FlechaJugadorRoja:Class;
+			
+			//fuentes
+			
+			[Embed(source = "../media/fonts/fontPacifico.png")]
+			public static const FontTexture:Class;
+			
+			[Embed(source="../media/fonts/fontPacifico.fnt", mimeType="application/octet-stream")]
+			public static const FontXml:Class;
+			
+			[Embed(source = "../media/fonts/embedded/Pacifico.ttf", fontFamily = "MyFontName", embedAsCFF = "false")]
+			public static const MyFont:Class;
 			
 			private static var gameTextures:Dictionary = new Dictionary();
+			
+			public static var myFont:BitmapFont;
+			
+			public static function getFont():BitmapFont
+			{
+				
+				var fontTexture:Texture = Texture.fromBitmap(new FontTexture());
+				var fontXml:XML = XML(new FontXml());
+				
+				var font:BitmapFont = new BitmapFont(fontTexture, fontXml);
+				TextField.registerBitmapFont(font);
+				
+				return font;
+			
+			}
 			
 			public static function getTexture(name:String):Texture
 			{

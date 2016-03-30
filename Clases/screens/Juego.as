@@ -50,12 +50,12 @@ package screens
 		{
 			super();
 			tablero = new Tablero();
-			_jugador = new Jugador(tablero, jugador_elegido);
+			_jugador = new Jugador(tablero,jugador_elegido);
 			
 			_jugadorElegido = jugador_elegido;
 			
-			inicioX = 180;
-			finX = 460;
+			inicioX = 530;
+			finX = 810;
 			inicioY = 25;
 			finY = 5245;
 			
@@ -68,7 +68,7 @@ package screens
 			anchuraCelda = 40;
 			alturaCelda = 40;
 			
-			puntuacionMensaje = new TextField(0, 0, _jugador.puntuacionActual.toString(), "Arial", 32, 0x000000, true);
+			puntuacionMensaje = new TextField(300, 300, _jugador.puntuacionActual.toString(), Assets.getFont().name , 72, 0xffffff, true);
 			puntuacionMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			puntuacionMensaje.x = 100;
 			puntuacionMensaje.y = 100;
@@ -76,11 +76,6 @@ package screens
 			
 			moveTimer.addEventListener(TimerEvent.TIMER,moveTimerHandler);
 			moveTimer.start();
-			
-			_imagenFondo = new Image(Assets.getTexture("FondoSol"));
-			addChild(_imagenFondo);
-			_hub = new Image(Assets.getTexture("HUD1Player"));
-			addChild(_hub);
 			
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.ENTER_FRAME, playGame);
@@ -91,12 +86,12 @@ package screens
 		
 		private function moveTimerHandler(e:TimerEvent):void 
 		{
-			//trace("Entramos en juego.moveTimerHandler");
+			trace("Entramos en juego.moveTimerHandler");
 
 			tablero.añadirFilaRandom();
 			pintarTablero();
 			
-			//trace("salimos en juego.moveTimerHandler");
+			trace("salimos en juego.moveTimerHandler");
 		}
 		
 		private function playGame(e:Event):void 
@@ -107,6 +102,24 @@ package screens
 			//movePlayer();
 			//trace("Salimos en juego.playGame");
 		}
+		
+		private function movePlayer():void 
+		{
+			
+		}
+		
+		/*private function checkKeysUp(e:KeyboardEvent):void 
+		{
+			if (e.keyCode == 37) 
+			{
+				if (columna > 1) columna--;
+			}
+			
+			if (e.keyCode == 39) 
+			{
+				if (columna < 7) columna++;
+			}
+		}*/
 		
 		private function checkKeysDown(e:KeyboardEvent):void
 		{
@@ -125,7 +138,7 @@ package screens
 			{
 				_jugador.succionar(columna);
 				borrarImagenesDeColumna();
-				//tablero.imprime();
+				tablero.imprime();
 			}
 			
 			if (e.keyCode == 83)
@@ -134,7 +147,7 @@ package screens
 					if (_jugador.tirarBolas(columna)) {
 						puntuacionMensaje.text = _jugador.puntuacionActual.toString();
 						pintarTablero();
-						//tablero.imprime();
+						tablero.imprime();
 					}
 					else{
 						pintarTablero();
@@ -146,8 +159,15 @@ package screens
 		
 		private function onAddedToStage(e:Event):void 
 		{
+			_imagenFondo = new Image(Assets.getTexture("FondoLluvia"));
+			_imagenFondo.x = (stage.stageWidth / 2) - (_imagenFondo.width /2);
+			addChild(_imagenFondo);
+			_hub = new Image(Assets.getTexture("HUD1Player"));
+			_hub.x = (stage.stageWidth / 2) - (_hub.width /2);
+			addChild(_hub);
 			//trace("Entramos en juego.onAddedToStage");
 			trace("empezamos juego");
+			trace(180 + (stage.stageWidth / 2));
 			//pintarJugador();//cada frame
 			//pintarBackground();
 			iniciarPlayer();
@@ -251,8 +271,8 @@ package screens
 		
 		private function pintarTablero():void
 		{
-			//trace("Entramos en juego.pintarTablero");
-			//tablero.imprime();
+			trace("Entramos en juego.pintarTablero");
+			tablero.imprime();
 			for (var i:int = 0; i < numeroColumnas ;i++ ) {
 					for (var j:int = 0; j < numeroFilas; j++ ) {
 						var imagenBola:Image = pasoAImagen(tablero._tablero[j][i]);
@@ -270,18 +290,18 @@ package screens
 						}
 					}
 			}
-			//trace("Salimos en juego.PintarTablero");
+			trace("Salimos en juego.PintarTablero");
 		}
 		
 		private function borrarImagenesDeColumna():void
 		{
-			//trace("Entramos en juego.BorrarImagenesDeColumna");
+			trace("Entramos en juego.BorrarImagenesDeColumna");
 			for (var i:int = 0; i < numeroFilas ; i++ ) {
 				if (tablero._tablero[i][columna] == -1) {
 						removeChild(tablero._tableroImagenes[i][columna]);
 				}
 			}
-			//trace("Salimos en juego.borrarImagenesDeColumna");
+			trace("Salimos en juego.borrarImagenesDeColumna");
 		}	
 	}
 
