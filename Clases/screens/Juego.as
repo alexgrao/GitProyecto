@@ -19,8 +19,6 @@ package screens
 		var tablero:Tablero;
 		var _jugador:Jugador;
 		
-		var _jugadorElegido:int;
-		
 		var _imagenFondo:Image;
 		var _hub:Image;
 		
@@ -46,13 +44,11 @@ package screens
 		
 		var arrayDevuelveSuccionar:Array;
 		
-		public function Juego(jugador_elegido:int) 
+		public function Juego() 
 		{
 			super();
 			tablero = new Tablero();
-			_jugador = new Jugador(tablero, jugador_elegido);
-			
-			_jugadorElegido = jugador_elegido;
+			_jugador = new Jugador(tablero);
 			
 			inicioX = 180;
 			finX = 460;
@@ -91,12 +87,12 @@ package screens
 		
 		private function moveTimerHandler(e:TimerEvent):void 
 		{
-			//trace("Entramos en juego.moveTimerHandler");
+			trace("Entramos en juego.moveTimerHandler");
 
 			tablero.añadirFilaRandom();
 			pintarTablero();
 			
-			//trace("salimos en juego.moveTimerHandler");
+			trace("salimos en juego.moveTimerHandler");
 		}
 		
 		private function playGame(e:Event):void 
@@ -107,6 +103,24 @@ package screens
 			//movePlayer();
 			//trace("Salimos en juego.playGame");
 		}
+		
+		private function movePlayer():void 
+		{
+			
+		}
+		
+		/*private function checkKeysUp(e:KeyboardEvent):void 
+		{
+			if (e.keyCode == 37) 
+			{
+				if (columna > 1) columna--;
+			}
+			
+			if (e.keyCode == 39) 
+			{
+				if (columna < 7) columna++;
+			}
+		}*/
 		
 		private function checkKeysDown(e:KeyboardEvent):void
 		{
@@ -125,7 +139,7 @@ package screens
 			{
 				_jugador.succionar(columna);
 				borrarImagenesDeColumna();
-				//tablero.imprime();
+				tablero.imprime();
 			}
 			
 			if (e.keyCode == 83)
@@ -134,7 +148,7 @@ package screens
 					if (_jugador.tirarBolas(columna)) {
 						puntuacionMensaje.text = _jugador.puntuacionActual.toString();
 						pintarTablero();
-						//tablero.imprime();
+						tablero.imprime();
 					}
 					else{
 						pintarTablero();
@@ -251,8 +265,8 @@ package screens
 		
 		private function pintarTablero():void
 		{
-			//trace("Entramos en juego.pintarTablero");
-			//tablero.imprime();
+			trace("Entramos en juego.pintarTablero");
+			tablero.imprime();
 			for (var i:int = 0; i < numeroColumnas ;i++ ) {
 					for (var j:int = 0; j < numeroFilas; j++ ) {
 						var imagenBola:Image = pasoAImagen(tablero._tablero[j][i]);
@@ -270,18 +284,18 @@ package screens
 						}
 					}
 			}
-			//trace("Salimos en juego.PintarTablero");
+			trace("Salimos en juego.PintarTablero");
 		}
 		
 		private function borrarImagenesDeColumna():void
 		{
-			//trace("Entramos en juego.BorrarImagenesDeColumna");
+			trace("Entramos en juego.BorrarImagenesDeColumna");
 			for (var i:int = 0; i < numeroFilas ; i++ ) {
 				if (tablero._tablero[i][columna] == -1) {
 						removeChild(tablero._tableroImagenes[i][columna]);
 				}
 			}
-			//trace("Salimos en juego.borrarImagenesDeColumna");
+			trace("Salimos en juego.borrarImagenesDeColumna");
 		}	
 	}
 

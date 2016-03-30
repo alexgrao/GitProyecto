@@ -55,9 +55,6 @@ package
 			[Embed(source = "../media/graphics/FlechaJugador.jpg")]
 			public static const FlechaJugador:Class;
 			
-			[Embed(source = "../media/graphics/FlechaJugadorRoja.png")]
-			public static const FlechaJugadorRoja:Class;
-			
 			//fondos
 			[Embed(source = "../media/graphics/HUD_1Player.png")]
 			public static const HUD1Player:Class;
