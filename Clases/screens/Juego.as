@@ -42,9 +42,15 @@ package screens
 		
 		private var moveTimer:Timer = new Timer(5000);
 		
+		private var chrono:Timer;
+		private var chronoMensaje:TextField;
+		private var chronoSecondsPassed:uint;
+		
 		var img:Image;
 		
-		var arrayDevuelveSuccionar:Array;
+		var arrayDevuelveTirarBolas:Array;
+		
+		private var pantallaFinJuego:PantallaFinJuego;
 		
 		public function Juego(jugador_elegido:int) 
 		{
@@ -96,11 +102,8 @@ package screens
 		
 		private function playGame(e:Event):void 
 		{
-			//trace("Entramos en juego.playGame");
-			//pintarTablero();
 			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(columna);
-			//movePlayer();
-			//trace("Salimos en juego.playGame");
+			watchForEnd();
 		}
 		
 		private function movePlayer():void 
@@ -143,8 +146,10 @@ package screens
 			
 			if (e.keyCode == 83)
 			{
-				if(_jugador.colorActualRetenido != 0){
-					if (_jugador.tirarBolas(columna)) {
+				if (_jugador.colorActualRetenido != 0) {
+				arrayDevuelveTirarBolas = _jugador.tirarBolas(columna);
+					if (arrayDevuelveTirarBolas[1]) {
+						chronoSecondsPassed = chronoSecondsPassed + (arrayDevuelveTirarBolas[0] * 20);// añadimos segundos si explotamos correspondiente bola
 						puntuacionMensaje.text = _jugador.puntuacionActual.toString();
 						pintarTablero();
 						tablero.imprime();
@@ -165,15 +170,37 @@ package screens
 			_hub = new Image(Assets.getTexture("HUD1Player"));
 			_hub.x = (stage.stageWidth / 2) - (_hub.width /2);
 			addChild(_hub);
-			//trace("Entramos en juego.onAddedToStage");
-			trace("empezamos juego");
-			trace(180 + (stage.stageWidth / 2));
-			//pintarJugador();//cada frame
-			//pintarBackground();
 			iniciarPlayer();
-			//iniciarTablero();
-			pintarTablero();//
-			//trace("Salimos en juego.onAddedToStage");
+			pintarTablero();
+			iniciarReloj();
+		}
+		
+		private function iniciarReloj():void 
+		{
+			chrono = new Timer(1000);
+			chrono.addEventListener(TimerEvent.TIMER, updateChrono);
+			chrono.start();
+			chronoSecondsPassed = 120;
+			chronoMensaje = new TextField(0,0, "2:00", Assets.getFont().name, 72, 0xffffff, true);
+			chronoMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
+			chronoMensaje.x = 100;
+			chronoMensaje.y = 200;
+			
+			addChild(chronoMensaje);
+		}
+		
+		private function updateChrono(e:TimerEvent):void 
+		{
+			var seconds:uint;
+			var minutes:uint;
+			
+			chronoSecondsPassed -= 1;
+			
+			seconds = chronoSecondsPassed % 60;
+			minutes = chronoSecondsPassed / 60;
+			
+			chronoMensaje.text = minutes + ":" +  seconds;
+			
 		}
 		
 		private function iniciarPlayer():void 
@@ -291,6 +318,23 @@ package screens
 					}
 			}
 			trace("Salimos en juego.PintarTablero");
+		}
+		
+		private function watchForEnd():void
+		{
+			if (chronoSecondsPassed == 0) 
+			{ // faltarán añadir finales
+					chrono.removeEventListener(TimerEvent.TIMER, updateChrono);
+					this.removeEventListener(KeyboardEvent.KEY_DOWN, checkKeysDown);
+					moveTimer.removeEventListener(TimerEvent.TIMER,moveTimerHandler);
+					this.removeEventListener(Event.ENTER_FRAME, playGame);
+					
+					removeChildren();
+					
+					pantallaFinJuego = new PantallaFinJuego(_jugador.puntuacionActual.toString());
+					addChild(pantallaFinJuego);
+					
+			}
 		}
 		
 		private function borrarImagenesDeColumna():void

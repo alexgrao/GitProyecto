@@ -235,14 +235,14 @@ package
 
 		}
 		
-		public function insertaNBolas(colorBolas:int, numBolas:int, colu:int):void 
+		public function insertaNBolas(colorBolas:int, numBolas:int, colu:int, tipoBolas:int):void 
 		{
 			//trace("Entramos en tablero.insertaNBolas");
 			var filaUltimo:int = buscaUltimoEnColumna(colu);
 			
 			for (var i:int = 0; i < numBolas; i++ ) {
 				if(i+filaUltimo < _tablero.length-1){
-					_tablero[i + filaUltimo + 1][colu] = colorBolas * 10;
+					_tablero[i + filaUltimo + 1][colu] = colorBolas * 10 + tipoBolas;
 				}
 			}
 			//trace("Salimos en tablero.insertaNBolas");
