@@ -81,6 +81,9 @@ package
 			[Embed(source = "../media/fonts/embedded/Pacifico.ttf", fontFamily = "MyFontName", embedAsCFF = "false")]
 			public static const MyFont:Class;
 			
+			[Embed(source = "../media/graphics/incicador.png")]
+			public static const IndPosicion:Class;
+			
 			private static var gameTextures:Dictionary = new Dictionary();
 			
 			public static var myFont:BitmapFont;

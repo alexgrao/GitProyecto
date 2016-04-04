@@ -18,6 +18,7 @@ package screens
 		
 		var tablero:Tablero;
 		var _jugador:Jugador;
+		var _indicador:Indicador;
 		
 		var _jugadorElegido:int;
 		
@@ -56,7 +57,8 @@ package screens
 		{
 			super();
 			tablero = new Tablero();
-			_jugador = new Jugador(tablero,jugador_elegido);
+			_jugador = new Jugador(tablero, jugador_elegido);
+			_indicador = new Indicador();
 			
 			_jugadorElegido = jugador_elegido;
 			
@@ -103,26 +105,12 @@ package screens
 		private function playGame(e:Event):void 
 		{
 			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(columna);
+			
+			_indicador.indImagen.x = comprobarPosicionXColumnaJugador(columna);
+			_indicador.indImagen.y = comprobarPosicionYColumnaIndicador();
+			
 			watchForEnd();
 		}
-		
-		private function movePlayer():void 
-		{
-			
-		}
-		
-		/*private function checkKeysUp(e:KeyboardEvent):void 
-		{
-			if (e.keyCode == 37) 
-			{
-				if (columna > 1) columna--;
-			}
-			
-			if (e.keyCode == 39) 
-			{
-				if (columna < 7) columna++;
-			}
-		}*/
 		
 		private function checkKeysDown(e:KeyboardEvent):void
 		{
@@ -171,6 +159,7 @@ package screens
 			_hub.x = (stage.stageWidth / 2) - (_hub.width /2);
 			addChild(_hub);
 			iniciarPlayer();
+			iniciarIndicador();
 			pintarTablero();
 			iniciarReloj();
 		}
@@ -206,12 +195,29 @@ package screens
 		private function iniciarPlayer():void 
 		{
 			//trace("Entramos en juego.iniciaPlayer");
-			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(columna);
 			_jugador.jugadorImagen.y = 550;
 			_jugador.jugadorImagen.width = anchuraCelda;
 			_jugador.jugadorImagen.height = alturaCelda;
 			addChild(_jugador.jugadorImagen);
 			//trace("Salimos en juego.iniciaPlayer");
+		}
+		
+		private function iniciarIndicador():void 
+		{
+			_indicador.indImagen.width = anchuraCelda;
+			_indicador.indImagen.height = alturaCelda;
+		
+			addChild(_indicador.indImagen);
+		}
+		
+		private function comprobarPosicionYColumnaIndicador():int
+		{
+			return  alturaCelda * (comprobarUltimaFilaDeColumna(columna) + 1) + inicioY;
+		}
+		
+		private function comprobarUltimaFilaDeColumna(columna:int):int
+		{
+			return tablero.BuscaUltimoEnColumna(columna);
 		}
 		
 		private function pasoAImagen(tipoBola:int):Image
@@ -322,7 +328,7 @@ package screens
 		
 		private function watchForEnd():void
 		{
-			if (chronoSecondsPassed == 0) 
+			if (chronoSecondsPassed == 0 || tablero.compruebaUltimaFila()) //Si el crono llega a 0 o hay bola en la ultima fila
 			{ // faltarán añadir finales
 					chrono.removeEventListener(TimerEvent.TIMER, updateChrono);
 					this.removeEventListener(KeyboardEvent.KEY_DOWN, checkKeysDown);

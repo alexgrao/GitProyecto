@@ -263,6 +263,11 @@ package
 			return filaUltimo;
 		}
 		
+		public function BuscaUltimoEnColumna(colu:int):int 
+		{
+			return buscaUltimoEnColumna(colu);
+		}
+		
 		public function eliminaSeguidos(colu:int):Array 
 		{
 			//trace("Entramos en tablero.eliminaSeguidos");
@@ -331,8 +336,11 @@ package
 			var bolasTotalesEliminadas:int = 0; //contador de las bolas que eliminamos
 			var bolasConPuntosEliminadas:int = 0; //contador de bolas conpuntos
 			var bolasConTiempoEliminadas:int = 0; //"	  	 "	 "	  con tiempo
-			
-			var bolaQueEliminamos:int = _tablero[filAct][coluAct];
+			if(filAct<13){
+				var bolaQueEliminamos:int = _tablero[filAct][coluAct];
+			}else {
+				var bolaQueEliminamos:int = -1;
+			}
 			
 			
 			if (bolaQueEliminamos == 0) {
@@ -520,6 +528,17 @@ package
 			}
 			trace("------");
 		}
+		
+		public function compruebaUltimaFila():Boolean 
+		{
+			for (var i:int = 0; i < _fila1.length; i++) {
+				if (_tablero[12][i] != -1) {
+					return true
+				}
+			}
+			return false;
+		}
+	
 	}
 
 }
