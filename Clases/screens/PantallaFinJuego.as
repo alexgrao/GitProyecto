@@ -29,7 +29,7 @@ package screens
 		
 		private function dibujarPantalla():void 
 		{
-			_puntuacionMensaje = new TextField(0, 0, "Tu puntuación ha sido : " + puntuacionFinal, Assets.getFont().name, 72, 0xffffff, true);
+			_puntuacionMensaje = new TextField(0, 0, "Tu puntuacion ha sido : " + puntuacionFinal, Assets.getFont().name, 72, 0xffffff, true);
 			_puntuacionMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			_puntuacionMensaje.x = 300;
 			_puntuacionMensaje.y = 100;

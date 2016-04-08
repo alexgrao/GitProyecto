@@ -53,7 +53,7 @@ package
 			}
 		}
 		
-		public function succionar(col:int):void
+		public function succionar(col:int):Array
 		{
 			trace("Entramos en jugador.succionar");
 
@@ -76,6 +76,7 @@ package
 					bolasActualesTiempoRetenidas = arrayDevuelveSuccionar[3];
 					trace(bolasActualesNormalesRetenidas, bolasActualesPuntosRetenidas, bolasActualesTiempoRetenidas);
 			}
+			return arrayDevuelveSuccionar;
 			trace("Salimos en jugador.succionar");
 
 		}
