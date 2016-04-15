@@ -2,12 +2,17 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.*;
+	import screens.Juego;
 	/**
 	 * ...
 	 * @author Jesús Bachiller Cabal
 	 */
 	public class Tablero extends Sprite
 	{
+		
+		public var filBomba:int;
+		public var colBomba:int;
+		
 			//ID DE BOLAS
 		private const VACIO:int = -1; //No contiene ninguna bola
 		private const BOMBA:int = 0; // id de la bomba
@@ -70,11 +75,11 @@ package
 		
 		public function Tablero() 
 		{
-			_fila1 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
+			//_fila1 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila2 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila3 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila4 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
-			//_fila1 = new Array(40, 0, 30, 20, 10, 40, 10);
+			_fila1 = new Array(40, 0, 30, 20, 10, 40, 10);
 			//_fila2 = new Array(40, 10, 30, 30, 40, 10, 10);
 			//_fila3 = new Array(-1, 30, -1, 20, 20, 30, 10);
 			//_fila4 = new Array(-1, -1, -1, 10, 20, 30, 30);
@@ -345,6 +350,9 @@ package
 			
 			if (bolaQueEliminamos == 0) {
 				devolver[0] += explotaBomba(filAct, coluAct);
+				filBomba = filAct;
+				colBomba = coluAct;
+				
 				return devolver;
 			}else {
 				if(Math.floor(bolaQueEliminamos / 10) != colorBola) {
@@ -380,6 +388,9 @@ package
 		private function explotaBomba(filAct:int, coluAct:int):int 
 		{
 			//trace("Entramos en tablero.explotaBomba");
+			
+			Juego._haExplotado = true;
+			
 			_tablero[filAct][coluAct] = VACIO;
 			
 			var numEliminados:int = 0;

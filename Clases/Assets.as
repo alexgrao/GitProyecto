@@ -88,6 +88,27 @@ package
 			
 			public static var myFont:BitmapFont;
 			
+			
+			//EXPLOSION Animacion
+			
+			private static var ExploTextureAtlas:TextureAtlas;
+			
+			[Embed(source = "../media/graphics/Animacion Explosión/ExplosionSprite.png")]
+			public static const AtlasTextureExplo:Class;
+			
+			[Embed(source = "../media/graphics/Animacion Explosión/ExplosionSprite.xml", mimeType = "Application/octet-stream")]
+			public static const AtlasXMLExplo:Class;
+			
+			public static function getAtlas():TextureAtlas 
+			{
+				if (ExploTextureAtlas == null) {
+					var texture:Texture = getTexture("AtlasTextureExplo");
+					var xml:XML = XML(new AtlasXMLExplo());
+					ExploTextureAtlas = new TextureAtlas(texture, xml);
+				}
+				return ExploTextureAtlas;
+			}
+			
 			public static function getFont():BitmapFont
 			{
 				

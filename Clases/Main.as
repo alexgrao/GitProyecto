@@ -2,6 +2,7 @@ package
 {
 	import flash.display.Sprite;
 	import flash.display.StageDisplayState;
+	import flash.geom.Rectangle;
 	import net.hires.debug.Stats;
 	import screens.PantallaInicio;
 	import starling.core.Starling;
@@ -14,12 +15,14 @@ package
 	{
 		private var stats:Stats;
 		private var myStarling:Starling;
+		private var rectangleViewPort:Rectangle;
 		
 		public function Main() 
 	{
 			stats = new Stats();
 			this.addChild(stats);
-			myStarling = new Starling(PantallaInicio, stage);
+			rectangleViewPort = new Rectangle(0,0,1200,650)
+			myStarling = new Starling(PantallaInicio, stage, rectangleViewPort);
 			myStarling.antiAliasing = 1;
 			myStarling.start();
 		}

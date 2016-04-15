@@ -17,6 +17,8 @@ package screens
 	
 	public class Juego extends Sprite
 	{
+		private var explosion:Explosion;
+		public static var _haExplotado:Boolean;
 		
 		var tablero:Tablero;
 		var _jugador:Jugador;
@@ -28,18 +30,18 @@ package screens
 		var _hub:Image;
 		var _imagenBolaTengo:Image;
 		
-		var inicioX:int;
-		var inicioY:int;
-		var finX:int;
-		var finY:int;
+		public static var inicioX:int;
+		public static var inicioY:int;
+		public static var finX:int;
+		public static var finY:int;
 		var succionadasX:int;
 		
-		var anchuraCelda:int;
-		var alturaCelda:int;
+		public static var anchuraCelda:int;
+		public static var alturaCelda:int;
 		var numeroFilas:int;
 		var numeroColumnas:int;
 		
-		var columna:int;
+		public static var columna:int;
 		var filasTotales:int;
 		
 		var puntuacionMensaje:TextField;
@@ -70,6 +72,10 @@ package screens
 		public function Juego(jugador_elegido:int) 
 		{
 			super();
+			
+			explosion = new Explosion();
+			_haExplotado = false;
+			
 			tablero = new Tablero();
 			_jugador = new Jugador(tablero, jugador_elegido);
 			_indicador = new Indicador();
@@ -129,7 +135,22 @@ package screens
 			_indicador.indImagen.x = comprobarPosicionXColumnaJugador(columna);
 			_indicador.indImagen.y = comprobarPosicionYColumnaIndicador();
 			
+			if (_haExplotado == true ) {
+				explota(tablero.filBomba, tablero.colBomba);
+				_haExplotado = false;
+			}
+			
+			comprobarExplosion();
+			
 			watchForEnd();
+		}
+		
+		private function comprobarExplosion():void 
+		{
+			if (explosion.ExploArt.isPlaying == false) {
+				explosion.ExploArt.stop();
+				removeChild(explosion);
+			}
 		}
 		
 		private function checkKeysDown(e:KeyboardEvent):void
@@ -143,6 +164,7 @@ package screens
 			if (e.keyCode == 39) 
 			{
 				if (columna < 6) columna++;
+				
 			}
 			
 			if (e.keyCode == 65)
@@ -197,6 +219,18 @@ package screens
 			//trace("Salimos en juego.checkKeyDown");
 		}
 		
+		private function explota(fil:int, col:int):void 
+		{
+			trace("columna: " + col * anchuraCelda + inicioX);
+			trace("fila: " + fil * alturaCelda + inicioY);
+			
+			explosion.x = (col - 1) * anchuraCelda + inicioX;
+			explosion.y = (fil - 1) * alturaCelda + inicioY;
+			
+			explosion.ExploArt.play();
+			addChild(explosion);
+		}
+		
 		private function onAddedToStage(e:Event):void 
 		{
 			_imagenFondo = new Image(Assets.getTexture("FondoLluvia"));
@@ -206,10 +240,12 @@ package screens
 			_hub.x = (stage.stageWidth / 2) - (_hub.width /2);
 			addChild(_hub);
 			addChild(puntuacionMensaje);
+			
 			iniciarPlayer();
 			iniciarIndicador();
 			pintarTablero();
 			iniciarReloj();
+			
 		}
 		
 		private function iniciarReloj():void 
