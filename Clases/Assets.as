@@ -72,13 +72,13 @@ package
 			
 			//fuentes
 			
-			[Embed(source = "../media/fonts/fontPacifico.png")]
+			[Embed(source = "../media/fonts/font.png")]
 			public static const FontTexture:Class;
 			
-			[Embed(source="../media/fonts/fontPacifico.fnt", mimeType="application/octet-stream")]
+			[Embed(source="../media/fonts/font.fnt", mimeType="application/octet-stream")]
 			public static const FontXml:Class;
 			
-			[Embed(source = "../media/fonts/embedded/Pacifico.ttf", fontFamily = "MyFontName", embedAsCFF = "false")]
+			[Embed(source = "../media/fonts/embedded/Mucho_Power.ttf", fontFamily = "MyFontName", embedAsCFF = "false")]
 			public static const MyFont:Class;
 			
 			[Embed(source = "../media/graphics/incicador.png")]
@@ -91,22 +91,22 @@ package
 			
 			//EXPLOSION Animacion
 			
-			private static var ExploTextureAtlas:TextureAtlas;
+			private static var AnimTextureAtlas:TextureAtlas;
 			
-			[Embed(source = "../media/graphics/Animacion Explosión/ExplosionSprite.png")]
-			public static const AtlasTextureExplo:Class;
+			[Embed(source="../media/graphics/Animaciones.png")]
+			public static const AtlasTextureAnim:Class;
 			
-			[Embed(source = "../media/graphics/Animacion Explosión/ExplosionSprite.xml", mimeType = "Application/octet-stream")]
-			public static const AtlasXMLExplo:Class;
+			[Embed(source="../media/graphics/Animaciones.xml", mimeType = "Application/octet-stream")]
+			public static const AtlasXMLAnim:Class;
 			
 			public static function getAtlas():TextureAtlas 
 			{
-				if (ExploTextureAtlas == null) {
-					var texture:Texture = getTexture("AtlasTextureExplo");
-					var xml:XML = XML(new AtlasXMLExplo());
-					ExploTextureAtlas = new TextureAtlas(texture, xml);
+				if (AnimTextureAtlas == null) {
+					var texture:Texture = getTexture("AtlasTextureAnim");
+					var xml:XML = XML(new AtlasXMLAnim());
+					AnimTextureAtlas = new TextureAtlas(texture, xml);
 				}
-				return ExploTextureAtlas;
+				return AnimTextureAtlas;
 			}
 			
 			public static function getFont():BitmapFont

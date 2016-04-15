@@ -10,11 +10,11 @@ package
 	 * ...
 	 * @author j
 	 */
-	public class Explosion extends Sprite 
+	public class AnimacionExplosion extends Sprite 
 	{
 		public var ExploArt:MovieClip;
 		
-		public function Explosion() 
+		public function AnimacionExplosion() 
 		{
 			super();
 			ExploArt = new MovieClip(Assets.getAtlas().getTextures("Explosion_"), 18);

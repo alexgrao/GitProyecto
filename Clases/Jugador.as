@@ -1,6 +1,7 @@
 package 
 {
 	import starling.display.Image;
+	import starling.display.MovieClip;
 	import starling.display.Sprite;
 	import screens.seleccionPersonajeIndividual;
 	/**
@@ -8,7 +9,8 @@ package
 	 * @author Alejandro López Balderas
 	 */
 	public class Jugador extends Sprite
-	{
+	{		
+		
 		//CONSTANTES
 		private const puntPorBola = 10;
 		private const puntPorBolaPunt = 50;
@@ -17,7 +19,7 @@ package
 		private const JUGADOR_ROJO = 2;
 		
 		
-		public var jugadorImagen:Image;
+		public var jugadorImagen:AnimacionPersonaje;
 		public var _tablero:Tablero;
 		var arrayDevuelveSuccionar:Array;
 		var arrayDevuelveTirarBolas:Array;
@@ -31,6 +33,7 @@ package
 		public function Jugador(tablero:Tablero, jugadorElegido:int) 
 		{
 			super();
+			
 			iniciaJugador(jugadorElegido);
 			_tablero = tablero;
 			colorActualRetenido = 0;
@@ -44,12 +47,14 @@ package
 		{
 			if (jugadorElegido == JUGADOR_AZUL)
 			{
-				jugadorImagen = new Image(Assets.getTexture("FlechaJugador"));
+				//jugadorImagen = new Image(Assets.getTexture("FlechaJugador"));
+				jugadorImagen = new AnimacionPersonaje();
 			}
 			
 			if (jugadorElegido == JUGADOR_ROJO)
 			{
-				jugadorImagen = new Image(Assets.getTexture("FlechaJugadorRoja"));
+				//jugadorImagen = new Image(Assets.getTexture("FlechaJugadorRoja"));
+				jugadorImagen = new AnimacionPersonaje();
 			}
 		}
 		

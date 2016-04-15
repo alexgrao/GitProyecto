@@ -17,7 +17,7 @@ package screens
 	
 	public class Juego extends Sprite
 	{
-		private var explosion:Explosion;
+		private var explosion:AnimacionExplosion;
 		public static var _haExplotado:Boolean;
 		
 		var tablero:Tablero;
@@ -73,7 +73,7 @@ package screens
 		{
 			super();
 			
-			explosion = new Explosion();
+			explosion = new AnimacionExplosion();
 			_haExplotado = false;
 			
 			tablero = new Tablero();
@@ -280,8 +280,8 @@ package screens
 		{
 			//trace("Entramos en juego.iniciaPlayer");
 			_jugador.jugadorImagen.y = 550;
-			_jugador.jugadorImagen.width = anchuraCelda;
-			_jugador.jugadorImagen.height = alturaCelda;
+			_jugador.jugadorImagen.width = anchuraCelda + anchuraCelda/2;
+			_jugador.jugadorImagen.height = alturaCelda * 2;
 			addChild(_jugador.jugadorImagen);
 			//trace("Salimos en juego.iniciaPlayer");
 		}
