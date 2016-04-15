@@ -130,7 +130,7 @@ package screens
 		
 		private function playGame(e:Event):void 
 		{
-			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(columna);
+			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(columna) - 15;
 			
 			_indicador.indImagen.x = comprobarPosicionXColumnaJugador(columna);
 			_indicador.indImagen.y = comprobarPosicionYColumnaIndicador();
@@ -419,13 +419,20 @@ package screens
 		private function animacionBorrar(imagenAeliminar:Image):void
 		{
 			if(imagenAeliminar !=null){
-				var tweenPrueba:Tween = new Tween(imagenAeliminar, 0.75);
+				var tweenPrueba:Tween = new Tween(imagenAeliminar, 0.5);
 				tweenPrueba.animate("x", _jugador.jugadorImagen.x + _jugador.jugadorImagen.width / 2);
 				tweenPrueba.animate("y", _jugador.jugadorImagen.y + _jugador.jugadorImagen.height / 2);
-				tweenPrueba.animate("scaleX", 0);
-				tweenPrueba.animate("scaleY", 0);
+				tweenPrueba.animate("scaleX", 0.5);
+				tweenPrueba.animate("scaleY", 0.5);
 				Starling.juggler.add(tweenPrueba);
+				tweenPrueba.onComplete = borrarImagen;
+				tweenPrueba.onCompleteArgs = [imagenAeliminar];
 			}
+		}
+		
+		private function borrarImagen(imagenRecibida:Image):void 
+		{
+			removeChild(imagenRecibida);
 		}
 		
 		private function masBolasQueTengo(numeroBolas:int,colorBolas:int):void
