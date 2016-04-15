@@ -96,7 +96,7 @@ package screens
 			anchuraCelda = 40;
 			alturaCelda = 40;
 			
-			puntuacionMensaje = new TextField(300, 300, _jugador.puntuacionActual.toString(), Assets.getFont().name , 72, 0xffffff, true);
+			puntuacionMensaje = new TextField(300, 300, _jugador.puntuacionActual.toString(), Assets.getFont().name , 30, 0xffffff, true);
 			puntuacionMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			puntuacionMensaje.x = 100;
 			puntuacionMensaje.y = 100;
@@ -254,7 +254,7 @@ package screens
 			chrono.addEventListener(TimerEvent.TIMER, updateChrono);
 			chrono.start();
 			chronoSecondsPassed = 120;
-			chronoMensaje = new TextField(0,0, "2:00", Assets.getFont().name, 72, 0xffffff, true);
+			chronoMensaje = new TextField(0,0, "2:00", Assets.getFont().name, 30, 0xffffff, true);
 			chronoMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			chronoMensaje.x = 100;
 			chronoMensaje.y = 200;
@@ -435,10 +435,10 @@ package screens
 			_imagenBolaTengo.y = 300;
 			addChild(_imagenBolaTengo);
 			numeroBolasQueTengo = numeroBolasQueTengo + numeroBolas;
-			numeroBolasMensaje = new TextField(0, 0, "x" + numeroBolasQueTengo, Assets.getFont().name , 72, 0xffffff, true);
+			numeroBolasMensaje = new TextField(0, 0, "x" + numeroBolasQueTengo, Assets.getFont().name , 30, 0xffffff, true);
 			numeroBolasMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			numeroBolasMensaje.x = 150;
-			numeroBolasMensaje.y = 265;
+			numeroBolasMensaje.y = 305;
 			addChild(numeroBolasMensaje);
 			
 		}

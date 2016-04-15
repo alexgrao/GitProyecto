@@ -113,7 +113,7 @@ package screens
 		
 		private function dibujarPantalla():void 
 		{
-			_personajeAzul = new TextField(0, 0, "AZUL", "Arial", 24, 0x111111, true);
+			_personajeAzul = new TextField(0, 0, "AZUL", Assets.getFont().name, 24, 0xfffffff, true);
 			_personajeAzul.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			_personajeAzul.x = 100;
 			_personajeAzul.y = 100;
@@ -126,7 +126,7 @@ package screens
 			_botonAzul.y = 200;
 			addChild(_botonAzul);
 			
-			_personajeRojo = new TextField(0, 0, "ROJO", "Arial", 24, 0x111111, true);
+			_personajeRojo = new TextField(0, 0, "ROJO", Assets.getFont().name, 24, 0xffffff, true);
 			_personajeRojo.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			_personajeRojo.x = 300;
 			_personajeRojo.y = 100;
@@ -139,7 +139,7 @@ package screens
 			_botonRojo.y = 200;
 			addChild(_botonRojo);
 			
-			_atras = new TextField(0, 0, "Atras", "Arial", 24, 0x111111, true);
+			_atras = new TextField(0, 0, "Atras", Assets.getFont().name, 24, 0xffffff, true);
 			_atras.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			_atras.x = 400;
 			_atras.y = 600;

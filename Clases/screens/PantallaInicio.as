@@ -73,19 +73,20 @@ package screens
 		
 		private function dibujarInicio():void
 		{
-			_textoInicio = new TextField(0, 0, "Bienvenido", "Arial", 24, 0x111111, true);
+			_textoInicio = new TextField(0, 0, "Bienvenido", Assets.getFont().name, 24, 0xffffff, true);
 			_textoInicio.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			_textoInicio.x = 100;
 			_textoInicio.y = 100;
 			addChild(_textoInicio);
 			
-			_textoIndividual = new TextField(0, 0, "Individual", "Arial", 24, 0x111111, true);
+			_textoIndividual = new TextField(0, 0, "Individual", Assets.getFont().name, 24, 0xffffff, true);
 			_textoIndividual.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			_textoIndividual.x = 100;
 			_textoIndividual.y = 200;
 			addChild(_textoIndividual);
 			
-			_textoMulti = new TextField(0, 0, "Multijugador", "Arial", 24, 0x111111, true);
+			_textoMulti = new TextField(0, 0, "Multijugador", Assets.getFont().name, 24, 0xffffff, true);
+
 			_textoMulti.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			_textoMulti.x = 100;
 			_textoMulti.y = 300;
