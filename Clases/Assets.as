@@ -61,6 +61,9 @@ package
 			[Embed(source = "../media/graphics/HUD_1Player.png")]
 			public static const HUD1Player:Class;
 
+			[Embed(source = "../media/graphics/HUD_2Player.png")]
+			public static const HUD2Player:Class;
+			
 			[Embed(source = "../media/graphics/Fondo_SOL.png")]
 			public static const FondoSol:Class;
 			

@@ -16,7 +16,8 @@ package screens
 		
 		//Pantallas
 		private var seleccionIndividual:seleccionPersonajeIndividual;
-		private var juego:Juego;
+		private var juego:Juego2Players;
+		private var juego2P
 		
 		public function PantallaInicio() 
 		{
@@ -47,7 +48,7 @@ package screens
 				_textoIndividual = null;
 				_textoMulti = null;
 				
-				juego = new Juego(1);
+				juego = new Juego2Players();
 				addChild(juego);
 			}
 		}
