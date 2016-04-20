@@ -155,7 +155,6 @@ package screens
 		
 		private function checkKeysDown(e:KeyboardEvent):void
 		{
-			//trace("Entramos en juego.checkKeyDown");
 			if (e.keyCode == 37) 
 			{
 				if (columna > 0) columna--;
@@ -216,7 +215,6 @@ package screens
 					}
 				}
 			}
-			//trace("Salimos en juego.checkKeyDown");
 		}
 		
 		private function explota(fil:int, col:int):void 
@@ -441,6 +439,7 @@ package screens
 			_imagenBolaTengo.x = 100;
 			_imagenBolaTengo.y = 300;
 			addChild(_imagenBolaTengo);
+			
 			numeroBolasQueTengo = numeroBolasQueTengo + numeroBolas;
 			numeroBolasMensaje = new TextField(0, 0, "x" + numeroBolasQueTengo, Assets.getFont().name , 30, 0xffffff, true);
 			numeroBolasMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
