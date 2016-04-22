@@ -47,13 +47,11 @@ package
 		{
 			if (jugadorElegido == JUGADOR_AZUL)
 			{
-				//jugadorImagen = new Image(Assets.getTexture("FlechaJugador"));
 				jugadorImagen = new AnimacionPersonaje();
 			}
 			
 			if (jugadorElegido == JUGADOR_ROJO)
 			{
-				//jugadorImagen = new Image(Assets.getTexture("FlechaJugadorRoja"));
 				jugadorImagen = new AnimacionPersonaje();
 			}
 		}

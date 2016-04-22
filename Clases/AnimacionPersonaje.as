@@ -16,7 +16,7 @@ package
 		public function AnimacionPersonaje() 
 		{
 			super();
-			ParadoArt = new MovieClip(Assets.getAtlas().getTextures("Modelo1PersonajeAnimacion_"), 20);
+			ParadoArt = new MovieClip(Assets.getAtlasAnim().getTextures("Modelo1PersonajeAnimacion_"), 20);
 
 			Starling.juggler.add(ParadoArt);
 			

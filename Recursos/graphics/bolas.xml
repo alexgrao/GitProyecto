@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:2a53884cf7f9098dda0c5f3f22997183:10c9d70a96776d3fa70b0f5d65a97021:625f0941be6be62413a35db4511fcef0$ -->
+<TextureAtlas imagePath="bolas_Indicador.png" width="200" height="120">
+    <SubTexture name="bola_Amarilla" x="0" y="0" width="40" height="40"/>
+    <SubTexture name="bola_Amarilla_puntos" x="40" y="0" width="40" height="40"/>
+    <SubTexture name="bola_Amarilla_tiempo" x="80" y="0" width="40" height="40"/>
+    <SubTexture name="bola_Azul" x="120" y="0" width="40" height="40"/>
+    <SubTexture name="bola_Azul_puntos" x="160" y="0" width="40" height="40"/>
+    <SubTexture name="bola_Azul_tiempo" x="0" y="40" width="40" height="40"/>
+    <SubTexture name="bola_Bomba" x="40" y="40" width="40" height="40"/>
+    <SubTexture name="bola_Negra" x="80" y="40" width="40" height="40"/>
+    <SubTexture name="bola_Negra_puntos" x="120" y="40" width="40" height="40"/>
+    <SubTexture name="bola_Negra_tiempo" x="160" y="40" width="40" height="40"/>
+    <SubTexture name="bola_Roja" x="0" y="80" width="40" height="40"/>
+    <SubTexture name="bola_Roja_puntos" x="40" y="80" width="40" height="40"/>
+    <SubTexture name="bola_Roja_tiempo" x="80" y="80" width="40" height="40"/>
+</TextureAtlas>

@@ -9,49 +9,18 @@ package
 
 	public class Assets 
 	{
-			//bolas Rojas
-			[Embed(source = "../media/graphics/Bola_Roja.png")]
-			public static const BolaRoja:Class;
+			//Indicador
+			[Embed(source = "../media/graphics/incicador.png")]
+			public static const IndPosicion:Class;
 			
-			[Embed(source = "../media/graphics/bola_Roja_puntos.png")]
-			public static const BolaRojaPts:Class;
+			//Bolas
+			private static var BolasIndicTextureAtlas:TextureAtlas;
 			
-			[Embed(source = "../media/graphics/bola_Roja_tiempo.png")]
-			public static const BolaRojaTim:Class;
+			[Embed(source = "../media/graphics/bolas.png")]
+			public static const AtlasTextureBolasIndic:Class;
 			
-			//bolas Amarillas
-			[Embed(source = "../media/graphics/Bola_Amarilla.png")]
-			public static const BolaAmarilla:Class;
-			
-			[Embed(source = "../media/graphics/bola_Amarilla_puntos.png")]
-			public static const BolaAmarillaPts:Class;
-			
-			[Embed(source = "../media/graphics/bola_Amarilla_tiempo.png")]
-			public static const BolaAmarillaTim:Class;
-			
-			//Bolas Azules
-			[Embed(source = "../media/graphics/Bola_Azul.png")]
-			public static const BolaAzul:Class;
-			
-			[Embed(source = "../media/graphics/bola_Azul_puntos.png")]
-			public static const BolaAzulPts:Class;
-			
-			[Embed(source = "../media/graphics/bola_Azul_tiempo.png")]
-			public static const BolaAzulTim:Class;
-			
-			//Bolas Negras
-			[Embed(source = "../media/graphics/Bola_Negra.png")]
-			public static const BolaNegra:Class;
-			
-			[Embed(source = "../media/graphics/bola_Negra_puntos.png")]
-			public static const BolaNegraPts:Class;
-			
-			[Embed(source = "../media/graphics/bola_Negra_tiempo.png")]
-			public static const BolaNegraTim:Class;
-			
-			//Bomba
-			[Embed(source = "../media/graphics/Bola_Bomba.png")]
-			public static const BolaBomba:Class;
+			[Embed(source="../media/graphics/bolas.xml", mimeType="application/octet-stream")]
+			public static const AtlasXMLBolasIndic:Class;
 			
 			//jugador
 			[Embed(source = "../media/graphics/FlechaJugador.jpg")]
@@ -84,8 +53,7 @@ package
 			[Embed(source = "../media/fonts/embedded/Mucho_Power.ttf", fontFamily = "MyFontName", embedAsCFF = "false")]
 			public static const MyFont:Class;
 			
-			[Embed(source = "../media/graphics/incicador.png")]
-			public static const IndPosicion:Class;
+			
 			
 			private static var gameTextures:Dictionary = new Dictionary();
 			
@@ -102,7 +70,10 @@ package
 			[Embed(source="../media/graphics/Animaciones.xml", mimeType = "Application/octet-stream")]
 			public static const AtlasXMLAnim:Class;
 			
-			public static function getAtlas():TextureAtlas 
+			
+			
+			
+			public static function getAtlasAnim():TextureAtlas 
 			{
 				if (AnimTextureAtlas == null) {
 					var texture:Texture = getTexture("AtlasTextureAnim");
@@ -110,6 +81,16 @@ package
 					AnimTextureAtlas = new TextureAtlas(texture, xml);
 				}
 				return AnimTextureAtlas;
+			}
+			
+			public static function getAtlasBolas():TextureAtlas 
+			{
+				if (BolasIndicTextureAtlas == null) {
+					var texture:Texture = getTexture("AtlasTextureBolasIndic");
+					var xml:XML = XML(new AtlasXMLBolasIndic());
+					BolasIndicTextureAtlas = new TextureAtlas(texture, xml);
+				}
+				return BolasIndicTextureAtlas;
 			}
 			
 			public static function getFont():BitmapFont
