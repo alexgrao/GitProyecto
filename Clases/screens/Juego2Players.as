@@ -331,61 +331,63 @@ package screens
 		{
 			if (Math.floor(tipoBola / 10) == 1) {
 				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.getTexture("BolaRojaPts"));
+					img = new Image(Assets.getAtlasBolas().getTexture("bola_Roja_puntos"));
+					
 					return img;
 				}
 				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.getTexture("BolaRojaTim"));
+					img = new Image(Assets.getAtlasBolas().getTexture("bola_Roja_tiempo"));
+					
 					return img;
 				}
 				
-				img = new Image(Assets.getTexture("BolaRoja"));
+				img = new Image(Assets.getAtlasBolas().getTexture("bola_Roja"));
 				return img;
 				
 			}
 			if (Math.floor(tipoBola / 10) == 2) {
 				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.getTexture("BolaAzulPts"));
+					img = new Image(Assets.getAtlasBolas().getTexture("bola_Azul_puntos"));
 					return img;
 				}
 				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.getTexture("BolaAzulTim"));
+					img = new Image(Assets.getAtlasBolas().getTexture("bola_Azul_tiempo"));
 					return img;
 				}
 				
-				img = new Image(Assets.getTexture("BolaAzul"));
+				img = new Image(Assets.getAtlasBolas().getTexture("bola_Azul"));
 				return img;
 				
 			}
 			if (Math.floor(tipoBola / 10) == 3) {
 				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.getTexture("BolaAmarillaPts"));
+					img = new Image(Assets.getAtlasBolas().getTexture("bola_Amarilla_puntos"));
 					return img;
 				}
 				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.getTexture("BolaAmarillaTim"));
+					img = new Image(Assets.getAtlasBolas().getTexture("bola_Amarilla_tiempo"));
 					return img;
 				}
 				
-				img = new Image(Assets.getTexture("BolaAmarilla"));
+				img = new Image(Assets.getAtlasBolas().getTexture("bola_Amarilla"));
 				return img;
 			}
 			if (Math.floor(tipoBola / 10) == 4) {
 				
 				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.getTexture("BolaNegraPts"));
+					img = new Image(Assets.getAtlasBolas().getTexture("bola_Negra_puntos"));
 					return img;
 				}
 				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.getTexture("BolaNegraTim"));
+					img = new Image(Assets.getAtlasBolas().getTexture("bola_Negra_tiempo"));
 					return img;
 				}
 				
-				img = new Image(Assets.getTexture("BolaNegra"));
+				img = new Image(Assets.getAtlasBolas().getTexture("bola_Negra"));
 				return img;
 			}
 			if (tipoBola == 0) {
-				img = new Image(Assets.getTexture("BolaBomba"));
+				img = new Image(Assets.getAtlasBolas().getTexture("bola_Bomba"));
 				return img;
 			}
 			return null;

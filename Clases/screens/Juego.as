@@ -67,6 +67,12 @@ package screens
 		
 		private var pantallaFinJuego:PantallaFinJuego;
 		private var numeroBolasQueTengo:int;
+		private var colorBolasTengo:int;
+		private var bolasConNormalesQueTengo:int;
+		private var bolasConTiempoQueTengo:int;
+		private var bolasConPuntosQueTengo:int;
+		private var estaHaciendoAnimacion:Boolean;
+		private var heCanceladoAñadirFila:Boolean;
 		
 		
 		public function Juego(jugador_elegido:int) 
@@ -75,6 +81,9 @@ package screens
 			
 			explosion = new AnimacionExplosion();
 			_haExplotado = false;
+			
+			estaHaciendoAnimacion = false;
+			heCanceladoAñadirFila = false;
 			
 			tablero = new Tablero();
 			_jugador = new Jugador(tablero, jugador_elegido);
@@ -121,11 +130,13 @@ package screens
 		
 		private function moveTimerHandler(e:TimerEvent):void 
 		{
-			trace("Entramos en juego.moveTimerHandler");
-			tablero.añadirFilaRandom();
-			pintarTablero();
-			
-			trace("salimos en juego.moveTimerHandler");
+			if(estaHaciendoAnimacion == false){
+				tablero.añadirFilaRandom();
+				pintarTablero();
+			}
+			else {
+				heCanceladoAñadirFila = true;
+			}
 		}
 		
 		private function playGame(e:Event):void 
@@ -183,6 +194,9 @@ package screens
 			{
 				var primerColorColumna:int = tablero.comprobarPrimerColorColumna(columna);
 				arrayDevuelveSuccionar = _jugador.succionar(columna);
+				bolasConNormalesQueTengo = _jugador.bolasActualesNormalesRetenidas;
+				bolasConPuntosQueTengo = _jugador.bolasActualesPuntosRetenidas;
+				bolasConTiempoQueTengo = _jugador.bolasActualesTiempoRetenidas;
 				trace(arrayDevuelveSuccionar[1]);
 				if (arrayDevuelveSuccionar[1] > 0 && (primerColorColumna == arrayDevuelveSuccionar[0])) {
 					removeChild(numeroBolasMensaje);
@@ -195,8 +209,10 @@ package screens
 			
 			if (e.keyCode == 83)
 			{
+				var columnaCopia:int = columna;
 				if (_jugador.colorActualRetenido != 0) {
-				arrayDevuelveTirarBolas = _jugador.tirarBolas(columna);
+				tirar(columnaCopia);
+				/*arrayDevuelveTirarBolas = _jugador.tirarBolas(columna);
 				numeroBolasQueTengo = 0;
 				removeChild(_imagenBolaTengo);
 				removeChild(numeroBolasMensaje);
@@ -225,7 +241,7 @@ package screens
 					}
 					else{
 						pintarTablero();
-					}
+					}*/
 				}
 			}
 		}
@@ -447,6 +463,157 @@ package screens
 			removeChild(imagenRecibida);
 		}
 		
+		//Problema con la función de abajo. Cuando cojo mas bolas de las que caben en una fila, no hace lo correspondiente.
+		//Por ejemplo, si cojo 6 bolas y caben solo 5 en esa columna, bolas a tirar al final va a ser 5, no 6, que son 
+		//el numero de bolas que tengo, entonces no va a entrar en animacionTirar al onComplete.
+		// |
+		// |
+		// v
+		//SOLUCIONADO
+		private function tirar(col:int) 
+		{
+			var bolasAtirar:int = 1;
+			for (var i:int = 0; i < numeroFilas ; i++)
+			{
+				if (tablero._tablero[i][col] == -1) 
+				{
+					if (bolasAtirar <= numeroBolasQueTengo) {
+							animacionTirar(i, col, bolasAtirar);
+							bolasAtirar++;
+					}
+					else break;
+				}
+			}
+			numeroBolasQueTengo = 0;
+		}
+		
+		private function animacionTirar(fil:int, col:int, numeroBolaTirada:int)
+		{
+			
+			estaHaciendoAnimacion = true;
+			//for (var i:int = 0; i < _jugador.bolasActualesNormalesRetenidas; i++) {
+			if(bolasConNormalesQueTengo > 0){
+				var imagenTirar:Image;
+				imagenTirar = pasoAImagen(10 * _jugador.colorActualRetenido);
+				tablero._tableroImagenes[fil][col] = imagenTirar;
+				imagenTirar.x = _jugador.jugadorImagen.x + _jugador.jugadorImagen.width / 2;
+				imagenTirar.y = _jugador.jugadorImagen.y + _jugador.jugadorImagen.height / 2;
+				imagenTirar.scaleX = 0;
+				imagenTirar.scaleY = 0;
+				addChild(imagenTirar);
+				
+				var tweenPrueba2:Tween = new Tween(imagenTirar, 0.3);
+				tweenPrueba2.animate("x", anchuraCelda * col + inicioX);
+				tweenPrueba2.animate("y", alturaCelda * fil + inicioY);
+				tweenPrueba2.animate("scaleX", 1);
+				tweenPrueba2.animate("scaleY", 1);
+				Starling.juggler.add(tweenPrueba2);
+				tweenPrueba2.onComplete = borrarImagen;
+				tweenPrueba2.onCompleteArgs = [imagenTirar];
+				bolasConNormalesQueTengo--;
+				//_jugador.bolasActualesNormalesRetenidas--;
+			}
+			else{
+			
+			//for (var i:int = 0; i < _jugador.bolasActualesPuntosRetenidas; i++) {
+				if(bolasConPuntosQueTengo > 0){
+					var imagenTirar:Image;
+					imagenTirar = pasoAImagen((10 * _jugador.colorActualRetenido) + 1);
+					tablero._tableroImagenes[fil][col] = imagenTirar;
+					imagenTirar.x = _jugador.jugadorImagen.x + _jugador.jugadorImagen.width / 2;
+					imagenTirar.y = _jugador.jugadorImagen.y + _jugador.jugadorImagen.height / 2;
+					imagenTirar.scaleX = 0;
+					imagenTirar.scaleY = 0;
+					addChild(imagenTirar);
+			
+					var tweenPrueba2:Tween = new Tween(imagenTirar, 0.3);
+					tweenPrueba2.animate("x", anchuraCelda * col + inicioX);
+					tweenPrueba2.animate("y", alturaCelda * fil + inicioY);
+					tweenPrueba2.animate("scaleX", 1);
+					tweenPrueba2.animate("scaleY", 1);
+					Starling.juggler.add(tweenPrueba2);
+					tweenPrueba2.onComplete = borrarImagen;
+					tweenPrueba2.onCompleteArgs = [imagenTirar];
+					bolasConPuntosQueTengo--;
+					//_jugador.bolasActualesPuntosRetenidas--;
+				}
+				else{
+			
+					//for (var i:int = 0; i < _jugador.bolasActualesTiempoRetenidas; i++) {
+					if(bolasConTiempoQueTengo > 0){
+						var imagenTirar:Image;
+						imagenTirar = pasoAImagen((10 * _jugador.colorActualRetenido) + 2);
+						tablero._tableroImagenes[fil][col] = imagenTirar;
+						imagenTirar.x = _jugador.jugadorImagen.x + _jugador.jugadorImagen.width / 2;
+						imagenTirar.y = _jugador.jugadorImagen.y + _jugador.jugadorImagen.height / 2;
+						imagenTirar.scaleX = 0;
+						imagenTirar.scaleY = 0;
+						addChild(imagenTirar);
+						
+						var tweenPrueba2:Tween = new Tween(imagenTirar, 0.3);
+						tweenPrueba2.animate("x", anchuraCelda * col + inicioX);
+						tweenPrueba2.animate("y", alturaCelda * fil + inicioY);
+						tweenPrueba2.animate("scaleX", 1);
+						tweenPrueba2.animate("scaleY", 1);
+						Starling.juggler.add(tweenPrueba2);
+						tweenPrueba2.onComplete = borrarImagen;
+						tweenPrueba2.onCompleteArgs = [imagenTirar];
+						bolasConTiempoQueTengo--;
+						//_jugador.bolasActualesTiempoRetenidas--;
+					}
+				}
+			}
+			
+			if (numeroBolaTirada == numeroBolasQueTengo) 
+			{
+				tweenPrueba2.onComplete = accionTirar;
+				tweenPrueba2.onCompleteArgs = [col];
+			}
+			if (numeroBolaTirada < numeroBolasQueTengo && fil == 12) {
+					tweenPrueba2.onComplete = accionTirar;
+					tweenPrueba2.onCompleteArgs = [col];
+			}
+			
+		}
+		
+		private function accionTirar(col:int):void
+		{
+				estaHaciendoAnimacion = false;
+				if (heCanceladoAñadirFila) {
+						tablero.añadirFilaRandom();
+						heCanceladoAñadirFila = false;
+				}
+				arrayDevuelveTirarBolas = _jugador.tirarBolas(col);
+				removeChild(_imagenBolaTengo);
+				removeChild(numeroBolasMensaje);
+					if (arrayDevuelveTirarBolas[1]) {
+						chronoSecondsPassed = chronoSecondsPassed + (arrayDevuelveTirarBolas[0] * 20);// añadimos segundos si explotamos correspondiente bola
+						puntuacionMensaje.text = _jugador.puntuacionActual.toString();
+						pintarTablero();
+						tablero.imprime();
+						if (_jugador.puntuacionActual > 500 && _jugador.puntuacionActual < 1000 && booleanoPrimerTiempo) {
+								booleanoPrimerTiempo = false;
+								moveTimer.delay = 3000;
+						}
+						if (_jugador.puntuacionActual > 2000 && _jugador.puntuacionActual < 2500 && booleanoSegundoTiempo) {
+								booleanoSegundoTiempo = false;
+								moveTimer.delay = 2500;
+						}
+						if (_jugador.puntuacionActual > 2500 && _jugador.puntuacionActual < 3000 && booleanoTercerTiempo ) {
+							booleanoTercerTiempo = false;	
+							moveTimer.delay = 2000;
+						}
+						if (_jugador.puntuacionActual > 3000 && booleanoCuartoTiempo) {
+							booleanoCuartoTiempo = false;	
+							moveTimer.delay = 1500;
+						}
+						
+					}
+					else{
+						pintarTablero();
+					}
+		}
+		
 		private function masBolasQueTengo(numeroBolas:int,colorBolas:int):void
 		{
 			_imagenBolaTengo = pasoAImagen(colorBolas * 10);
@@ -465,13 +632,11 @@ package screens
 		
 		private function borrarImagenesDeColumna():void
 		{
-			trace("Entramos en juego.BorrarImagenesDeColumna");
 			for (var i:int = 0; i < numeroFilas ; i++ ) {
 				if (tablero._tablero[i][columna] == -1) {
 						animacionBorrar(tablero._tableroImagenes[i][columna]);
 				}
 			}
-			trace("Salimos en juego.borrarImagenesDeColumna");
 		}	
 	}
 

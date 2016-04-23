@@ -24,9 +24,9 @@ package
 		var arrayDevuelveSuccionar:Array;
 		var arrayDevuelveTirarBolas:Array;
 		public var colorActualRetenido:int;
-		var bolasActualesNormalesRetenidas:int;
-		var bolasActualesPuntosRetenidas:int;
-		var bolasActualesTiempoRetenidas:int;
+		public var bolasActualesNormalesRetenidas:int;
+		public var bolasActualesPuntosRetenidas:int;
+		public var bolasActualesTiempoRetenidas:int;
 		public var puntuacionActual:int;
 		
 		
