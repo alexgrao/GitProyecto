@@ -58,8 +58,6 @@ package
 		
 		public function succionar(col:int):Array
 		{
-			trace("Entramos en jugador.succionar");
-
 			if (colorActualRetenido != 0) //si no es el primer succionar
 			{
 				if (colorActualRetenido == _tablero.comprobarPrimerColorColumna(col))
@@ -68,7 +66,6 @@ package
 					bolasActualesNormalesRetenidas = bolasActualesNormalesRetenidas + arrayDevuelveSuccionar[1] - arrayDevuelveSuccionar[2] - arrayDevuelveSuccionar[3];
 					bolasActualesPuntosRetenidas = bolasActualesPuntosRetenidas + arrayDevuelveSuccionar[2];
 					bolasActualesTiempoRetenidas = bolasActualesTiempoRetenidas + arrayDevuelveSuccionar[3];
-					trace(bolasActualesNormalesRetenidas, bolasActualesPuntosRetenidas, bolasActualesTiempoRetenidas);
 				}
 			}
 			else {
@@ -77,21 +74,17 @@ package
 					bolasActualesNormalesRetenidas = arrayDevuelveSuccionar[1] - arrayDevuelveSuccionar[2] - arrayDevuelveSuccionar[3];
 					bolasActualesPuntosRetenidas = arrayDevuelveSuccionar[2];
 					bolasActualesTiempoRetenidas = arrayDevuelveSuccionar[3];
-					trace(bolasActualesNormalesRetenidas, bolasActualesPuntosRetenidas, bolasActualesTiempoRetenidas);
 			}
 			return arrayDevuelveSuccionar;
-			trace("Salimos en jugador.succionar");
 
 		}
 		
 		public function tirarBolas(col:int):Array
 		{
-			trace("Entramos en jugador.tirarBolas");
 			var devolverEnTirarBolas:Array = new Array(2);
 			devolverEnTirarBolas[0] = 0;
 			devolverEnTirarBolas[1] = false;
 			if (colorActualRetenido != 0) {
-				trace(bolasActualesNormalesRetenidas, bolasActualesPuntosRetenidas, bolasActualesTiempoRetenidas);	
 				_tablero.insertaNBolas(colorActualRetenido, bolasActualesNormalesRetenidas, col, 0);//insertamos bolas normales
 				_tablero.insertaNBolas(colorActualRetenido, bolasActualesPuntosRetenidas, col , 1);//insertamos bolas con puntos
 				_tablero.insertaNBolas(colorActualRetenido, bolasActualesTiempoRetenidas, col , 2);//insertamos bolas con tiempo
@@ -105,17 +98,14 @@ package
 					bolasActualesPuntosRetenidas = 0;
 					bolasActualesTiempoRetenidas = 0;
 					colorActualRetenido = 0;
-					trace("salimos en jugador.tirarBolas");
 					return devolverEnTirarBolas;
 				}
 				bolasActualesNormalesRetenidas = 0;
 				bolasActualesPuntosRetenidas = 0;
 				bolasActualesTiempoRetenidas = 0;
 				colorActualRetenido = 0;
-				trace("salimos en jugador.tirarBolas");
 				return devolverEnTirarBolas
 			}
-			trace("salimos en jugador.tirarBolas");
 			return devolverEnTirarBolas;
 			
 		}

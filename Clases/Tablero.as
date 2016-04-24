@@ -9,6 +9,8 @@ package
 	 */
 	public class Tablero extends Sprite
 	{
+		public static var ArrayExplosiones:Array;
+		public static var ArrayExploBolas:Array;
 		
 		public var filBomba:int;
 		public var colBomba:int;
@@ -75,12 +77,15 @@ package
 		
 		public function Tablero() 
 		{
+			ArrayExplosiones = new Array();;
+			ArrayExploBolas = new Array();
+		
 			_fila1 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila2 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila3 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila4 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			//_fila1 = new Array(40, 0, 30, 20, 10, 40, 10);
-			//_fila2 = new Array(40, 10, 30, 30, 40, 10, 10);
+			//_fila2 = new Array(40, 10, 0, 30, 40, 10, 10);
 			//_fila3 = new Array(-1, 30, -1, 20, 20, 30, 10);
 			//_fila4 = new Array(-1, -1, -1, 10, 20, 30, 30);
 			_fila5 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
@@ -112,26 +117,17 @@ package
 			_tableroImagenes = new Array(_filaImagenes1, _filaImagenes2, _filaImagenes3, _filaImagenes4, _filaImagenes5, _filaImagenes6, _filaImagenes7, _filaImagenes8, _filaImagenes9, _filaImagenes10, _filaImagenes11, _filaImagenes12, _filaImagenes13);
 			
 			iniciaTablero();
-			//imprime();
-			//eliminaSeguidos(1);
-			//imprime();
-			//equilibraTablero();
-			
-			imprime();
 		}
 		
 		public function iniciaTablero():void 
 		{
-			//trace("Entramos en tablero.iniciaTablero");
 			añadirFilaRandom();
 			añadirFilaRandom();
 			añadirFilaRandom();
-			//trace("salimos en tablero.iniciaTablero");
 		}
 		
 		public function añadirFilaRandom():void 
 		{
-			//trace("Entramos en tablero.añadirFilaRandom");
 			bajarUnaFila();
 			for (var col:int = 0; col < _fila1.length; col++ ) {
 				var RANDOM_probabilidad:int = Math.floor(Math.random() * 101); //num radom entre 0 y 100(incluido el 100)
@@ -189,8 +185,6 @@ package
 				}
 				
 			}
-			//trace("Salimos en tablero.añadirFilaRandom");
-			
 		}
 		
 		private function bajarUnaFila():void 
@@ -206,7 +200,6 @@ package
 		
 		public function eliminaUltsBolasColumna(colu:int):Array
 		{
-			//trace("Entramos en tablero.eliminaUltsBolasColumna");
 			var bolasTotalesEliminadas:int = 0; //contador de las bolas que eliminamos
 			var bolasConPuntosEliminadas:int = 0; //contador de bolas con puntos
 			var bolasConTiempoEliminadas:int = 0; //"	  	 "	 "	  con tiempo
@@ -235,7 +228,6 @@ package
 				}
 			}
 			var Eliminacion:Array = new Array(ColorDeBolasEliminadas, bolasTotalesEliminadas, bolasConPuntosEliminadas, bolasConTiempoEliminadas);
-			//trace("Salimos en tablero.eliminaUltsBolasColumna");
 			return Eliminacion;
 
 		}
@@ -275,7 +267,6 @@ package
 		
 		public function eliminaSeguidos(colu:int):Array 
 		{
-			//trace("Entramos en tablero.eliminaSeguidos");
 			var filaUltimo:int = buscaUltimoEnColumna(colu);
 			
 			var colorQueElimina:int = Math.floor(_tablero[filaUltimo][colu] / 10);
@@ -284,14 +275,12 @@ package
 			trace(datosEliminados);
 			
 			equilibraTablero();
-			//trace("Salimos en tablero.eliminaSeguidos");
 
 			return datosEliminados;
 		}
 		
 		private function equilibraTablero():void 
 		{
-			trace("Entramos en tablero.equilibraTablero");
 			var seSube:Boolean = false;
 			
 				/* De abajo a arriba
@@ -309,7 +298,6 @@ package
 					seSube = false;
 				}
 			}
-			trace("Salimos en tablero.equilibraTablero");
 		}
 		
 		private function intercambioBolasEnColumna(filSup:int, filInf:int, colu:int):void 
@@ -323,14 +311,11 @@ package
 		
 		private function eliminaBola(filAct:int, colAct:int):void 
 		{
-			//trace("Entramos en tablero.eliminaBola");
 			_tablero[filAct][colAct] = VACIO;
-			//trace("Salimos en tablero.eliminaBola");
 		}
 		
 		public function eliminaYcompruebaLados(filAct:int, coluAct:int, colorBola:int):Array 
 		{
-			//trace("Entramos en tablero.eliminaYCompruebaLados");
 			var Ar_array:Array = new Array(0,0,0);
 			var Ab_array:Array = new Array(0,0,0);
 			var D_array:Array = new Array(0,0,0);
@@ -341,10 +326,11 @@ package
 			var bolasTotalesEliminadas:int = 0; //contador de las bolas que eliminamos
 			var bolasConPuntosEliminadas:int = 0; //contador de bolas conpuntos
 			var bolasConTiempoEliminadas:int = 0; //"	  	 "	 "	  con tiempo
+			var bolaQueEliminamos:int;
 			if(filAct<13){
-				var bolaQueEliminamos:int = _tablero[filAct][coluAct];
+				bolaQueEliminamos = _tablero[filAct][coluAct];
 			}else {
-				var bolaQueEliminamos:int = -1;
+				bolaQueEliminamos = -1;
 			}
 			
 			
@@ -371,6 +357,8 @@ package
 			eliminaBola(filAct, coluAct);
 			bolasTotalesEliminadas++;
 			
+			ArrayExploBolas.push(new Array(filAct, coluAct, new AnimacionExploBolas()));
+			
 			if(filAct > 0){ Ar_array = eliminaYcompruebaLados(filAct - 1, coluAct, colorBola);}
 			Ab_array = eliminaYcompruebaLados(filAct + 1, coluAct, colorBola);
 			if(coluAct > 0){ I_array = eliminaYcompruebaLados(filAct, coluAct - 1, colorBola);}
@@ -380,16 +368,12 @@ package
 			devolver[1] = Ar_array[1] + Ab_array[1] + D_array[1] + I_array[1] + bolasConPuntosEliminadas;
 			devolver[2]	= Ar_array[2] + Ab_array[2] + D_array[2] + I_array[2] + bolasConTiempoEliminadas;
 			
-			//trace("Salimos en tablero.eliminaYCompruebaLados");
-			
 			return devolver;
 		}
 		
 		private function explotaBomba(filAct:int, coluAct:int):int 
 		{
-			//trace("Entramos en tablero.explotaBomba");
-			
-			Juego._haExplotado = true;
+			ArrayExplosiones.push(new Array(filAct,coluAct, new AnimacionExplosion()));
 			
 			_tablero[filAct][coluAct] = VACIO;
 			
@@ -498,16 +482,14 @@ package
 		
 		public function comprobarPrimerColorColumna(col:int):int
 		{
-			//trace("Entramos en tablero.comprobarPrimerColorColumna");
-			var colorDevolver:int;
+			var colorDevolver:int = -1;
 			for (var fil:int = _tablero.length - 1; fil > -1; fil-- ) {
-				if (_tablero[fil][col] != BOMBA && _tablero[fil][col] != VACIO) {
+				if (_tablero[fil][col] != VACIO) {
 						colorDevolver = Math.floor(_tablero[fil][col] / 10);
 						break;
 				}
 			}
-			//trace("Salimos en tablero.comprobarPrimerColorColumna");
-
+			trace(colorDevolver);
 			return colorDevolver;
 		}
 		

@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.1.0</string>
         <key>fileName</key>
-        <string>D:/Universidad Castellon/2º CURSO/JUEGOS WEB/JUEGO/IMAGENES/Animacion Explosión/Explosion.tps</string>
+        <string>D:/Universidad Castellon/2º CURSO/JUEGOS WEB/JUEGO/PaintFullModificado/PaintFull/media/graphics/Animacion Explosión/Explosion.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -194,13 +194,50 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">Imagenes PNG/Explosion_1.png</key>
-            <key type="filename">Imagenes PNG/Explosion_2.png</key>
-            <key type="filename">Imagenes PNG/Explosion_3.png</key>
-            <key type="filename">Imagenes PNG/Explosion_4.png</key>
-            <key type="filename">Imagenes PNG/Explosion_5.png</key>
-            <key type="filename">Imagenes PNG/Explosion_6.png</key>
-            <key type="filename">Imagenes PNG/Explosion_7.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas00.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas01.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas02.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas03.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas04.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas05.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas06.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas07.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas08.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas09.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas10.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas11.png</key>
+            <key type="filename">../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes/animacion esplosion bolas12.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Explosión/Imagenes PNG/Explosion.psd</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Explosión/Imagenes PNG/Explosion_1.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Explosión/Imagenes PNG/Explosion_2.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Explosión/Imagenes PNG/Explosion_3.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Explosión/Imagenes PNG/Explosion_4.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Explosión/Imagenes PNG/Explosion_5.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Explosión/Imagenes PNG/Explosion_6.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Explosión/Imagenes PNG/Explosion_7.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0000.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0001.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0002.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0003.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0004.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0005.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0006.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0007.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0008.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0009.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0010.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0011.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0012.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0013.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0014.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0015.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0016.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0017.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0018.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0019.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0020.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0021.png</key>
+            <key type="filename">F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes/Modelo1PersonajeAnimacion0022.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -208,13 +245,9 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>Imagenes PNG/Explosion_1.png</filename>
-            <filename>Imagenes PNG/Explosion_2.png</filename>
-            <filename>Imagenes PNG/Explosion_3.png</filename>
-            <filename>Imagenes PNG/Explosion_4.png</filename>
-            <filename>Imagenes PNG/Explosion_5.png</filename>
-            <filename>Imagenes PNG/Explosion_6.png</filename>
-            <filename>Imagenes PNG/Explosion_7.png</filename>
+            <filename>F:/GitProyecto/Recursos/graphics/Animacion Explosión/Imagenes PNG</filename>
+            <filename>F:/GitProyecto/Recursos/graphics/Animacion Personaje 1/imagenes</filename>
+            <filename>../../../../../IMAGENES/Animacion Explosion Bolas/Imagenes</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

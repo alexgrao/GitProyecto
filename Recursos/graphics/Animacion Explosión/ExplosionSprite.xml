@@ -1,12 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:50d4ace09445e98e1365db83b7a5da02:0da1d22739b80d9026132da408801c29:62e39d69b3d5854457232d1ed64844e4$ -->
-<TextureAtlas imagePath="ExplosionSprite.png" width="224" height="32">
-    <SubTexture name="Explosion_1" x="0" y="0" width="32" height="32"/>
-    <SubTexture name="Explosion_2" x="32" y="0" width="32" height="32"/>
-    <SubTexture name="Explosion_3" x="64" y="0" width="32" height="32"/>
-    <SubTexture name="Explosion_4" x="96" y="0" width="32" height="32"/>
-    <SubTexture name="Explosion_5" x="128" y="0" width="32" height="32"/>
-    <SubTexture name="Explosion_6" x="160" y="0" width="32" height="32"/>
-    <SubTexture name="Explosion_7" x="192" y="0" width="32" height="32"/>
+<!-- $TexturePacker:SmartUpdate:a92c24c3116690278b8295eff4614bbe:26f0b956e7e0baeaccf03732084ce767:62e39d69b3d5854457232d1ed64844e4$ -->
+<TextureAtlas imagePath="ExplosionSprite.png" width="1696" height="60">
+    <SubTexture name="Imagenes PNG/Explosion" x="0" y="0" width="32" height="32"/>
+    <SubTexture name="Imagenes PNG/Explosion_1" x="32" y="0" width="32" height="32"/>
+    <SubTexture name="Imagenes PNG/Explosion_2" x="64" y="0" width="32" height="32"/>
+    <SubTexture name="Imagenes PNG/Explosion_3" x="96" y="0" width="32" height="32"/>
+    <SubTexture name="Imagenes PNG/Explosion_4" x="128" y="0" width="32" height="32"/>
+    <SubTexture name="Imagenes PNG/Explosion_5" x="160" y="0" width="32" height="32"/>
+    <SubTexture name="Imagenes PNG/Explosion_6" x="192" y="0" width="32" height="32"/>
+    <SubTexture name="Imagenes PNG/Explosion_7" x="224" y="0" width="32" height="32"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas00" x="256" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas01" x="296" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas02" x="336" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas03" x="376" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas04" x="416" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas05" x="456" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas06" x="496" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas07" x="536" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas08" x="576" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas09" x="616" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas10" x="656" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas11" x="696" y="0" width="40" height="40"/>
+    <SubTexture name="Imagenes/animacionExplosionBolas12" x="736" y="0" width="40" height="40"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0000" x="776" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0001" x="816" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0002" x="856" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0003" x="896" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0004" x="936" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0005" x="976" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0006" x="1016" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0007" x="1056" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0008" x="1096" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0009" x="1136" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0010" x="1176" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0011" x="1216" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0012" x="1256" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0013" x="1296" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0014" x="1336" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0015" x="1376" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0016" x="1416" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0017" x="1456" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0018" x="1496" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0019" x="1536" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0020" x="1576" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0021" x="1616" y="0" width="40" height="60"/>
+    <SubTexture name="imagenes/Modelo1PersonajeAnimacion0022" x="1656" y="0" width="40" height="60"/>
 </TextureAtlas>

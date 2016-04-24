@@ -17,8 +17,12 @@ package screens
 	
 	public class Juego extends Sprite
 	{
-		private var explosion:AnimacionExplosion;
-		public static var _haExplotado:Boolean;
+		private var numExplosionesBombas:int;
+		private var hayExplosionBomba:Boolean;
+		
+		private var numExplosionesBolas:int;
+		private var hayExplosionBolas :Boolean;
+		
 		
 		var tablero:Tablero;
 		var _jugador:Jugador;
@@ -79,8 +83,11 @@ package screens
 		{
 			super();
 			
-			explosion = new AnimacionExplosion();
-			_haExplotado = false;
+			numExplosionesBombas = 0;
+			hayExplosionBomba = false;
+			
+			numExplosionesBolas = 0;
+			hayExplosionBolas = false;
 			
 			estaHaciendoAnimacion = false;
 			heCanceladoAñadirFila = false;
@@ -105,10 +112,10 @@ package screens
 			anchuraCelda = 40;
 			alturaCelda = 40;
 			
-			puntuacionMensaje = new TextField(300, 300, _jugador.puntuacionActual.toString(), Assets.getFont().name , 30, 0xffffff, true);
+			puntuacionMensaje = new TextField(300, 300, _jugador.puntuacionActual.toString(), Assets.getFont().name , 28, 0xffffff, true);
 			puntuacionMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
-			puntuacionMensaje.x = 100;
-			puntuacionMensaje.y = 100;
+			puntuacionMensaje.x = 330;
+			puntuacionMensaje.y = 365;
 			
 			
 			moveTimer.addEventListener(TimerEvent.TIMER,moveTimerHandler);
@@ -159,21 +166,50 @@ package screens
 			_indicador.indImagen.x = comprobarPosicionXColumnaJugador(columna);
 			_indicador.indImagen.y = comprobarPosicionYColumnaIndicador();
 			
-			if (_haExplotado == true ) {
-				explota(tablero.filBomba, tablero.colBomba);
-				_haExplotado = false;
+			if (hayExplosionBomba) {
+				estaHaciendoAnimacion = true;
+				explotaBombas();
+				hayExplosionBomba = false;
 			}
 			
-			comprobarExplosion();
+			if (hayExplosionBolas) {
+				estaHaciendoAnimacion = true;
+				explotaBolas();
+				hayExplosionBolas = false;
+			}
 			
 			watchForEnd();
 		}
 		
-		private function comprobarExplosion():void 
+		private function explotaBolas():void 
 		{
-			if (explosion.ExploArt.isPlaying == false) {
-				explosion.ExploArt.stop();
-				removeChild(explosion);
+			numExplosionesBolas = Tablero.ArrayExploBolas.length;
+			
+			while (numExplosionesBolas != 0) 
+			{
+				hacerExplosionBolas(Tablero.ArrayExploBolas[numExplosionesBolas - 1][0], Tablero.ArrayExploBolas[numExplosionesBolas - 1][1]);
+				Tablero.ArrayExploBolas.pop();
+				numExplosionesBolas--;
+			}
+		}
+		
+		private function hacerExplosionBolas(fil:int, col:int):void 
+		{
+			Tablero.ArrayExploBolas[numExplosionesBolas - 1][2].x = (col - 1) * anchuraCelda + inicioX + 20;
+			Tablero.ArrayExploBolas[numExplosionesBolas - 1][2].y = (fil - 1) * alturaCelda + inicioY + 20;
+			
+			Tablero.ArrayExploBolas[numExplosionesBolas - 1][2].ExploArt.play();
+			addChild(Tablero.ArrayExploBolas[numExplosionesBolas - 1][2]);
+		}
+		
+		private function explotaBombas():void 
+		{
+			numExplosionesBombas = Tablero.ArrayExplosiones.length;
+			
+			while (numExplosionesBombas != 0) {
+				hacerExplosionBomba(Tablero.ArrayExplosiones[numExplosionesBombas - 1][0], Tablero.ArrayExplosiones[numExplosionesBombas - 1][1]);
+				Tablero.ArrayExplosiones.pop();
+				numExplosionesBombas--;
 			}
 		}
 		
@@ -204,7 +240,6 @@ package screens
 					masBolasQueTengo(arrayDevuelveSuccionar[1], arrayDevuelveSuccionar[0]);
 				}
 				borrarImagenesDeColumna();
-				tablero.imprime();
 			}
 			
 			if (e.keyCode == 83)
@@ -212,50 +247,17 @@ package screens
 				var columnaCopia:int = columna;
 				if (_jugador.colorActualRetenido != 0) {
 				tirar(columnaCopia);
-				/*arrayDevuelveTirarBolas = _jugador.tirarBolas(columna);
-				numeroBolasQueTengo = 0;
-				removeChild(_imagenBolaTengo);
-				removeChild(numeroBolasMensaje);
-					if (arrayDevuelveTirarBolas[1]) {
-						chronoSecondsPassed = chronoSecondsPassed + (arrayDevuelveTirarBolas[0] * 20);// añadimos segundos si explotamos correspondiente bola
-						puntuacionMensaje.text = _jugador.puntuacionActual.toString();
-						pintarTablero();
-						tablero.imprime();
-						if (_jugador.puntuacionActual > 500 && _jugador.puntuacionActual < 1000 && booleanoPrimerTiempo) {
-								booleanoPrimerTiempo = false;
-								moveTimer.delay = 3000;
-						}
-						if (_jugador.puntuacionActual > 2000 && _jugador.puntuacionActual < 2500 && booleanoSegundoTiempo) {
-								booleanoSegundoTiempo = false;
-								moveTimer.delay = 2500;
-						}
-						if (_jugador.puntuacionActual > 2500 && _jugador.puntuacionActual < 3000 && booleanoTercerTiempo ) {
-							booleanoTercerTiempo = false;	
-							moveTimer.delay = 2000;
-						}
-						if (_jugador.puntuacionActual > 3000 && booleanoCuartoTiempo) {
-							booleanoCuartoTiempo = false;	
-							moveTimer.delay = 1500;
-						}
-						
-					}
-					else{
-						pintarTablero();
-					}*/
 				}
 			}
 		}
 		
-		private function explota(fil:int, col:int):void 
+		private function hacerExplosionBomba(fil:int, col:int):void 
 		{
-			trace("columna: " + col * anchuraCelda + inicioX);
-			trace("fila: " + fil * alturaCelda + inicioY);
+			Tablero.ArrayExplosiones[numExplosionesBombas - 1][2].x = (col - 1) * anchuraCelda + inicioX;
+			Tablero.ArrayExplosiones[numExplosionesBombas - 1][2].y = (fil - 1) * alturaCelda + inicioY;
 			
-			explosion.x = (col - 1) * anchuraCelda + inicioX;
-			explosion.y = (fil - 1) * alturaCelda + inicioY;
-			
-			explosion.ExploArt.play();
-			addChild(explosion);
+			Tablero.ArrayExplosiones[numExplosionesBombas - 1][2].ExploArt.play();
+			addChild(Tablero.ArrayExplosiones[numExplosionesBombas - 1][2]);
 		}
 		
 		private function onAddedToStage(e:Event):void 
@@ -281,10 +283,10 @@ package screens
 			chrono.addEventListener(TimerEvent.TIMER, updateChrono);
 			chrono.start();
 			chronoSecondsPassed = 120;
-			chronoMensaje = new TextField(0,0, "2:00", Assets.getFont().name, 30, 0xffffff, true);
+			chronoMensaje = new TextField(0,0, "2:00", Assets.getFont().name, 28, 0xffffff, true);
 			chronoMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
-			chronoMensaje.x = 100;
-			chronoMensaje.y = 200;
+			chronoMensaje.x = 330;
+			chronoMensaje.y = 493;
 			
 			addChild(chronoMensaje);
 		}
@@ -405,8 +407,6 @@ package screens
 		
 		private function pintarTablero():void
 		{
-			trace("Entramos en juego.pintarTablero");
-			tablero.imprime();
 			for (var i:int = 0; i < numeroColumnas ;i++ ) {
 					for (var j:int = 0; j < numeroFilas; j++ ) {
 						var imagenBola:Image = pasoAImagen(tablero._tablero[j][i]);
@@ -424,7 +424,6 @@ package screens
 						}
 					}
 			}
-			trace("Salimos en juego.PintarTablero");
 		}
 		
 		private function watchForEnd():void
@@ -463,13 +462,6 @@ package screens
 			removeChild(imagenRecibida);
 		}
 		
-		//Problema con la función de abajo. Cuando cojo mas bolas de las que caben en una fila, no hace lo correspondiente.
-		//Por ejemplo, si cojo 6 bolas y caben solo 5 en esa columna, bolas a tirar al final va a ser 5, no 6, que son 
-		//el numero de bolas que tengo, entonces no va a entrar en animacionTirar al onComplete.
-		// |
-		// |
-		// v
-		//SOLUCIONADO
 		private function tirar(col:int) 
 		{
 			var bolasAtirar:int = 1;
@@ -489,9 +481,7 @@ package screens
 		
 		private function animacionTirar(fil:int, col:int, numeroBolaTirada:int)
 		{
-			
 			estaHaciendoAnimacion = true;
-			//for (var i:int = 0; i < _jugador.bolasActualesNormalesRetenidas; i++) {
 			if(bolasConNormalesQueTengo > 0){
 				var imagenTirar:Image;
 				imagenTirar = pasoAImagen(10 * _jugador.colorActualRetenido);
@@ -504,18 +494,15 @@ package screens
 				
 				var tweenPrueba2:Tween = new Tween(imagenTirar, 0.3);
 				tweenPrueba2.animate("x", anchuraCelda * col + inicioX);
-				tweenPrueba2.animate("y", alturaCelda * fil + inicioY);
+				tweenPrueba2.animate("y", alturaCelda * fil + inicioY - 4);
 				tweenPrueba2.animate("scaleX", 1);
 				tweenPrueba2.animate("scaleY", 1);
 				Starling.juggler.add(tweenPrueba2);
 				tweenPrueba2.onComplete = borrarImagen;
 				tweenPrueba2.onCompleteArgs = [imagenTirar];
 				bolasConNormalesQueTengo--;
-				//_jugador.bolasActualesNormalesRetenidas--;
 			}
 			else{
-			
-			//for (var i:int = 0; i < _jugador.bolasActualesPuntosRetenidas; i++) {
 				if(bolasConPuntosQueTengo > 0){
 					var imagenTirar:Image;
 					imagenTirar = pasoAImagen((10 * _jugador.colorActualRetenido) + 1);
@@ -528,18 +515,15 @@ package screens
 			
 					var tweenPrueba2:Tween = new Tween(imagenTirar, 0.3);
 					tweenPrueba2.animate("x", anchuraCelda * col + inicioX);
-					tweenPrueba2.animate("y", alturaCelda * fil + inicioY);
+					tweenPrueba2.animate("y", alturaCelda * fil + inicioY - 4);
 					tweenPrueba2.animate("scaleX", 1);
 					tweenPrueba2.animate("scaleY", 1);
 					Starling.juggler.add(tweenPrueba2);
 					tweenPrueba2.onComplete = borrarImagen;
 					tweenPrueba2.onCompleteArgs = [imagenTirar];
 					bolasConPuntosQueTengo--;
-					//_jugador.bolasActualesPuntosRetenidas--;
 				}
 				else{
-			
-					//for (var i:int = 0; i < _jugador.bolasActualesTiempoRetenidas; i++) {
 					if(bolasConTiempoQueTengo > 0){
 						var imagenTirar:Image;
 						imagenTirar = pasoAImagen((10 * _jugador.colorActualRetenido) + 2);
@@ -552,14 +536,13 @@ package screens
 						
 						var tweenPrueba2:Tween = new Tween(imagenTirar, 0.3);
 						tweenPrueba2.animate("x", anchuraCelda * col + inicioX);
-						tweenPrueba2.animate("y", alturaCelda * fil + inicioY);
+						tweenPrueba2.animate("y", alturaCelda * fil + inicioY - 4);
 						tweenPrueba2.animate("scaleX", 1);
 						tweenPrueba2.animate("scaleY", 1);
 						Starling.juggler.add(tweenPrueba2);
 						tweenPrueba2.onComplete = borrarImagen;
 						tweenPrueba2.onCompleteArgs = [imagenTirar];
 						bolasConTiempoQueTengo--;
-						//_jugador.bolasActualesTiempoRetenidas--;
 					}
 				}
 			}
@@ -578,54 +561,70 @@ package screens
 		
 		private function accionTirar(col:int):void
 		{
-				estaHaciendoAnimacion = false;
-				if (heCanceladoAñadirFila) {
-						tablero.añadirFilaRandom();
-						heCanceladoAñadirFila = false;
+			estaHaciendoAnimacion = false;
+			
+			if (heCanceladoAñadirFila) {
+				tablero.añadirFilaRandom();
+				heCanceladoAñadirFila = false;
+			}
+			
+			arrayDevuelveTirarBolas = _jugador.tirarBolas(col);
+			removeChild(_imagenBolaTengo);
+			removeChild(numeroBolasMensaje);
+			
+			if (arrayDevuelveTirarBolas[1]) {
+				
+				chronoSecondsPassed = chronoSecondsPassed + (arrayDevuelveTirarBolas[0] * 20);// añadimos segundos si explotamos correspondiente bola
+				puntuacionMensaje.text = _jugador.puntuacionActual.toString();
+				pintarTablero();
+				tablero.imprime();
+				
+				if (_jugador.puntuacionActual > 500 && _jugador.puntuacionActual < 1000 && booleanoPrimerTiempo) {
+						booleanoPrimerTiempo = false;
+						moveTimer.delay = 3000;
 				}
-				arrayDevuelveTirarBolas = _jugador.tirarBolas(col);
-				removeChild(_imagenBolaTengo);
-				removeChild(numeroBolasMensaje);
-					if (arrayDevuelveTirarBolas[1]) {
-						chronoSecondsPassed = chronoSecondsPassed + (arrayDevuelveTirarBolas[0] * 20);// añadimos segundos si explotamos correspondiente bola
-						puntuacionMensaje.text = _jugador.puntuacionActual.toString();
-						pintarTablero();
-						tablero.imprime();
-						if (_jugador.puntuacionActual > 500 && _jugador.puntuacionActual < 1000 && booleanoPrimerTiempo) {
-								booleanoPrimerTiempo = false;
-								moveTimer.delay = 3000;
-						}
-						if (_jugador.puntuacionActual > 2000 && _jugador.puntuacionActual < 2500 && booleanoSegundoTiempo) {
-								booleanoSegundoTiempo = false;
-								moveTimer.delay = 2500;
-						}
-						if (_jugador.puntuacionActual > 2500 && _jugador.puntuacionActual < 3000 && booleanoTercerTiempo ) {
-							booleanoTercerTiempo = false;	
-							moveTimer.delay = 2000;
-						}
-						if (_jugador.puntuacionActual > 3000 && booleanoCuartoTiempo) {
-							booleanoCuartoTiempo = false;	
-							moveTimer.delay = 1500;
-						}
-						
-					}
-					else{
-						pintarTablero();
-					}
+				if (_jugador.puntuacionActual > 2000 && _jugador.puntuacionActual < 2500 && booleanoSegundoTiempo) {
+						booleanoSegundoTiempo = false;
+						moveTimer.delay = 2500;
+				}
+				if (_jugador.puntuacionActual > 2500 && _jugador.puntuacionActual < 3000 && booleanoTercerTiempo ) {
+					booleanoTercerTiempo = false;	
+					moveTimer.delay = 2000;
+				}
+				if (_jugador.puntuacionActual > 3000 && booleanoCuartoTiempo) {
+					booleanoCuartoTiempo = false;	
+					moveTimer.delay = 1500;
+				}
+				
+			}
+			else {
+				pintarTablero();
+			}
+			
+			if (Tablero.ArrayExploBolas.length != 0) {
+				hayExplosionBolas = true;
+			}
+			
+			if(Tablero.ArrayExplosiones.length != 0){
+				hayExplosionBomba = true;
+			}
+			
 		}
 		
 		private function masBolasQueTengo(numeroBolas:int,colorBolas:int):void
 		{
 			_imagenBolaTengo = pasoAImagen(colorBolas * 10);
-			_imagenBolaTengo.x = 100;
-			_imagenBolaTengo.y = 300;
+			_imagenBolaTengo.x = 862;
+			_imagenBolaTengo.y = 494;
+			_imagenBolaTengo.scaleX = 0.75;
+			_imagenBolaTengo.scaleY = 0.75;
 			addChild(_imagenBolaTengo);
 			
 			numeroBolasQueTengo = numeroBolasQueTengo + numeroBolas;
-			numeroBolasMensaje = new TextField(0, 0, "x" + numeroBolasQueTengo, Assets.getFont().name , 30, 0xffffff, true);
+			numeroBolasMensaje = new TextField(0, 0, "x" + numeroBolasQueTengo, Assets.getFont().name , 28, 0xffffff, true);
 			numeroBolasMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
-			numeroBolasMensaje.x = 150;
-			numeroBolasMensaje.y = 305;
+			numeroBolasMensaje.x = 902;
+			numeroBolasMensaje.y = 494;
 			addChild(numeroBolasMensaje);
 			
 		}

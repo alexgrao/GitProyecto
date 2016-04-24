@@ -20,6 +20,7 @@ package
 		private function iniciaIndicador():void 
 		{
 			indImagen = new Image(Assets.getTexture("IndPosicion"));
+	
 		}
 	
 	}

@@ -4,26 +4,25 @@ package
 	import starling.display.MovieClip;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import screens.Juego;
 	
 	/**
 	 * ...
-	 * @author j
+	 * @author Jesús Bachiller Cabal
 	 */
-	public class AnimacionExplosion extends Sprite 
+	public class AnimacionExploBolas extends Sprite 
 	{
 		public var ExploArt:MovieClip;
 		
-		public function AnimacionExplosion() 
+		public function AnimacionExploBolas() 
 		{
 			super();
-			ExploArt = new MovieClip(Assets.getAtlasAnim().getTextures("Explosion_"), 18);
+			ExploArt = new MovieClip(Assets.getAtlasAnim().getTextures("animacionExplosionBolas"), 25);
 			
 			ExploArt.loop = false;
 			ExploArt.stop();
 			
-			ExploArt.scaleX = 4;
-			ExploArt.scaleY = 4;
+			ExploArt.scaleX = 2;
+			ExploArt.scaleY = 2;
 			
 			Starling.juggler.add(ExploArt);
 			
@@ -38,8 +37,8 @@ package
 				ExploArt.stop();
 				removeChild(ExploArt)
 			}
-		}
 		
+		}
 	}
 
 }
