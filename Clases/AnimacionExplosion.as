@@ -36,7 +36,8 @@ package
 		{
 			if (ExploArt.isComplete) {
 				ExploArt.stop();
-				removeChild(ExploArt)
+				ExploArt.texture.dispose();
+				removeChild(ExploArt, true);
 			}
 		}
 		

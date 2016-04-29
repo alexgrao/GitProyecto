@@ -95,6 +95,7 @@ package screens
 			tablero = new Tablero();
 			_jugador = new Jugador(tablero, jugador_elegido);
 			_indicador = new Indicador();
+			Assets.createArrayTextures();
 			
 			_jugadorElegido = jugador_elegido;
 			
@@ -116,6 +117,10 @@ package screens
 			puntuacionMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			puntuacionMensaje.x = 330;
 			puntuacionMensaje.y = 365;
+			
+			
+			numeroBolasMensaje = new TextField(0, 0, " ", Assets.getFont().name , 28, 0xffffff, true);
+			numeroBolasMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			
 			
 			moveTimer.addEventListener(TimerEvent.TIMER,moveTimerHandler);
@@ -191,6 +196,12 @@ package screens
 				Tablero.ArrayExploBolas.pop();
 				numExplosionesBolas--;
 			}
+			estaHaciendoAnimacion = false;
+			
+			if (heCanceladoAñadirFila) {
+				tablero.añadirFilaRandom();
+				heCanceladoAñadirFila = false;
+			}
 		}
 		
 		private function hacerExplosionBolas(fil:int, col:int):void 
@@ -235,8 +246,7 @@ package screens
 				bolasConTiempoQueTengo = _jugador.bolasActualesTiempoRetenidas;
 				trace(arrayDevuelveSuccionar[1]);
 				if (arrayDevuelveSuccionar[1] > 0 && (primerColorColumna == arrayDevuelveSuccionar[0])) {
-					removeChild(numeroBolasMensaje);
-					removeChild(_imagenBolaTengo);
+					borrarImagen(_imagenBolaTengo);
 					masBolasQueTengo(arrayDevuelveSuccionar[1], arrayDevuelveSuccionar[0]);
 				}
 				borrarImagenesDeColumna();
@@ -269,10 +279,11 @@ package screens
 			_hub.x = (stage.stageWidth / 2) - (_hub.width /2);
 			addChild(_hub);
 			addChild(puntuacionMensaje);
+			addChild(numeroBolasMensaje);
 			
 			iniciarPlayer();
 			iniciarIndicador();
-			pintarTablero();
+			pintarTableroPorPrimeraVez();
 			iniciarReloj();
 			
 		}
@@ -337,6 +348,72 @@ package screens
 		{
 			if (Math.floor(tipoBola / 10) == 1) {
 				if (tipoBola % 10 == 1) {
+					img = new Image(Assets.gameTexturesArray[11]);
+					
+					return img;
+				}
+				if (tipoBola % 10 == 2) {
+					img = new Image(Assets.gameTexturesArray[12]);
+					
+					return img;
+				}
+				
+				img = new Image(Assets.gameTexturesArray[10]);
+				return img;
+				
+			}
+			if (Math.floor(tipoBola / 10) == 2) {
+				if (tipoBola % 10 == 1) {
+					img = new Image(Assets.gameTexturesArray[4]);
+					return img;
+				}
+				if (tipoBola % 10 == 2) {
+					img = new Image(Assets.gameTexturesArray[5]);
+					return img;
+				}
+				
+				img = new Image(Assets.gameTexturesArray[3]);
+				return img;
+				
+			}
+			if (Math.floor(tipoBola / 10) == 3) {
+				if (tipoBola % 10 == 1) {
+					img = new Image(Assets.gameTexturesArray[1]);
+					return img;
+				}
+				if (tipoBola % 10 == 2) {
+					img = new Image(Assets.gameTexturesArray[2]);
+					return img;
+				}
+				
+				img = new Image(Assets.gameTexturesArray[0]);
+				return img;
+			}
+			if (Math.floor(tipoBola / 10) == 4) {
+				
+				if (tipoBola % 10 == 1) {
+					img = new Image(Assets.gameTexturesArray[8]);
+					return img;
+				}
+				if (tipoBola % 10 == 2) {
+					img = new Image(Assets.gameTexturesArray[9]);
+					return img;
+				}
+				
+				img = new Image(Assets.gameTexturesArray[7]);
+				return img;
+			}
+			if (tipoBola == 0) {
+				img = new Image(Assets.gameTexturesArray[6]);
+				return img;
+			}
+			return null;
+		}
+		
+		/*private function pasoAImagen(tipoBola:int):Image
+		{
+			if (Math.floor(tipoBola / 10) == 1) {
+				if (tipoBola % 10 == 1) {
 					img = new Image(Assets.getAtlasBolas().getTexture("bola_Roja_puntos"));
 					
 					return img;
@@ -398,14 +475,14 @@ package screens
 			}
 			return null;
 		}
-		
+		*/
 		private function comprobarPosicionXColumnaJugador(col:int):int
 		{
 			//trace("Entramos y salimos en juego.comprobarPosicionXColumnaJugador");
 			return anchuraCelda * col + inicioX;
 		}
 		
-		private function pintarTablero():void
+		private function pintarTableroPorPrimeraVez():void
 		{
 			for (var i:int = 0; i < numeroColumnas ;i++ ) {
 					for (var j:int = 0; j < numeroFilas; j++ ) {
@@ -415,12 +492,32 @@ package screens
 							imagenBola.height = alturaCelda;
 							imagenBola.x = anchuraCelda * i + inicioX;
 							imagenBola.y = alturaCelda * j + inicioY;
-							removeChild(tablero._tableroImagenes[j][i]);
 							tablero._tableroImagenes[j][i] = imagenBola;
 							addChild(imagenBola);
 						}
-						else{
-						removeChild(tablero._tableroImagenes[j][i]);
+					}
+			}
+		}
+		
+		private function pintarTablero():void
+		{
+			var imagenBolaMolde:Image;
+			for (var i:int = 0; i < numeroColumnas ;i++ ) {
+					for (var j:int = 0; j < numeroFilas; j++ ) {
+						var imagenBola:Image = pasoAImagen(tablero._tablero[j][i]);
+						if (imagenBola != null) {
+							imagenBola.width = anchuraCelda;
+							imagenBola.height = alturaCelda;
+							imagenBola.x = anchuraCelda * i + inicioX;
+							imagenBola.y = alturaCelda * j + inicioY;
+							imagenBolaMolde = tablero._tableroImagenes[j][i];
+							borrarImagen(imagenBolaMolde);
+							tablero._tableroImagenes[j][i] = imagenBola;
+							addChild(imagenBola);
+						}
+						else {
+						imagenBolaMolde = tablero._tableroImagenes[j][i];
+						borrarImagen(imagenBolaMolde);	
 						}
 					}
 			}
@@ -459,7 +556,10 @@ package screens
 		
 		private function borrarImagen(imagenRecibida:Image):void 
 		{
-			removeChild(imagenRecibida);
+			if(imagenRecibida != null){
+				imagenRecibida.texture.dispose();
+				removeChild(imagenRecibida, true);
+			}
 		}
 		
 		private function tirar(col:int) 
@@ -569,8 +669,8 @@ package screens
 			}
 			
 			arrayDevuelveTirarBolas = _jugador.tirarBolas(col);
-			removeChild(_imagenBolaTengo);
-			removeChild(numeroBolasMensaje);
+			borrarImagen(_imagenBolaTengo);
+			numeroBolasMensaje.text = " ";
 			
 			if (arrayDevuelveTirarBolas[1]) {
 				
@@ -621,11 +721,9 @@ package screens
 			addChild(_imagenBolaTengo);
 			
 			numeroBolasQueTengo = numeroBolasQueTengo + numeroBolas;
-			numeroBolasMensaje = new TextField(0, 0, "x" + numeroBolasQueTengo, Assets.getFont().name , 28, 0xffffff, true);
-			numeroBolasMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
+			numeroBolasMensaje.text = "x" + numeroBolasQueTengo;
 			numeroBolasMensaje.x = 902;
 			numeroBolasMensaje.y = 494;
-			addChild(numeroBolasMensaje);
 			
 		}
 		

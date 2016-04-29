@@ -57,6 +57,8 @@ package
 			
 			private static var gameTextures:Dictionary = new Dictionary();
 			
+			public static var gameTexturesArray:Array = new Array();
+			
 			public static var myFont:BitmapFont;
 			
 			
@@ -116,5 +118,37 @@ package
 			
 				return gameTextures[name];
 		}
+		
+			public static function createArrayTextures():void
+			{
+				var textura:Texture;
+				textura = getAtlasBolas().getTexture("bola_Amarilla");//0
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Amarilla_puntos");//1
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Amarilla_tiempo");//2
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Azul");//3
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Azul_puntos");//4
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Azul_tiempo");//5
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Bomba");//6
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Negra");//7
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Negra_puntos");//8
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Negra_tiempo");//9
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Roja");//10
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Roja_puntos");//11
+				gameTexturesArray.push(textura);
+				textura = getAtlasBolas().getTexture("bola_Roja_tiempo");//12
+				gameTexturesArray.push(textura);
+				
+			}
 	}
 }
