@@ -9,8 +9,8 @@ package
 	 */
 	public class Tablero extends Sprite
 	{
-		public static var ArrayExplosiones:Array;
-		public static var ArrayExploBolas:Array;
+		public var ArrayExplosiones:Array;
+		public var ArrayExploBolas:Array;
 		
 		public var filBomba:int;
 		public var colBomba:int;
@@ -80,12 +80,12 @@ package
 			ArrayExplosiones = new Array();;
 			ArrayExploBolas = new Array();
 		
-			_fila1 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
+			//_fila1 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila2 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila3 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila4 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
-			//_fila1 = new Array(40, 0, 30, 20, 10, 40, 10);
-			//_fila2 = new Array(40, 10, 0, 30, 40, 10, 10);
+			_fila1 = new Array(40, 0, 30, 22, 10, 20, 20);
+			//_fila2 = new Array(40, 10, 0, 30, 40, 10, 40);
 			//_fila3 = new Array(-1, 30, -1, 20, 20, 30, 10);
 			//_fila4 = new Array(-1, -1, -1, 10, 20, 30, 30);
 			_fila5 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
@@ -189,13 +189,11 @@ package
 		
 		private function bajarUnaFila():void 
 		{
-			//trace("Entramos en tablero.bajarUnaFila");
 			for ( var i:int = _tablero.length-2; i > -1; i-- ) {
 				for (var j:int = 0; j < _fila1.length; j++ ) {
 					_tablero[i + 1][j] = _tablero[i][j];
 				}
 			}
-			//trace("Salimos en tablero.bajarUnaFila");
 		}
 		
 		public function eliminaUltsBolasColumna(colu:int):Array
@@ -234,7 +232,6 @@ package
 		
 		public function insertaNBolas(colorBolas:int, numBolas:int, colu:int, tipoBolas:int):void 
 		{
-			//trace("Entramos en tablero.insertaNBolas");
 			var filaUltimo:int = buscaUltimoEnColumna(colu);
 			
 			for (var i:int = 0; i < numBolas; i++ ) {
@@ -242,12 +239,10 @@ package
 					_tablero[i + filaUltimo + 1][colu] = colorBolas * 10 + tipoBolas;
 				}
 			}
-			//trace("Salimos en tablero.insertaNBolas");
 		}
 		
 		private function buscaUltimoEnColumna(colu:int):int
 		{
-			//trace("Entramos en tablero.buscarUltimoEnColumna");
 			var filaUltimo:int = -1;
 			for (var fil:int = _tablero.length - 1; fil > -1; fil-- ) {
 				if (_tablero[fil][colu] != -1) {
@@ -255,7 +250,6 @@ package
 					break;
 				}
 			}
-			//trace("Salimos en tablero.buscarUltimoEnColumna");
 
 			return filaUltimo;
 		}
@@ -272,7 +266,6 @@ package
 			var colorQueElimina:int = Math.floor(_tablero[filaUltimo][colu] / 10);
 			
 			var datosEliminados:Array = eliminaYcompruebaLados(filaUltimo, colu, colorQueElimina);
-			trace(datosEliminados);
 			
 			equilibraTablero();
 
@@ -302,11 +295,9 @@ package
 		
 		private function intercambioBolasEnColumna(filSup:int, filInf:int, colu:int):void 
 		{
-			trace("Entramos en tablero.intercambioBolasEnColumna");
 			var aux:int = _tablero[filSup][colu];
 			_tablero[filSup][colu] = _tablero[filInf][colu];
 			_tablero[filInf][colu] = aux;
-			trace("Salimos en tablero.intercambioBolasEnColumna");
 		}
 		
 		private function eliminaBola(filAct:int, colAct:int):void 
@@ -475,8 +466,6 @@ package
 				}
 			}
 			
-			//trace("Salimos en tablero.explotaBomba");
-			
 			return numEliminados;
 		}
 		
@@ -489,13 +478,11 @@ package
 						break;
 				}
 			}
-			trace(colorDevolver);
 			return colorDevolver;
 		}
 		
 		public function comprobarSeguidasMismoColor(col:int,color:int):int
 		{
-			//trace("Entramos en tablero.comprobarSeguidasMismoColor");
 			var bolasMismoColor:int = 0;
 			for (var fil:int = _tablero.length - 1; fil > -1; fil-- ) {
 				if (_tablero[fil][col] != BOMBA && _tablero[fil][col] != VACIO) {
@@ -505,6 +492,10 @@ package
 						else{
 							break;
 						}
+				}else {
+					if(_tablero[fil][col] == BOMBA){
+						break;
+					}
 				}
 			}
 			

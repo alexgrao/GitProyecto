@@ -17,158 +17,170 @@ package screens
 	
 	public class Juego extends Sprite
 	{
-		private var numExplosionesBombas:int;
-		private var hayExplosionBomba:Boolean;
+		/*-------------------*/
+		/*****CONSTANTES******/
+		private const INICIO_X:int = 530;
+		private const INICIO_Y:int = 25;
 		
-		private var numExplosionesBolas:int;
-		private var hayExplosionBolas :Boolean;
+		private const ANCHURA_CELDA:int = 40;
+		private const ALTURA_CELDA:int = 40;
+		private const NUM_FILAS:int = 13;
+		private const NUM_COLUMNAS:int = 7;
 		
+		/*-------------------*/
+		/*****EXPLOSIONES*****/
+		private var _numExplosionesBombas:int;
+		private var _hayExplosionBomba:Boolean;
 		
-		var tablero:Tablero;
-		var _jugador:Jugador;
-		var _indicador:Indicador;
+		private var _numExplosionesBolas:int;
+		private var _hayExplosionBolas :Boolean;
 		
-		var _jugadorElegido:int;
+		/*-------------------*/
+		/********IMAGE********/
+		private var _img:Image;
 		
-		var _imagenFondo:Image; 
-		var _hub:Image;
-		var _imagenBolaTengo:Image;
+		private var _imagenFondo:Image; 
+		private var _hub:Image;
 		
-		public static var inicioX:int;
-		public static var inicioY:int;
-		public static var finX:int;
-		public static var finY:int;
-		var succionadasX:int;
+		private var _imagenBolaTengo:Image;
 		
-		public static var anchuraCelda:int;
-		public static var alturaCelda:int;
-		var numeroFilas:int;
-		var numeroColumnas:int;
+		/*-------------------*/
+		/******TEXTFIELD******/
+		private var _puntuacionMensaje:TextField;
+		private var _numeroBolasMensaje:TextField;
 		
-		public static var columna:int;
-		var filasTotales:int;
+		/*-------------------*/
+		/****ARRAY DEVULVE****/
+		/*------- + ---------*/
+		/********BOLAS********/
+		private var _arrayDevuelveTirarBolas:Array;
+		private var _arrayDevuelveSuccionar:Array;
 		
-		var puntuacionMensaje:TextField;
-		var numeroBolasMensaje:TextField;
+		private var _numeroBolasQueTengo:int;
+		private var _bolasConNormalesQueTengo:int;
+		private var _bolasConTiempoQueTengo:int;
+		private var _bolasConPuntosQueTengo:int;
 		
+		/*-------------------*/
+		 /********TIME*********/
+		private var _moveTimer:Timer = new Timer(4000);
+		private var _chrono:Timer;
+		private var _chronoMensaje:TextField;
+		private var _chronoSecondsPassed:uint;
 		
-		private var moveTimer:Timer = new Timer(4000);
-		private var timerAnimacion:Timer = new Timer(250);
-		var booleanoPrimerTiempo:Boolean;
-		var booleanoSegundoTiempo:Boolean;
-		var booleanoTercerTiempo:Boolean;
-		var booleanoCuartoTiempo:Boolean;
-		var booleanoQuintoTiempo:Boolean;
-		var booleanoSextoTiempo:Boolean;
-		var booleanoSeptimoTiempo:Boolean;
-		var booleanoOctavoTiempo:Boolean;
+		/*-------------------*/
+		private var _timerAnimacion:Timer = new Timer(250);
 		
+		private var _columna:int;
 		
-		private var chrono:Timer;
-		private var chronoMensaje:TextField;
-		private var chronoSecondsPassed:uint;
+		private var _jugadorElegido:int;
 		
-		var img:Image;
+		 /*-------------------*/
+		 /*******BOOLEAN*******/
+		private var _booleanoPrimerTiempo:Boolean;
+		private var _booleanoSegundoTiempo:Boolean;
+		private var _booleanoTercerTiempo:Boolean;
+		private var _booleanoCuartoTiempo:Boolean;
+		private var _booleanoQuintoTiempo:Boolean;
+		private var _booleanoSextoTiempo:Boolean;
+		private var _booleanoSeptimoTiempo:Boolean;
+		private var _booleanoOctavoTiempo:Boolean;
 		
-		var arrayDevuelveTirarBolas:Array;
-		var arrayDevuelveSuccionar:Array;
+		private var _estaHaciendoAnimacion:Boolean;
+		private var _heCanceladoAñadirFila:Boolean;
 		
-		private var pantallaFinJuego:PantallaFinJuego;
-		private var numeroBolasQueTengo:int;
-		private var colorBolasTengo:int;
-		private var bolasConNormalesQueTengo:int;
-		private var bolasConTiempoQueTengo:int;
-		private var bolasConPuntosQueTengo:int;
-		private var estaHaciendoAnimacion:Boolean;
-		private var heCanceladoAñadirFila:Boolean;
+		/*------------------------*/
+		/*OBJECTOS DE OTRAS CLASES*/
+		/********PROPIAS***********/
+		private var _tablero:Tablero;
+		private var _jugador:Jugador;
+		private var _indicador:Indicador;
+				
+		private var _pantallaFinJuego:PantallaFinJuego;
 		
-		
+		/* CONTRUCTOR DE LA CLASE */
 		public function Juego(jugador_elegido:int) 
 		{
 			super();
 			
-			numExplosionesBombas = 0;
-			hayExplosionBomba = false;
+			_numExplosionesBombas = 0;
+			_hayExplosionBomba = false;
 			
-			numExplosionesBolas = 0;
-			hayExplosionBolas = false;
+			_numExplosionesBolas = 0;
+			_hayExplosionBolas = false;
 			
-			estaHaciendoAnimacion = false;
-			heCanceladoAñadirFila = false;
+			_estaHaciendoAnimacion = false;
+			_heCanceladoAñadirFila = false;
 			
-			tablero = new Tablero();
-			_jugador = new Jugador(tablero, jugador_elegido);
+			_tablero = new Tablero();
+			_jugador = new Jugador(_tablero, jugador_elegido);
 			_indicador = new Indicador();
 			Assets.createArrayTextures();
 			
 			_jugadorElegido = jugador_elegido;
 			
-			inicioX = 530;
-			finX = 810;
-			inicioY = 25;
-			finY = 5245;
+			_columna = 3;
 			
-			columna = 3;
-			succionadasX = 200;
+			_numeroBolasQueTengo = 0;
 			
-			numeroFilas = 13;
-			numeroColumnas = 7;
-			
-			anchuraCelda = 40;
-			alturaCelda = 40;
-			
-			puntuacionMensaje = new TextField(300, 300, _jugador.puntuacionActual.toString(), Assets.getFont().name , 28, 0xffffff, true);
-			puntuacionMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
-			puntuacionMensaje.x = 330;
-			puntuacionMensaje.y = 365;
+			_puntuacionMensaje = new TextField(300, 300, _jugador.puntuacionActual.toString(), Assets.getFont().name , 28, 0xffffff, true);
+			_puntuacionMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
+			_puntuacionMensaje.x = 330;
+			_puntuacionMensaje.y = 365;
 			
 			
-			numeroBolasMensaje = new TextField(0, 0, " ", Assets.getFont().name , 28, 0xffffff, true);
-			numeroBolasMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
+			_numeroBolasMensaje = new TextField(0, 0, " ", Assets.getFont().name , 28, 0xffffff, true);
+			_numeroBolasMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			
 			
-			moveTimer.addEventListener(TimerEvent.TIMER,moveTimerHandler);
-			moveTimer.start();
+			_moveTimer.addEventListener(TimerEvent.TIMER,moveTimerHandler);
+			_moveTimer.start();
 			
-			timerAnimacion.addEventListener(TimerEvent.TIMER,animacionBorrar);
+			_timerAnimacion.addEventListener(TimerEvent.TIMER,animacionBorrar);
 			
-			booleanoPrimerTiempo = true;
-			booleanoSegundoTiempo = true;
-			booleanoTercerTiempo = true;
-			booleanoCuartoTiempo = true;
-			booleanoQuintoTiempo = true;
-			booleanoSextoTiempo = true;
-			booleanoSeptimoTiempo = true;
-			booleanoOctavoTiempo = true;
+			_booleanoPrimerTiempo = true;
+			_booleanoSegundoTiempo = true;
+			_booleanoTercerTiempo = true;
+			_booleanoCuartoTiempo = true;
+			_booleanoQuintoTiempo = true;
+			_booleanoSextoTiempo = true;
+			_booleanoSeptimoTiempo = true;
+			_booleanoOctavoTiempo = true;
 			
-			numeroBolasQueTengo = 0;
+			_numeroBolasQueTengo = 0;
 			
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.ENTER_FRAME, playGame);
 			addEventListener(KeyboardEvent.KEY_DOWN, checkKeysDown);
 		}
 		
+		/* Clase en la que cada vez que salte el event TimerEvent baja una fila en los tablero
+		  */
 		private function moveTimerHandler(e:TimerEvent):void 
 		{
-			if(estaHaciendoAnimacion == false){
-				tablero.añadirFilaRandom();
+			if(_estaHaciendoAnimacion == false){
+				_tablero.añadirFilaRandom();
 				pintarTablero();
 			}
 			else {
-				heCanceladoAñadirFila = true;
+				_heCanceladoAñadirFila = true;
 			}
 		}
 		
+		/* Funcion que se llama cada Frame. Mueve al personaje, el indicador, ...
+		 * ...si hay alguna explosion inicia el proceso para llevarlas a cabo y ...
+		 * ...comprueba si acaba el juego
+		 */
 		private function playGame(e:Event):void 
 		{
-			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(columna) - 15;
-			if (columna == 3) {
+			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(_columna) - 15;
+			if (_columna == 3) {
 				_jugador.jugadorImagen.y = 556;
 			}else {
-				if (columna == 2 || columna == 4) {
+				if (_columna == 2 || _columna == 4) {
 				_jugador.jugadorImagen.y = 553;
 				}else {
-					if (columna == 1 || columna == 5) {
+					if (_columna == 1 || _columna == 5) {
 					_jugador.jugadorImagen.y = 550;
 					}else {
 						_jugador.jugadorImagen.y = 548;
@@ -176,118 +188,132 @@ package screens
 				}
 			}
 			
-			_indicador.indImagen.x = comprobarPosicionXColumnaJugador(columna);
+			_indicador.indImagen.x = comprobarPosicionXColumnaJugador(_columna);
 			_indicador.indImagen.y = comprobarPosicionYColumnaIndicador();
 			
-			if (hayExplosionBomba) {
-				estaHaciendoAnimacion = true;
+			if (_hayExplosionBomba) {
+				_estaHaciendoAnimacion = true;
 				explotaBombas();
-				hayExplosionBomba = false;
+				_hayExplosionBomba = false;
 			}
 			
-			if (hayExplosionBolas) {
-				estaHaciendoAnimacion = true;
+			if (_hayExplosionBolas) {
+				_estaHaciendoAnimacion = true;
 				explotaBolas();
-				hayExplosionBolas = false;
+				_hayExplosionBolas = false;
 			}
 			
 			watchForEnd();
 		}
 		
+		/* hace todas las explosion de Bolas pendientes y si se cancelo en su momento ...
+		 * ...bajar filas por las animaciones de subir bolas desde le personaje a su columna, se bajan
+		 */
 		private function explotaBolas():void 
 		{
-			numExplosionesBolas = Tablero.ArrayExploBolas.length;
+			_numExplosionesBolas = _tablero.ArrayExploBolas.length;
 			
-			while (numExplosionesBolas != 0) 
+			while (_numExplosionesBolas != 0) 
 			{
-				hacerExplosionBolas(Tablero.ArrayExploBolas[numExplosionesBolas - 1][0], Tablero.ArrayExploBolas[numExplosionesBolas - 1][1]);
-				Tablero.ArrayExploBolas.pop();
-				numExplosionesBolas--;
+				hacerExplosionBolas(_tablero.ArrayExploBolas[_numExplosionesBolas - 1][0], _tablero.ArrayExploBolas[_numExplosionesBolas - 1][1]);
+				_tablero.ArrayExploBolas.pop();
+				_numExplosionesBolas--;
 			}
-			estaHaciendoAnimacion = false;
+			_estaHaciendoAnimacion = false;
 			
-			if (heCanceladoAñadirFila) {
-				tablero.añadirFilaRandom();
-				heCanceladoAñadirFila = false;
+			if (_heCanceladoAñadirFila) {
+				_tablero.añadirFilaRandom();
+				_heCanceladoAñadirFila = false;
 			}
 		}
 		
+		/* Acción visual de la explosión de bolas 
+		  */
 		private function hacerExplosionBolas(fil:int, col:int):void 
 		{
-			Tablero.ArrayExploBolas[numExplosionesBolas - 1][2].x = (col - 1) * anchuraCelda + inicioX + 20;
-			Tablero.ArrayExploBolas[numExplosionesBolas - 1][2].y = (fil - 1) * alturaCelda + inicioY + 20;
+			_tablero.ArrayExploBolas[_numExplosionesBolas - 1][2].x = (col - 1) * ANCHURA_CELDA + INICIO_X + 20;
+			_tablero.ArrayExploBolas[_numExplosionesBolas - 1][2].y = (fil - 1) * ALTURA_CELDA + INICIO_Y + 20;
 			
-			Tablero.ArrayExploBolas[numExplosionesBolas - 1][2].ExploArt.play();
-			addChild(Tablero.ArrayExploBolas[numExplosionesBolas - 1][2]);
+			_tablero.ArrayExploBolas[_numExplosionesBolas - 1][2].ExploArt.play();
+			addChild(_tablero.ArrayExploBolas[_numExplosionesBolas - 1][2]);
 		}
 		
+		/* hace todas las explosion de Bombas pendientes 
+		 */
 		private function explotaBombas():void 
 		{
-			numExplosionesBombas = Tablero.ArrayExplosiones.length;
+			_numExplosionesBombas = _tablero.ArrayExplosiones.length;
 			
-			while (numExplosionesBombas != 0) {
-				hacerExplosionBomba(Tablero.ArrayExplosiones[numExplosionesBombas - 1][0], Tablero.ArrayExplosiones[numExplosionesBombas - 1][1]);
-				Tablero.ArrayExplosiones.pop();
-				numExplosionesBombas--;
+			while (_numExplosionesBombas != 0) {
+				hacerExplosionBomba(_tablero.ArrayExplosiones[_numExplosionesBombas - 1][0], _tablero.ArrayExplosiones[_numExplosionesBombas - 1][1]);
+				_tablero.ArrayExplosiones.pop();
+				_numExplosionesBombas--;
 			}
 		}
 		
+		/* Clase que controla la entrada de teclado y hace que se mueva el personaje y ...
+		 * ...tire o recoga bolas
+		 */
 		private function checkKeysDown(e:KeyboardEvent):void
 		{
 			if (e.keyCode == 37) 
 			{
-				if (columna > 0) columna--;
+				if (_columna > 0) _columna--;
 			}
 			
 			if (e.keyCode == 39) 
 			{
-				if (columna < 6) columna++;
+				if (_columna < 6) _columna++;
 				
 			}
 			
 			if (e.keyCode == 65)
 			{
-				var primerColorColumna:int = tablero.comprobarPrimerColorColumna(columna);
-				arrayDevuelveSuccionar = _jugador.succionar(columna);
-				bolasConNormalesQueTengo = _jugador.bolasActualesNormalesRetenidas;
-				bolasConPuntosQueTengo = _jugador.bolasActualesPuntosRetenidas;
-				bolasConTiempoQueTengo = _jugador.bolasActualesTiempoRetenidas;
-				trace(arrayDevuelveSuccionar[1]);
-				if (arrayDevuelveSuccionar[1] > 0 && (primerColorColumna == arrayDevuelveSuccionar[0])) {
-					borrarImagen(_imagenBolaTengo);
-					masBolasQueTengo(arrayDevuelveSuccionar[1], arrayDevuelveSuccionar[0]);
+				var primerColorColumna:int = _tablero.comprobarPrimerColorColumna(_columna);
+				if(primerColorColumna != -1){
+					_arrayDevuelveSuccionar = _jugador.succionar(_columna);
+					_bolasConNormalesQueTengo = _jugador.bolasActualesNormalesRetenidas;
+					_bolasConPuntosQueTengo = _jugador.bolasActualesPuntosRetenidas;
+					_bolasConTiempoQueTengo = _jugador.bolasActualesTiempoRetenidas;
+					if (_arrayDevuelveSuccionar[1] > 0 && (primerColorColumna == _arrayDevuelveSuccionar[0])) {
+						borrarImagen(_imagenBolaTengo);
+						masBolasQueTengo(_arrayDevuelveSuccionar[1], _arrayDevuelveSuccionar[0]);
+					}
+					borrarImagenesDeColumna();
 				}
-				borrarImagenesDeColumna();
 			}
 			
 			if (e.keyCode == 83)
 			{
-				var columnaCopia:int = columna;
+				var columnaCopia:int = _columna;
 				if (_jugador.colorActualRetenido != 0) {
 				tirar(columnaCopia);
 				}
 			}
 		}
-		
+
+		/* Acción visual de la explosión de bombas
+		  */
 		private function hacerExplosionBomba(fil:int, col:int):void 
 		{
-			Tablero.ArrayExplosiones[numExplosionesBombas - 1][2].x = (col - 1) * anchuraCelda + inicioX;
-			Tablero.ArrayExplosiones[numExplosionesBombas - 1][2].y = (fil - 1) * alturaCelda + inicioY;
+			_tablero.ArrayExplosiones[_numExplosionesBombas - 1][2].x = (col - 1) * ANCHURA_CELDA + INICIO_X;
+			_tablero.ArrayExplosiones[_numExplosionesBombas - 1][2].y = (fil - 1) * ALTURA_CELDA + INICIO_Y;
 			
-			Tablero.ArrayExplosiones[numExplosionesBombas - 1][2].ExploArt.play();
-			addChild(Tablero.ArrayExplosiones[numExplosionesBombas - 1][2]);
+			_tablero.ArrayExplosiones[_numExplosionesBombas - 1][2].ExploArt.play();
+			addChild(_tablero.ArrayExplosiones[_numExplosionesBombas - 1][2]);
 		}
 		
+		/* funcion que añade a la pantalla los objetos iniciales con los que se empieza*/
 		private function onAddedToStage(e:Event):void 
 		{
-			_imagenFondo = new Image(Assets.getTexture("FondoSol"));
+			_imagenFondo = new Image(Assets.getTexture("FondoLluvia"));
 			_imagenFondo.x = (stage.stageWidth / 2) - (_imagenFondo.width /2);
 			addChild(_imagenFondo);
 			_hub = new Image(Assets.getTexture("HUD1Player"));
 			_hub.x = (stage.stageWidth / 2) - (_hub.width /2);
 			addChild(_hub);
-			addChild(puntuacionMensaje);
-			addChild(numeroBolasMensaje);
+			addChild(_puntuacionMensaje);
+			addChild(_numeroBolasMensaje);
 			
 			iniciarPlayer();
 			iniciarIndicador();
@@ -296,258 +322,201 @@ package screens
 			
 		}
 		
+		/* Inicializacion del reloj del juego*/
 		private function iniciarReloj():void 
 		{
-			chrono = new Timer(1000);
-			chrono.addEventListener(TimerEvent.TIMER, updateChrono);
-			chrono.start();
-			chronoSecondsPassed = 120;
-			chronoMensaje = new TextField(0,0, "2:00", Assets.getFont().name, 28, 0xffffff, true);
-			chronoMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
-			chronoMensaje.x = 330;
-			chronoMensaje.y = 493;
+			_chrono = new Timer(1000);
+			_chrono.addEventListener(TimerEvent.TIMER, updateChrono);
+			_chrono.start();
+			_chronoSecondsPassed = 120;
+			_chronoMensaje = new TextField(0,0, "2:00", Assets.getFont().name, 28, 0xffffff, true);
+			_chronoMensaje.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
+			_chronoMensaje.x = 330;
+			_chronoMensaje.y = 493;
 			
-			addChild(chronoMensaje);
+			addChild(_chronoMensaje);
 		}
 		
+		/* Actualización del reloj del juego cada segundo*/
 		private function updateChrono(e:TimerEvent):void 
 		{
 			var seconds:uint;
 			var minutes:uint;
 			
-			chronoSecondsPassed -= 1;
+			_chronoSecondsPassed -= 1;
 			
-			seconds = chronoSecondsPassed % 60;
-			minutes = chronoSecondsPassed / 60;
+			seconds = _chronoSecondsPassed % 60;
+			minutes = _chronoSecondsPassed / 60;
 			
-			chronoMensaje.text = minutes + ":" +  seconds;
+			_chronoMensaje.text = minutes + ":" +  seconds;
 			
 		}
 		
+		/* Inicializacion del jugador del juego*/
 		private function iniciarPlayer():void 
 		{
-			//trace("Entramos en juego.iniciaPlayer");
 			_jugador.jugadorImagen.y = 550;
-			_jugador.jugadorImagen.width = anchuraCelda + anchuraCelda/2;
-			_jugador.jugadorImagen.height = alturaCelda * 2;
+			_jugador.jugadorImagen.width = ANCHURA_CELDA + ANCHURA_CELDA/2;
+			_jugador.jugadorImagen.height = ALTURA_CELDA * 2;
 			addChild(_jugador.jugadorImagen);
-			//trace("Salimos en juego.iniciaPlayer");
 		}
 		
+		/* Inicializacion del indicador del juego*/
 		private function iniciarIndicador():void 
 		{
-			_indicador.indImagen.width = anchuraCelda;
-			_indicador.indImagen.height = alturaCelda;
+			_indicador.indImagen.width = ANCHURA_CELDA;
+			_indicador.indImagen.height = ALTURA_CELDA;
 		
 			addChild(_indicador.indImagen);
 		}
 		
+		/* Devuelve las coordenadas en Y del indicador*/
 		private function comprobarPosicionYColumnaIndicador():int
 		{
-			return  alturaCelda * (comprobarUltimaFilaDeColumna(columna) + 1) + inicioY;
+			return  ALTURA_CELDA * (comprobarUltimaFilaDeColumna(_columna) + 1) + INICIO_Y;
 		}
 		
+		/* Devuelve la ultima fila donde hay bolas de la columan*/
 		private function comprobarUltimaFilaDeColumna(columna:int):int
 		{
-			return tablero.BuscaUltimoEnColumna(columna);
+			return _tablero.BuscaUltimoEnColumna(columna);
 		}
 		
+		/* Devuelve la imagen del tipo de bola que le pasemos*/
 		private function pasoAImagen(tipoBola:int):Image
 		{
 			if (Math.floor(tipoBola / 10) == 1) {
 				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.gameTexturesArray[11]);
+					_img = new Image(Assets.gameTexturesArray[11]);
 					
-					return img;
+					return _img;
 				}
 				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.gameTexturesArray[12]);
+					_img = new Image(Assets.gameTexturesArray[12]);
 					
-					return img;
+					return _img;
 				}
 				
-				img = new Image(Assets.gameTexturesArray[10]);
-				return img;
+				_img = new Image(Assets.gameTexturesArray[10]);
+				return _img;
 				
 			}
 			if (Math.floor(tipoBola / 10) == 2) {
 				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.gameTexturesArray[4]);
-					return img;
+					_img = new Image(Assets.gameTexturesArray[4]);
+					return _img;
 				}
 				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.gameTexturesArray[5]);
-					return img;
+					_img = new Image(Assets.gameTexturesArray[5]);
+					return _img;
 				}
 				
-				img = new Image(Assets.gameTexturesArray[3]);
-				return img;
+				_img = new Image(Assets.gameTexturesArray[3]);
+				return _img;
 				
 			}
 			if (Math.floor(tipoBola / 10) == 3) {
 				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.gameTexturesArray[1]);
-					return img;
+					_img = new Image(Assets.gameTexturesArray[1]);
+					return _img;
 				}
 				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.gameTexturesArray[2]);
-					return img;
+					_img = new Image(Assets.gameTexturesArray[2]);
+					return _img;
 				}
 				
-				img = new Image(Assets.gameTexturesArray[0]);
-				return img;
+				_img = new Image(Assets.gameTexturesArray[0]);
+				return _img;
 			}
 			if (Math.floor(tipoBola / 10) == 4) {
 				
 				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.gameTexturesArray[8]);
-					return img;
+					_img = new Image(Assets.gameTexturesArray[8]);
+					return _img;
 				}
 				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.gameTexturesArray[9]);
-					return img;
+					_img = new Image(Assets.gameTexturesArray[9]);
+					return _img;
 				}
 				
-				img = new Image(Assets.gameTexturesArray[7]);
-				return img;
+				_img = new Image(Assets.gameTexturesArray[7]);
+				return _img;
 			}
 			if (tipoBola == 0) {
-				img = new Image(Assets.gameTexturesArray[6]);
-				return img;
+				_img = new Image(Assets.gameTexturesArray[6]);
+				return _img;
 			}
 			return null;
 		}
 		
-		/*private function pasoAImagen(tipoBola:int):Image
-		{
-			if (Math.floor(tipoBola / 10) == 1) {
-				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.getAtlasBolas().getTexture("bola_Roja_puntos"));
-					
-					return img;
-				}
-				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.getAtlasBolas().getTexture("bola_Roja_tiempo"));
-					
-					return img;
-				}
-				
-				img = new Image(Assets.getAtlasBolas().getTexture("bola_Roja"));
-				return img;
-				
-			}
-			if (Math.floor(tipoBola / 10) == 2) {
-				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.getAtlasBolas().getTexture("bola_Azul_puntos"));
-					return img;
-				}
-				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.getAtlasBolas().getTexture("bola_Azul_tiempo"));
-					return img;
-				}
-				
-				img = new Image(Assets.getAtlasBolas().getTexture("bola_Azul"));
-				return img;
-				
-			}
-			if (Math.floor(tipoBola / 10) == 3) {
-				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.getAtlasBolas().getTexture("bola_Amarilla_puntos"));
-					return img;
-				}
-				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.getAtlasBolas().getTexture("bola_Amarilla_tiempo"));
-					return img;
-				}
-				
-				img = new Image(Assets.getAtlasBolas().getTexture("bola_Amarilla"));
-				return img;
-			}
-			if (Math.floor(tipoBola / 10) == 4) {
-				
-				if (tipoBola % 10 == 1) {
-					img = new Image(Assets.getAtlasBolas().getTexture("bola_Negra_puntos"));
-					return img;
-				}
-				if (tipoBola % 10 == 2) {
-					img = new Image(Assets.getAtlasBolas().getTexture("bola_Negra_tiempo"));
-					return img;
-				}
-				
-				img = new Image(Assets.getAtlasBolas().getTexture("bola_Negra"));
-				return img;
-			}
-			if (tipoBola == 0) {
-				img = new Image(Assets.getAtlasBolas().getTexture("bola_Bomba"));
-				return img;
-			}
-			return null;
-		}
-		*/
+		/* Devuelve la X donde esta el juegador en funcion de la columna donde esté*/
 		private function comprobarPosicionXColumnaJugador(col:int):int
 		{
-			//trace("Entramos y salimos en juego.comprobarPosicionXColumnaJugador");
-			return anchuraCelda * col + inicioX;
+			return ANCHURA_CELDA * col + INICIO_X;
 		}
 		
+		/* Pinta el tablero en pantalla*/
 		private function pintarTableroPorPrimeraVez():void
 		{
-			for (var i:int = 0; i < numeroColumnas ;i++ ) {
-					for (var j:int = 0; j < numeroFilas; j++ ) {
-						var imagenBola:Image = pasoAImagen(tablero._tablero[j][i]);
+			for (var i:int = 0; i < NUM_COLUMNAS ;i++ ) {
+					for (var j:int = 0; j < NUM_FILAS; j++ ) {
+						var imagenBola:Image = pasoAImagen(_tablero._tablero[j][i]);
 						if (imagenBola != null) {
-							imagenBola.width = anchuraCelda;
-							imagenBola.height = alturaCelda;
-							imagenBola.x = anchuraCelda * i + inicioX;
-							imagenBola.y = alturaCelda * j + inicioY;
-							tablero._tableroImagenes[j][i] = imagenBola;
+							imagenBola.width = ANCHURA_CELDA;
+							imagenBola.height = ALTURA_CELDA;
+							imagenBola.x = ANCHURA_CELDA * i + INICIO_X;
+							imagenBola.y = ALTURA_CELDA * j + INICIO_Y;
+							_tablero._tableroImagenes[j][i] = imagenBola;
 							addChild(imagenBola);
 						}
 					}
 			}
 		}
 		
+		/* Pinta el tablero en pantalla*/
 		private function pintarTablero():void
 		{
 			var imagenBolaMolde:Image;
-			for (var i:int = 0; i < numeroColumnas ;i++ ) {
-					for (var j:int = 0; j < numeroFilas; j++ ) {
-						var imagenBola:Image = pasoAImagen(tablero._tablero[j][i]);
+			for (var i:int = 0; i < NUM_COLUMNAS ;i++ ) {
+					for (var j:int = 0; j < NUM_FILAS; j++ ) {
+						var imagenBola:Image = pasoAImagen(_tablero._tablero[j][i]);
 						if (imagenBola != null) {
-							imagenBola.width = anchuraCelda;
-							imagenBola.height = alturaCelda;
-							imagenBola.x = anchuraCelda * i + inicioX;
-							imagenBola.y = alturaCelda * j + inicioY;
-							imagenBolaMolde = tablero._tableroImagenes[j][i];
+							imagenBola.width = ANCHURA_CELDA;
+							imagenBola.height = ALTURA_CELDA;
+							imagenBola.x = ANCHURA_CELDA * i + INICIO_X;
+							imagenBola.y = ALTURA_CELDA * j + INICIO_Y;
+							imagenBolaMolde = _tablero._tableroImagenes[j][i];
 							borrarImagen(imagenBolaMolde);
-							tablero._tableroImagenes[j][i] = imagenBola;
+							_tablero._tableroImagenes[j][i] = imagenBola;
 							addChild(imagenBola);
 						}
 						else {
-						imagenBolaMolde = tablero._tableroImagenes[j][i];
+						imagenBolaMolde = _tablero._tableroImagenes[j][i];
 						borrarImagen(imagenBolaMolde);	
 						}
 					}
 			}
 		}
 		
+		/*Comprueba si el juego ha llegado a su fin*/
 		private function watchForEnd():void
 		{
-			if (chronoSecondsPassed == 0 || tablero.compruebaUltimaFila()) //Si el crono llega a 0 o hay bola en la ultima fila
+			if (_chronoSecondsPassed == 0 || _tablero.compruebaUltimaFila()) //Si el crono llega a 0 o hay bola en la ultima fila
 			{ // faltarán añadir finales
-					chrono.removeEventListener(TimerEvent.TIMER, updateChrono);
+					_chrono.removeEventListener(TimerEvent.TIMER, updateChrono);
 					this.removeEventListener(KeyboardEvent.KEY_DOWN, checkKeysDown);
-					moveTimer.removeEventListener(TimerEvent.TIMER,moveTimerHandler);
+					_moveTimer.removeEventListener(TimerEvent.TIMER,moveTimerHandler);
 					this.removeEventListener(Event.ENTER_FRAME, playGame);
 					
 					removeChildren();
 					
-					pantallaFinJuego = new PantallaFinJuego(_jugador.puntuacionActual.toString());
-					addChild(pantallaFinJuego);
+					_pantallaFinJuego = new PantallaFinJuego(_jugador.puntuacionActual.toString());
+					addChild(_pantallaFinJuego);
 					
 			}
 		}
 		
+		/* Animacion de coger las bolas con Tween*/
 		private function animacionBorrar(imagenAeliminar:Image):void
 		{
 			if(imagenAeliminar !=null){
@@ -562,6 +531,7 @@ package screens
 			}
 		}
 		
+		/* Borra la imagen recibida*/
 		private function borrarImagen(imagenRecibida:Image):void 
 		{
 			if(imagenRecibida != null){
@@ -570,30 +540,37 @@ package screens
 			}
 		}
 		
+		/* Clase que mediandte un for tira las bolas que tengamos...
+		 * ...llamando a animaciónTirar con cada bola
+		 */
 		private function tirar(col:int) 
 		{
 			var bolasAtirar:int = 1;
-			for (var i:int = 0; i < numeroFilas ; i++)
+			for (var i:int = 0; i < NUM_FILAS ; i++)
 			{
-				if (tablero._tablero[i][col] == -1) 
+				if (_tablero._tablero[i][col] == -1) 
 				{
-					if (bolasAtirar <= numeroBolasQueTengo) {
+					if (bolasAtirar <= _numeroBolasQueTengo) {
 							animacionTirar(i, col, bolasAtirar);
 							bolasAtirar++;
 					}
 					else break;
 				}
 			}
-			numeroBolasQueTengo = 0;
+			_numeroBolasQueTengo = 0;
 		}
 		
+		/* Hace la animacion de tirar con Tween de cada bola que tengamos cogida y...
+		 * ...si ha tirado todas la bolas llama a otra función que hace la acción...
+		 * ...fisica de tirarlas en el tablero.
+		 */
 		private function animacionTirar(fil:int, col:int, numeroBolaTirada:int)
 		{
-			estaHaciendoAnimacion = true;
-			if(bolasConNormalesQueTengo > 0){
+			_estaHaciendoAnimacion = true;
+			if(_bolasConNormalesQueTengo > 0){
 				var imagenTirar:Image;
 				imagenTirar = pasoAImagen(10 * _jugador.colorActualRetenido);
-				tablero._tableroImagenes[fil][col] = imagenTirar;
+				_tablero._tableroImagenes[fil][col] = imagenTirar;
 				imagenTirar.x = _jugador.jugadorImagen.x + _jugador.jugadorImagen.width / 2;
 				imagenTirar.y = _jugador.jugadorImagen.y + _jugador.jugadorImagen.height / 2;
 				imagenTirar.scaleX = 0;
@@ -601,20 +578,20 @@ package screens
 				addChild(imagenTirar);
 				
 				var tweenPrueba2:Tween = new Tween(imagenTirar, 0.3);
-				tweenPrueba2.animate("x", anchuraCelda * col + inicioX);
-				tweenPrueba2.animate("y", alturaCelda * fil + inicioY - 4);
+				tweenPrueba2.animate("x", ANCHURA_CELDA * col + INICIO_X);
+				tweenPrueba2.animate("y", ALTURA_CELDA * fil + INICIO_Y - 4);
 				tweenPrueba2.animate("scaleX", 1);
 				tweenPrueba2.animate("scaleY", 1);
 				Starling.juggler.add(tweenPrueba2);
 				tweenPrueba2.onComplete = borrarImagen;
 				tweenPrueba2.onCompleteArgs = [imagenTirar];
-				bolasConNormalesQueTengo--;
+				_bolasConNormalesQueTengo--;
 			}
 			else{
-				if(bolasConPuntosQueTengo > 0){
+				if(_bolasConPuntosQueTengo > 0){
 					var imagenTirar:Image;
 					imagenTirar = pasoAImagen((10 * _jugador.colorActualRetenido) + 1);
-					tablero._tableroImagenes[fil][col] = imagenTirar;
+					_tablero._tableroImagenes[fil][col] = imagenTirar;
 					imagenTirar.x = _jugador.jugadorImagen.x + _jugador.jugadorImagen.width / 2;
 					imagenTirar.y = _jugador.jugadorImagen.y + _jugador.jugadorImagen.height / 2;
 					imagenTirar.scaleX = 0;
@@ -622,20 +599,20 @@ package screens
 					addChild(imagenTirar);
 			
 					var tweenPrueba2:Tween = new Tween(imagenTirar, 0.3);
-					tweenPrueba2.animate("x", anchuraCelda * col + inicioX);
-					tweenPrueba2.animate("y", alturaCelda * fil + inicioY - 4);
+					tweenPrueba2.animate("x", ANCHURA_CELDA * col + INICIO_X);
+					tweenPrueba2.animate("y", ALTURA_CELDA * fil + INICIO_Y - 4);
 					tweenPrueba2.animate("scaleX", 1);
 					tweenPrueba2.animate("scaleY", 1);
 					Starling.juggler.add(tweenPrueba2);
 					tweenPrueba2.onComplete = borrarImagen;
 					tweenPrueba2.onCompleteArgs = [imagenTirar];
-					bolasConPuntosQueTengo--;
+					_bolasConPuntosQueTengo--;
 				}
 				else{
-					if(bolasConTiempoQueTengo > 0){
+					if(_bolasConTiempoQueTengo > 0){
 						var imagenTirar:Image;
 						imagenTirar = pasoAImagen((10 * _jugador.colorActualRetenido) + 2);
-						tablero._tableroImagenes[fil][col] = imagenTirar;
+						_tablero._tableroImagenes[fil][col] = imagenTirar;
 						imagenTirar.x = _jugador.jugadorImagen.x + _jugador.jugadorImagen.width / 2;
 						imagenTirar.y = _jugador.jugadorImagen.y + _jugador.jugadorImagen.height / 2;
 						imagenTirar.scaleX = 0;
@@ -643,98 +620,104 @@ package screens
 						addChild(imagenTirar);
 						
 						var tweenPrueba2:Tween = new Tween(imagenTirar, 0.3);
-						tweenPrueba2.animate("x", anchuraCelda * col + inicioX);
-						tweenPrueba2.animate("y", alturaCelda * fil + inicioY - 4);
+						tweenPrueba2.animate("x", ANCHURA_CELDA * col + INICIO_X);
+						tweenPrueba2.animate("y", ALTURA_CELDA * fil + INICIO_Y - 4);
 						tweenPrueba2.animate("scaleX", 1);
 						tweenPrueba2.animate("scaleY", 1);
 						Starling.juggler.add(tweenPrueba2);
 						tweenPrueba2.onComplete = borrarImagen;
 						tweenPrueba2.onCompleteArgs = [imagenTirar];
-						bolasConTiempoQueTengo--;
+						_bolasConTiempoQueTengo--;
 					}
 				}
 			}
 			if(tweenPrueba2!=null){
-				if (numeroBolaTirada == numeroBolasQueTengo) 
+				if (numeroBolaTirada == _numeroBolasQueTengo) 
 				{
 					tweenPrueba2.onComplete = accionTirar;
 					tweenPrueba2.onCompleteArgs = [col];
 				}
-				if (numeroBolaTirada < numeroBolasQueTengo && fil == 12) {
-					tweenPrueba2.onComplete = accionTirar;
-					tweenPrueba2.onCompleteArgs = [col];
+				if (numeroBolaTirada < _numeroBolasQueTengo && fil == 12) {
+						tweenPrueba2.onComplete = accionTirar;
+						tweenPrueba2.onCompleteArgs = [col];
 				}
 			}
+			
 		}
 		
+		/* Acción fisica sobre el tablero de tirar las bolas y activa los respectivos booleanos...
+		 * ... que controlan las animaciones de la explosion de bolas y bombas
+		 */
 		private function accionTirar(col:int):void
 		{
-			estaHaciendoAnimacion = false;
+			_estaHaciendoAnimacion = false;
 			
-			if (heCanceladoAñadirFila) {
-				tablero.añadirFilaRandom();
-				heCanceladoAñadirFila = false;
+			if (_heCanceladoAñadirFila) {
+				_tablero.añadirFilaRandom();
+				_heCanceladoAñadirFila = false;
 			}
 			
-			arrayDevuelveTirarBolas = _jugador.tirarBolas(col);
+			_arrayDevuelveTirarBolas = _jugador.tirarBolas(col);
 			borrarImagen(_imagenBolaTengo);
-			numeroBolasMensaje.text = " ";
+			_numeroBolasMensaje.text = " ";
 			
-			if (arrayDevuelveTirarBolas[1]) {
+			if (_arrayDevuelveTirarBolas[1]) {
 				
-				chronoSecondsPassed = chronoSecondsPassed + (arrayDevuelveTirarBolas[0] * 20);// añadimos segundos si explotamos correspondiente bola
-				puntuacionMensaje.text = _jugador.puntuacionActual.toString();
+				_chronoSecondsPassed = _chronoSecondsPassed + (_arrayDevuelveTirarBolas[0] * 20);// añadimos segundos si explotamos correspondiente bola
+				_puntuacionMensaje.text = _jugador.puntuacionActual.toString();
 				pintarTablero();
-				tablero.imprime();
 				
-				if (_jugador.puntuacionActual > 250 && _jugador.puntuacionActual < 750 && booleanoPrimerTiempo) {
-								booleanoPrimerTiempo = false;
-								moveTimer.delay = 3250;
-						}
-						if (_jugador.puntuacionActual > 750 && _jugador.puntuacionActual < 1250 && booleanoSegundoTiempo) {
-								booleanoSegundoTiempo = false;
-								moveTimer.delay = 3000;
-						}
-						if (_jugador.puntuacionActual > 1250 && _jugador.puntuacionActual < 1750 && booleanoTercerTiempo) {
-								booleanoTercerTiempo = false;
-								moveTimer.delay = 2750;
-						}
-						if (_jugador.puntuacionActual > 1750 && _jugador.puntuacionActual < 2250 && booleanoCuartoTiempo) {
-								booleanoCuartoTiempo = false;
-								moveTimer.delay = 2500;
-						}
-						if (_jugador.puntuacionActual > 2250 && _jugador.puntuacionActual < 2500 && booleanoQuintoTiempo) {
-								booleanoQuintoTiempo = false;
-								moveTimer.delay = 2225;
-						}
-						if (_jugador.puntuacionActual > 2500 && _jugador.puntuacionActual < 3250 && booleanoSextoTiempo ) {
-							booleanoSextoTiempo = false;	
-							moveTimer.delay = 2000;
-						}
-						if (_jugador.puntuacionActual > 3250 && _jugador.puntuacionActual < 3750  && booleanoSeptimoTiempo) {
-							booleanoSeptimoTiempo = false;	
-							moveTimer.delay = 1750;
-						}
-						if (_jugador.puntuacionActual > 3750 && booleanoOctavoTiempo) {
-							booleanoOctavoTiempo = false;	
-							moveTimer.delay = 1500;
-						}
+				if (_jugador.puntuacionActual > 250 && _jugador.puntuacionActual < 750 && _booleanoPrimerTiempo) {
+					_booleanoPrimerTiempo = false;
+					_moveTimer.delay = 3250;
+				}
+				if (_jugador.puntuacionActual > 750 && _jugador.puntuacionActual < 1250 && _booleanoSegundoTiempo) {
+					_booleanoSegundoTiempo = false;
+					_moveTimer.delay = 3000;
+				}
+				if (_jugador.puntuacionActual > 1250 && _jugador.puntuacionActual < 1750 && _booleanoTercerTiempo) {
+					_booleanoTercerTiempo = false;
+					_moveTimer.delay = 2750;
+				}
+				if (_jugador.puntuacionActual > 1750 && _jugador.puntuacionActual < 2250 && _booleanoCuartoTiempo) {
+					_booleanoCuartoTiempo = false;
+					_moveTimer.delay = 2500;
+				}
+				if (_jugador.puntuacionActual > 2250 && _jugador.puntuacionActual < 2500 && _booleanoQuintoTiempo) {
+					_booleanoQuintoTiempo = false;
+					_moveTimer.delay = 2225;
+				}
+				if (_jugador.puntuacionActual > 2500 && _jugador.puntuacionActual < 3250 && _booleanoSextoTiempo ) {
+					_booleanoSextoTiempo = false;	
+					_moveTimer.delay = 2000;
+				}
+				if (_jugador.puntuacionActual > 3250 && _jugador.puntuacionActual < 3750  && _booleanoSeptimoTiempo) {
+					_booleanoSeptimoTiempo = false;	
+					_moveTimer.delay = 1750;
+				}
+				if (_jugador.puntuacionActual > 3750 && _booleanoOctavoTiempo) {
+					_booleanoOctavoTiempo = false;	
+					_moveTimer.delay = 1500;
+				}
 				
 			}
 			else {
 				pintarTablero();
 			}
 			
-			if (Tablero.ArrayExploBolas.length != 0) {
-				hayExplosionBolas = true;
+			if (_tablero.ArrayExploBolas.length != 0) {
+				_hayExplosionBolas = true;
 			}
 			
-			if(Tablero.ArrayExplosiones.length != 0){
-				hayExplosionBomba = true;
+			if(_tablero.ArrayExplosiones.length != 0){
+				_hayExplosionBomba = true;
 			}
 			
 		}
 		
+		/* Muestra la bola del color que tenemos retenida y el numero de bolas de ese ...
+		 * ...color que tenemos retenidas
+		 */
 		private function masBolasQueTengo(numeroBolas:int,colorBolas:int):void
 		{
 			_imagenBolaTengo = pasoAImagen(colorBolas * 10);
@@ -744,18 +727,19 @@ package screens
 			_imagenBolaTengo.scaleY = 0.75;
 			addChild(_imagenBolaTengo);
 			
-			numeroBolasQueTengo = numeroBolasQueTengo + numeroBolas;
-			numeroBolasMensaje.text = "x" + numeroBolasQueTengo;
-			numeroBolasMensaje.x = 902;
-			numeroBolasMensaje.y = 494;
+			_numeroBolasQueTengo = _numeroBolasQueTengo + numeroBolas;
+			_numeroBolasMensaje.text = "x" + _numeroBolasQueTengo;
+			_numeroBolasMensaje.x = 902;
+			_numeroBolasMensaje.y = 494;
 			
 		}
 		
+		/*Borra imgenes de la columna que le pasemos en funcion de como este el tablero*/
 		private function borrarImagenesDeColumna():void
 		{
-			for (var i:int = 0; i < numeroFilas ; i++ ) {
-				if (tablero._tablero[i][columna] == -1) {
-						animacionBorrar(tablero._tableroImagenes[i][columna]);
+			for (var i:int = 0; i < NUM_FILAS ; i++ ) {
+				if (_tablero._tablero[i][_columna] == -1) {
+						animacionBorrar(_tablero._tableroImagenes[i][_columna]);
 				}
 			}
 		}	
