@@ -58,6 +58,10 @@ package screens
 		var booleanoSegundoTiempo:Boolean;
 		var booleanoTercerTiempo:Boolean;
 		var booleanoCuartoTiempo:Boolean;
+		var booleanoQuintoTiempo:Boolean;
+		var booleanoSextoTiempo:Boolean;
+		var booleanoSeptimoTiempo:Boolean;
+		var booleanoOctavoTiempo:Boolean;
 		
 		
 		private var chrono:Timer;
@@ -132,6 +136,10 @@ package screens
 			booleanoSegundoTiempo = true;
 			booleanoTercerTiempo = true;
 			booleanoCuartoTiempo = true;
+			booleanoQuintoTiempo = true;
+			booleanoSextoTiempo = true;
+			booleanoSeptimoTiempo = true;
+			booleanoOctavoTiempo = true;
 			
 			numeroBolasQueTengo = 0;
 			
@@ -272,7 +280,7 @@ package screens
 		
 		private function onAddedToStage(e:Event):void 
 		{
-			_imagenFondo = new Image(Assets.getTexture("FondoLluvia"));
+			_imagenFondo = new Image(Assets.getTexture("FondoSol"));
 			_imagenFondo.x = (stage.stageWidth / 2) - (_imagenFondo.width /2);
 			addChild(_imagenFondo);
 			_hub = new Image(Assets.getTexture("HUD1Player"));
@@ -646,17 +654,17 @@ package screens
 					}
 				}
 			}
-			
-			if (numeroBolaTirada == numeroBolasQueTengo) 
-			{
-				tweenPrueba2.onComplete = accionTirar;
-				tweenPrueba2.onCompleteArgs = [col];
-			}
-			if (numeroBolaTirada < numeroBolasQueTengo && fil == 12) {
+			if(tweenPrueba2!=null){
+				if (numeroBolaTirada == numeroBolasQueTengo) 
+				{
 					tweenPrueba2.onComplete = accionTirar;
 					tweenPrueba2.onCompleteArgs = [col];
+				}
+				if (numeroBolaTirada < numeroBolasQueTengo && fil == 12) {
+					tweenPrueba2.onComplete = accionTirar;
+					tweenPrueba2.onCompleteArgs = [col];
+				}
 			}
-			
 		}
 		
 		private function accionTirar(col:int):void
@@ -679,22 +687,38 @@ package screens
 				pintarTablero();
 				tablero.imprime();
 				
-				if (_jugador.puntuacionActual > 500 && _jugador.puntuacionActual < 1000 && booleanoPrimerTiempo) {
-						booleanoPrimerTiempo = false;
-						moveTimer.delay = 3000;
-				}
-				if (_jugador.puntuacionActual > 2000 && _jugador.puntuacionActual < 2500 && booleanoSegundoTiempo) {
-						booleanoSegundoTiempo = false;
-						moveTimer.delay = 2500;
-				}
-				if (_jugador.puntuacionActual > 2500 && _jugador.puntuacionActual < 3000 && booleanoTercerTiempo ) {
-					booleanoTercerTiempo = false;	
-					moveTimer.delay = 2000;
-				}
-				if (_jugador.puntuacionActual > 3000 && booleanoCuartoTiempo) {
-					booleanoCuartoTiempo = false;	
-					moveTimer.delay = 1500;
-				}
+				if (_jugador.puntuacionActual > 250 && _jugador.puntuacionActual < 750 && booleanoPrimerTiempo) {
+								booleanoPrimerTiempo = false;
+								moveTimer.delay = 3250;
+						}
+						if (_jugador.puntuacionActual > 750 && _jugador.puntuacionActual < 1250 && booleanoSegundoTiempo) {
+								booleanoSegundoTiempo = false;
+								moveTimer.delay = 3000;
+						}
+						if (_jugador.puntuacionActual > 1250 && _jugador.puntuacionActual < 1750 && booleanoTercerTiempo) {
+								booleanoTercerTiempo = false;
+								moveTimer.delay = 2750;
+						}
+						if (_jugador.puntuacionActual > 1750 && _jugador.puntuacionActual < 2250 && booleanoCuartoTiempo) {
+								booleanoCuartoTiempo = false;
+								moveTimer.delay = 2500;
+						}
+						if (_jugador.puntuacionActual > 2250 && _jugador.puntuacionActual < 2500 && booleanoQuintoTiempo) {
+								booleanoQuintoTiempo = false;
+								moveTimer.delay = 2225;
+						}
+						if (_jugador.puntuacionActual > 2500 && _jugador.puntuacionActual < 3250 && booleanoSextoTiempo ) {
+							booleanoSextoTiempo = false;	
+							moveTimer.delay = 2000;
+						}
+						if (_jugador.puntuacionActual > 3250 && _jugador.puntuacionActual < 3750  && booleanoSeptimoTiempo) {
+							booleanoSeptimoTiempo = false;	
+							moveTimer.delay = 1750;
+						}
+						if (_jugador.puntuacionActual > 3750 && booleanoOctavoTiempo) {
+							booleanoOctavoTiempo = false;	
+							moveTimer.delay = 1500;
+						}
 				
 			}
 			else {
