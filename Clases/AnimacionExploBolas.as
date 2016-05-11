@@ -16,7 +16,7 @@ package
 		public function AnimacionExploBolas() 
 		{
 			super();
-			ExploArt = new MovieClip(Assets.getAtlasAnim().getTextures("animacionExplosionBolas"), 25);
+			ExploArt = new MovieClip(Assets.getAtlasAnim().getTextures("animacion_explosionBolas"), 25);
 			
 			ExploArt.loop = false;
 			ExploArt.stop();

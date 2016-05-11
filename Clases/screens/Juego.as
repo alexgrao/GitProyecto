@@ -173,17 +173,17 @@ package screens
 		 */
 		private function playGame(e:Event):void 
 		{
-			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(_columna) - 15;
+			_jugador.jugadorImagen.x = comprobarPosicionXColumnaJugador(_columna);
 			if (_columna == 3) {
-				_jugador.jugadorImagen.y = 556;
+				_jugador.jugadorImagen.y = 568;
 			}else {
 				if (_columna == 2 || _columna == 4) {
-				_jugador.jugadorImagen.y = 553;
+				_jugador.jugadorImagen.y = 565;
 				}else {
 					if (_columna == 1 || _columna == 5) {
-					_jugador.jugadorImagen.y = 550;
+					_jugador.jugadorImagen.y = 562;
 					}else {
-						_jugador.jugadorImagen.y = 548;
+						_jugador.jugadorImagen.y = 558;
 					}
 				}
 			}
@@ -306,7 +306,11 @@ package screens
 		/* funcion que añade a la pantalla los objetos iniciales con los que se empieza*/
 		private function onAddedToStage(e:Event):void 
 		{
-			_imagenFondo = new Image(Assets.getTexture("FondoLluvia"));
+			if (_jugadorElegido == 1) {
+				_imagenFondo = new Image(Assets.getTexture("FondoSol"));
+			}else {
+				_imagenFondo = new Image(Assets.getTexture("FondoLluvia"));
+			}
 			_imagenFondo.x = (stage.stageWidth / 2) - (_imagenFondo.width /2);
 			addChild(_imagenFondo);
 			_hub = new Image(Assets.getTexture("HUD1Player"));
@@ -355,9 +359,9 @@ package screens
 		/* Inicializacion del jugador del juego*/
 		private function iniciarPlayer():void 
 		{
-			_jugador.jugadorImagen.y = 550;
-			_jugador.jugadorImagen.width = ANCHURA_CELDA + ANCHURA_CELDA/2;
-			_jugador.jugadorImagen.height = ALTURA_CELDA * 2;
+			_jugador.jugadorImagen.y = 568;
+			_jugador.jugadorImagen.scaleX = 0.5;
+			_jugador.jugadorImagen.scaleY = 0.5;
 			addChild(_jugador.jugadorImagen);
 		}
 		

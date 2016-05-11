@@ -1,5 +1,6 @@
 package 
 {
+	import flash.net.NetGroupReplicationStrategy;
 	import starling.core.Starling;
 	import starling.display.MovieClip;
 	import starling.display.Sprite;
@@ -13,11 +14,20 @@ package
 		
 		public var ParadoArt:MovieClip;
 		
-		public function AnimacionPersonaje() 
+		static public const ROJO:String = "rojo";
+		static public const AZUL:String = "azul";
+		
+		
+		
+		public function AnimacionPersonaje(s:String) 
 		{
 			super();
-			ParadoArt = new MovieClip(Assets.getAtlasAnim().getTextures("Modelo1PersonajeAnimacion"), 20);
-
+			
+			if(s == ROJO){
+				ParadoArt = new MovieClip(Assets.getAtlasAnim().getTextures("Modelo1PersonajeAnimacion"), 20);
+			}if (s == AZUL) {
+				ParadoArt = new MovieClip(Assets.getAtlasAnim().getTextures("Modelo2PersonajeAnimacion"), 22);
+			}
 			Starling.juggler.add(ParadoArt);
 			
 			

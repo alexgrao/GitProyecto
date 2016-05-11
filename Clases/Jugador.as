@@ -47,12 +47,12 @@ package
 		{
 			if (jugadorElegido == JUGADOR_AZUL)
 			{
-				jugadorImagen = new AnimacionPersonaje();
+				jugadorImagen = new AnimacionPersonaje(AnimacionPersonaje.AZUL);
 			}
 			
 			if (jugadorElegido == JUGADOR_ROJO)
 			{
-				jugadorImagen = new AnimacionPersonaje();
+				jugadorImagen = new AnimacionPersonaje(AnimacionPersonaje.ROJO);
 			}
 		}
 		

@@ -80,11 +80,11 @@ package
 			ArrayExplosiones = new Array();;
 			ArrayExploBolas = new Array();
 		
-			//_fila1 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
+			_fila1 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila2 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila3 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
 			_fila4 = new Array(VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO);
-			_fila1 = new Array(40, 0, 30, 22, 10, 20, 20);
+			//_fila1 = new Array(40, 0, 30, 22, 10, 20, 20);
 			//_fila2 = new Array(40, 10, 0, 30, 40, 10, 40);
 			//_fila3 = new Array(-1, 30, -1, 20, 20, 30, 10);
 			//_fila4 = new Array(-1, -1, -1, 10, 20, 30, 30);

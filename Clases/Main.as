@@ -4,7 +4,7 @@ package
 	import flash.display.StageDisplayState;
 	import flash.geom.Rectangle;
 	import net.hires.debug.Stats;
-	import screens.PantallaInicio;
+	import screens.*;
 	import starling.core.Starling;
 	import flash.system.Capabilities;
 	import starling.display.Stage;
@@ -22,7 +22,7 @@ package
 			stats = new Stats();
 			this.addChild(stats);
 			rectangleViewPort = new Rectangle(0,0,1200,650)
-			myStarling = new Starling(PantallaInicio, stage, rectangleViewPort);
+			myStarling = new Starling(LOGO, stage, rectangleViewPort);
 			myStarling.antiAliasing = 1;
 			myStarling.start();
 		}
