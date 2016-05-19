@@ -3,7 +3,6 @@ package
 	import starling.display.Image;
 	import starling.display.MovieClip;
 	import starling.display.Sprite;
-	import screens.seleccionPersonajeIndividual;
 	/**
 	 * ...
 	 * @author Alejandro López Balderas
@@ -47,12 +46,12 @@ package
 		{
 			if (jugadorElegido == JUGADOR_AZUL)
 			{
-				jugadorImagen = new AnimacionPersonaje(AnimacionPersonaje.AZUL);
+				jugadorImagen = new AnimacionPersonaje(AnimacionPersonaje.NEGRO);
 			}
 			
 			if (jugadorElegido == JUGADOR_ROJO)
 			{
-				jugadorImagen = new AnimacionPersonaje(AnimacionPersonaje.ROJO);
+				jugadorImagen = new AnimacionPersonaje(AnimacionPersonaje.BLANCO);
 			}
 		}
 		

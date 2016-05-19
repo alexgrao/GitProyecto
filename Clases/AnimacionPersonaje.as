@@ -14,8 +14,8 @@ package
 		
 		public var ParadoArt:MovieClip;
 		
-		static public const ROJO:String = "rojo";
-		static public const AZUL:String = "azul";
+		static public const BLANCO:String = "blanco";
+		static public const NEGRO:String = "negro";
 		
 		
 		
@@ -23,9 +23,9 @@ package
 		{
 			super();
 			
-			if(s == ROJO){
+			if(s == BLANCO){
 				ParadoArt = new MovieClip(Assets.getAtlasAnim().getTextures("Modelo1PersonajeAnimacion"), 20);
-			}if (s == AZUL) {
+			}if (s == NEGRO) {
 				ParadoArt = new MovieClip(Assets.getAtlasAnim().getTextures("Modelo2PersonajeAnimacion"), 22);
 			}
 			Starling.juggler.add(ParadoArt);

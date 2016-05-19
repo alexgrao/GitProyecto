@@ -22,11 +22,22 @@ package screens
 		static public const MULTI:String = "multi";
 		static public const INDIV:String = "indiv";
 		
+		//IMAGEN
 		private var _imagenFondo:Image;
-		private var _HUD:Image;
+		private var _MultiHUD_principal:Image;
+		private var _MultiHUD_MULTI:Image;
+		private var _MultiHUD_IND:Image;
 		private var _theBattleOfKukulkan:Image;
 		private var _LoCa:Image;
+		private var _textIND_NORMAL:Image;
+		private var _textIND_BATALLA:Image;
+		private var _textIND_ATRAS:Image;
+		private var _textMULTI_NORMAL:Image;
+		private var _textMULTI_BATALLA:Image;
+		private var _textMULTI_ATRAS:Image;
 		
+		
+		//Botones
 		private var _textoIndividual:Button;
 		private var _textoMulti:Button;
 		
@@ -37,8 +48,8 @@ package screens
 		private var _partidaEmpezada:Boolean;
 		
 		//Pantallas
-		private var seleccionIndividual:seleccionPersonajeIndividual;
-		private var juego:Juego2Players;
+		private var seleccionModoI:seleccionModoIND;
+		private var juego:seleccionModoMULTI;
 		
 		public function PantallaInicio(empezada:Boolean = false) 
 		{
@@ -94,7 +105,7 @@ package screens
 		
 		private function animacionHUD():void 
 		{
-			var animacion:Tween = new Tween(_HUD, 2);
+			var animacion:Tween = new Tween(_MultiHUD_principal, 2);
 			animacion.animate("y", 0);
 			Starling.juggler.add(animacion);
 			animacion.onComplete = iniciarTexto;
@@ -126,13 +137,16 @@ package screens
 		
 		private function animacionFinal(b:Button, s:String):void 
 		{
+			_textoIndividual.enabled = false;
+			_textoMulti.enabled = false;
+			
 			var img:Image = new Image(b.overState);
 			img.x = b.x;
 			img.y = b.y;
 			addChild(img);
 			removeChild(b);
 			
-			var anim:Tween = new Tween(img, 1.5);
+			var anim:Tween = new Tween(img, 1.7);
 			anim.animate("x", stage.stageWidth / 2 - img.width*1.5/2);
 			anim.animate("y", 10);
 			anim.scaleTo(1.5);
@@ -146,23 +160,76 @@ package screens
 				}
 			}
 			
-			var animTBOK:Tween = new Tween(_theBattleOfKukulkan, 1.5);
-			var animHUD:Tween = new Tween(_HUD, 1.5);
-			var animIND:Tween = new Tween(_textoIndividual, 1.5);
-			var animMUL:Tween = new Tween(_textoMulti, 1.5);
-			var animLOCA:Tween = new Tween(_LoCa, 1.5);
+			if (s == MULTI) {
+				var animFONDO:Tween = new Tween(_imagenFondo, 1.7);
+				var animTBOK:Tween = new Tween(_theBattleOfKukulkan, 1.7);
+				var animHUD_P:Tween = new Tween(_MultiHUD_principal, 1.7);
+				var animHUD_M:Tween = new Tween(_MultiHUD_MULTI, 1.7);
+				var animIND:Tween = new Tween(_textoIndividual, 1.7);
+				var animMUL:Tween = new Tween(_textoMulti, 1.7);
+				var animLOCA:Tween = new Tween(_LoCa, 1.7);
+				var animTextMultiNormal:Tween = new Tween(_textMULTI_NORMAL, 1.7);
+				var animTextMultiBatalla:Tween = new Tween(_textMULTI_BATALLA, 1.7);
+				var animTextMultiAtras:Tween = new Tween(_textMULTI_ATRAS, 1.7);
+				
+				animFONDO.animate("x", _imagenFondo.x + 150);
+				animTBOK.animate("x", _theBattleOfKukulkan.x + 1200);
+				animHUD_P.animate("x", _MultiHUD_principal.x + 1200);
+				animHUD_M.animate("x", _MultiHUD_MULTI.x + 1200);
+				animIND.animate("x", _textoIndividual.x + 1200);
+				animMUL.animate("x", _textoMulti.x + 1200);
+				animLOCA.animate("x", _LoCa.x + 1200);
+				animTextMultiNormal.animate("x", _textMULTI_NORMAL.x + 1200);
+				animTextMultiBatalla.animate("x", _textMULTI_BATALLA.x + 1200);
+				animTextMultiAtras.animate("x", _textMULTI_ATRAS.x + 1200);
+				
+				Starling.juggler.add(animFONDO);
+				Starling.juggler.add(animHUD_P);
+				Starling.juggler.add(animHUD_M);
+				Starling.juggler.add(animIND);
+				Starling.juggler.add(animMUL);
+				Starling.juggler.add(animTBOK);
+				Starling.juggler.add(animLOCA);
+				Starling.juggler.add(animTextMultiNormal);
+				Starling.juggler.add(animTextMultiBatalla);
+				Starling.juggler.add(animTextMultiAtras);
+			}else {
+				if (s == INDIV) {
+					var animFONDO:Tween = new Tween(_imagenFondo, 1.7);
+					var animTBOK:Tween = new Tween(_theBattleOfKukulkan, 1.7);
+					var animHUD_P:Tween = new Tween(_MultiHUD_principal, 1.7);
+					var animHUD_I:Tween = new Tween(_MultiHUD_IND, 1.7);
+					var animIND:Tween = new Tween(_textoIndividual, 1.7);
+					var animMUL:Tween = new Tween(_textoMulti,1.7);
+					var animLOCA:Tween = new Tween(_LoCa, 1.7);
+					var animTextIndNormal:Tween = new Tween(_textIND_NORMAL, 1.7);
+					var animTextIndBatalla:Tween = new Tween(_textIND_BATALLA, 1.7);
+					var animTextIndAtras:Tween = new Tween(_textIND_ATRAS, 1.7);
+					
+					animFONDO.animate("x", _imagenFondo.x - 150);
+					animTBOK.animate("x", _theBattleOfKukulkan.x - 1200);
+					animHUD_P.animate("x", _MultiHUD_principal.x - 1200);
+					animHUD_I.animate("x", _MultiHUD_IND.x - 1200);
+					animIND.animate("x", _textoIndividual.x - 1200);
+					animMUL.animate("x", _textoMulti.x - 1200);
+					animLOCA.animate("x", _LoCa.x - 1200);
+					animTextIndNormal.animate("x", _textIND_NORMAL.x - 1200);
+					animTextIndBatalla.animate("x", _textIND_BATALLA.x - 1200);
+					animTextIndAtras.animate("x", _textIND_ATRAS.x - 1200);
+					
+					Starling.juggler.add(animFONDO);
+					Starling.juggler.add(animHUD_P);
+					Starling.juggler.add(animHUD_I);
+					Starling.juggler.add(animIND);
+					Starling.juggler.add(animMUL);
+					Starling.juggler.add(animTBOK);
+					Starling.juggler.add(animLOCA);
+					Starling.juggler.add(animTextIndNormal);
+					Starling.juggler.add(animTextIndBatalla);
+					Starling.juggler.add(animTextIndAtras);
+				}
+			}
 			
-			animTBOK.animate("y", _theBattleOfKukulkan.y + 650);
-			animHUD.animate("y", _HUD.y + 650);
-			animIND.animate("y", _textoIndividual.y + 650);
-			animMUL.animate("y", _textoMulti.y + 650);
-			animLOCA.animate("y", _LoCa.y + 650);
-			
-			Starling.juggler.add(animHUD);
-			Starling.juggler.add(animIND);
-			Starling.juggler.add(animMUL);
-			Starling.juggler.add(animTBOK);
-			Starling.juggler.add(animLOCA);
 		}
 		
 		private function cambioPantalla1Player():void 
@@ -172,8 +239,8 @@ package screens
 			_textoIndividual = null;
 			_textoMulti = null;
 			
-			seleccionIndividual = new seleccionPersonajeIndividual();
-			addChild(seleccionIndividual);
+			seleccionModoI = new seleccionModoIND();
+			addChild(seleccionModoI);
 		}
 		
 		private function cambioPantalla2Player():void 
@@ -184,16 +251,26 @@ package screens
 			_textoMulti = null;
 				
 			
-			juego = new Juego2Players();
+			juego = new seleccionModoMULTI();
 			addChild(juego);
 		}
 		
 		private function dibujarInicio():void
 		{
 			_imagenFondo = new Image(Assets.getTexture("FondoPrincipal"));
-			_imagenFondo.x = 0;
-			_imagenFondo.y = 0;
+			_imagenFondo.x = -300;
+			_imagenFondo.y = -162.5;
 			addChild(_imagenFondo);
+			
+			_MultiHUD_MULTI = new Image(Assets.getTexture("MultiHUD_MULTI"));
+			_MultiHUD_MULTI.x = -1200;
+			_MultiHUD_MULTI.y = 0;
+			addChild(_MultiHUD_MULTI);
+			
+			_MultiHUD_IND = new Image(Assets.getTexture("MultiHUD_IND"));
+			_MultiHUD_IND.x = 1200;
+			_MultiHUD_IND.y = 0;
+			addChild(_MultiHUD_IND);
 			
 			_theBattleOfKukulkan = new Image(Assets.getTexture("LOGO"));
 			if(!_partidaEmpezada){
@@ -211,41 +288,83 @@ package screens
 			addChild(_theBattleOfKukulkan);
 			
 			
-			_HUD = new Image(Assets.getTexture("HUDPrincipal"));
-			_HUD.x = 0;
+			_MultiHUD_principal = new Image(Assets.getTexture("MultiHUD_principal"));
+			_MultiHUD_principal.x = 0;
 			if(!_partidaEmpezada){
-				_HUD.y = 650;
+				_MultiHUD_principal.y = 650;
 			}else {
-				_HUD.y = 0;
+				_MultiHUD_principal.y = 0;
 			}
-			addChild(_HUD);
+			addChild(_MultiHUD_principal);
 			
 			_LoCa = new Image(Assets.getTexture("LoCa"));
 			_LoCa.scaleX = 0.3;
 			_LoCa.scaleY = 0.3;
-			_LoCa.x = stage.stageWidth - _LoCa.width + 40
-			_LoCa.y = 235;
+			_LoCa.x = 920;
+			_LoCa.y = 255;
 			addChild(_LoCa);
 			if(!_partidaEmpezada){
 				_LoCa.alpha = 0;
 			}
 			
-			_textoIndividual = new Button(Assets.getTexture("textoIND"));
-			_textoIndividual.overState = Assets.getTexture("textoIND_select");
-			_textoIndividual.downState = Assets.getTexture("textoIND_select");
-			_textoIndividual.x = 780;
-			_textoIndividual.y = 392;
+			_textIND_NORMAL = new Image(Assets.getAtlasTextoHUD().getTexture("textoNORMAL"));
+			_textIND_NORMAL.scaleX = 0.9;
+			_textIND_NORMAL.scaleY = 0.9;
+			_textIND_NORMAL.x = 1270;
+			_textIND_NORMAL.y = 418;
+			addChild(_textIND_NORMAL);
+			
+			_textIND_BATALLA = new Image(Assets.getAtlasTextoHUD().getTexture("textoBATALLA"));
+			_textIND_BATALLA.scaleX = 0.9;
+			_textIND_BATALLA.scaleY = 0.9;
+			_textIND_BATALLA.x = 1255;
+			_textIND_BATALLA.y = 540;
+			addChild(_textIND_BATALLA);
+			
+			_textIND_ATRAS = new Image(Assets.getAtlasTextoHUD().getTexture("textoATRAS"));
+			_textIND_ATRAS.scaleX = 0.9;
+			_textIND_ATRAS.scaleY = 0.9;
+			_textIND_ATRAS.x = 2200;
+			_textIND_ATRAS.y = 556;
+			addChild(_textIND_ATRAS);
+			
+			_textMULTI_NORMAL = new Image(Assets.getAtlasTextoHUD().getTexture("textoNORMAL"));
+			_textMULTI_NORMAL.scaleX = 0.9;
+			_textMULTI_NORMAL.scaleY = 0.9;
+			_textMULTI_NORMAL.x = -1135;
+			_textMULTI_NORMAL.y = 410;
+			addChild(_textMULTI_NORMAL);
+			
+			_textMULTI_BATALLA = new Image(Assets.getAtlasTextoHUD().getTexture("textoBATALLA"));
+			_textMULTI_BATALLA.scaleX = 0.9;
+			_textMULTI_BATALLA.scaleY = 0.9;
+			_textMULTI_BATALLA.x = -1155;
+			_textMULTI_BATALLA.y = 532;
+			addChild(_textMULTI_BATALLA);
+			
+			_textMULTI_ATRAS = new Image(Assets.getAtlasTextoHUD().getTexture("textoATRAS"));
+			_textMULTI_ATRAS.scaleX = 0.9;
+			_textMULTI_ATRAS.scaleY = 0.9;
+			_textMULTI_ATRAS.x = -200;
+			_textMULTI_ATRAS.y = 556;
+			addChild(_textMULTI_ATRAS);
+			
+			_textoIndividual = new Button(Assets.getAtlasTextoHUD().getTexture("textoINDIV"));
+			_textoIndividual.overState = Assets.getAtlasTextoHUD().getTexture("textoINDIV_select");
+			_textoIndividual.downState = Assets.getAtlasTextoHUD().getTexture("textoINDIV_select");
+			_textoIndividual.x = 810;
+			_textoIndividual.y = 420;
 			addChild(_textoIndividual);
 			if(!_partidaEmpezada){
 				_textoIndividual.alpha = 0;
 				_textoIndividual.enabled = false;
 			}
 			
-			_textoMulti = new Button(Assets.getTexture("textoMULTI"));
-			_textoMulti.overState = Assets.getTexture("textoMULTI_select");
-			_textoMulti.downState = Assets.getTexture("textoMULTI_select");
-			_textoMulti.x = 755;
-			_textoMulti.y = 505;
+			_textoMulti = new Button(Assets.getAtlasTextoHUD().getTexture("textoMULTI"));
+			_textoMulti.overState = Assets.getAtlasTextoHUD().getTexture("textoMULTI_select");
+			_textoMulti.downState = Assets.getAtlasTextoHUD().getTexture("textoMULTI_select");
+			_textoMulti.x = 776;
+			_textoMulti.y = 545;
 			addChild(_textoMulti);
 			if(!_partidaEmpezada){
 				_textoMulti.alpha = 0;

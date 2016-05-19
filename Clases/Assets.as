@@ -9,6 +9,9 @@ package
 
 	public class Assets 
 	{
+		[Embed(source = "../media/graphics/SeleccionPersonaje.png")]
+		public static const selectPersonaje:Class;
+		
 		//LOGO
 		[Embed(source = "../media/graphics/Logo_PRINCIPAL.png")]
 		public static const LOGO:Class;
@@ -17,17 +20,15 @@ package
 		public static const LoCa:Class;
 		
 		//TextoImagenes
-		[Embed(source = "../media/graphics/textoINDIV.png")]
-		public static const textoIND:Class;
 		
-		[Embed(source = "../media/graphics/textoINDIV_select.png")]
-		public static const textoIND_select:Class;
+		private static var TextosHUDTextureAtlas:TextureAtlas;
 		
-		[Embed(source = "../media/graphics/textoMULTI.png")]
-		public static const textoMULTI:Class;
+		[Embed(source = "../media/graphics/spriteTextos.png")]
+		public static const AtlasTextureTextosHUD:Class;
 		
-		[Embed(source = "../media/graphics/textoMULTI_select.png")]
-		public static const textoMULTI_select:Class;
+		[Embed(source = "../media/graphics/SpriteTexto.xml", mimeType = "application/octet-stream")]
+		public static const AtlasXMLTextosHUD:Class;
+		
 		
 		//Indicador
 		[Embed(source = "../media/graphics/incicador.png")]
@@ -47,6 +48,27 @@ package
 		public static const FlechaJugador:Class;
 		
 		//HUDs
+		[Embed(source = "../media/graphics/MultiHUD_principal.png")]
+		public static const MultiHUD_principal:Class;
+		
+		[Embed(source = "../media/graphics/MultiHUD_Multi.png")]
+		public static const MultiHUD_MULTI:Class;
+		
+		[Embed(source = "../media/graphics/MultiHUD_Ind.png")]
+		public static const MultiHUD_IND:Class
+		
+		[Embed(source = "../media/graphics/MultiHUD_Normalmulti.png")]
+		public static const MultiHUD_NORMAL_MULTI:Class;
+		
+		[Embed(source = "../media/graphics/MultiHUD_batallamulti.png")]
+		public static const MultiHUD_BATALLA_MULTI:Class;
+		
+		[Embed(source = "../media/graphics/MultiHUD_Norm_Ind.png")]
+		public static const MultiHUD_NORMAL_IND:Class;
+		
+		[Embed(source = "../media/graphics/MultiHUD_Batalla_Ind.png")]
+		public static const MultiHUD_BATALLA_IND:Class;
+		
 		[Embed(source = "../media/graphics/HUD_1Player.png")]
 		public static const HUD1Player:Class;
 
@@ -73,7 +95,6 @@ package
 		public static const FlechaJugadorRoja:Class;
 		
 		//fuentes
-		
 		[Embed(source = "../media/fonts/font.png")]
 		public static const FontTexture:Class;
 		
@@ -113,6 +134,16 @@ package
 				AnimTextureAtlas = new TextureAtlas(texture, xml);
 			}
 			return AnimTextureAtlas;
+		}
+		
+		public static function getAtlasTextoHUD():TextureAtlas
+		{
+			if (TextosHUDTextureAtlas == null) {
+				var texture:Texture = getTexture("AtlasTextureTextosHUD");
+				var xml:XML = XML(new AtlasXMLTextosHUD());
+				TextosHUDTextureAtlas = new TextureAtlas(texture, xml);
+			}
+			return TextosHUDTextureAtlas;
 		}
 		
 		public static function getAtlasBolas():TextureAtlas 

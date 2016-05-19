@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:cc3a8608e62c68014849344d17e61e1b:c10fdcff922e9092b2324e15c1ad4201:957ea8072f9db3225f7e55d095ef7253$ -->
+<TextureAtlas imagePath="SpriteTextos.png" width="1640" height="165">
+    <SubTexture name="textoINDIV_select" x="0" y="0" width="281" height="53"/>
+    <SubTexture name="textoINDIV" x="281" y="0" width="281" height="53"/>
+    <SubTexture name="textoMULTI" x="562" y="0" width="360" height="55"/>
+    <SubTexture name="textoMULTI_select" x="922" y="0" width="360" height="55"/>
+    <SubTexture name="textoATRAS" x="1282" y="0" width="175" height="62"/>
+    <SubTexture name="textoATRAS_select" x="1457" y="0" width="175" height="62"/>
+    <SubTexture name="GO!" x="0" y="62" width="164" height="81"/>
+    <SubTexture name="GO!_select" x="164" y="62" width="164" height="81"/>
+    <SubTexture name="textoNORMAL" x="328" y="62" width="308" height="82"/>
+    <SubTexture name="textoNORMAL_select" x="636" y="62" width="308" height="82"/>
+    <SubTexture name="textoBATALLA" x="944" y="62" width="348" height="84"/>
+    <SubTexture name="textoBATALLA_select" x="1292" y="62" width="348" height="84"/>
+</TextureAtlas>

@@ -22,7 +22,7 @@ package
 			stats = new Stats();
 			this.addChild(stats);
 			rectangleViewPort = new Rectangle(0,0,1200,650)
-			myStarling = new Starling(LOGO, stage, rectangleViewPort);
+			myStarling = new Starling(seleccionPersonajeBatallaMULTI, stage, rectangleViewPort);
 			myStarling.antiAliasing = 1;
 			myStarling.start();
 		}

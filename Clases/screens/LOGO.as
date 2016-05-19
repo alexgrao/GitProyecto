@@ -39,6 +39,8 @@ package screens
 		private function dibujaPantalla():void 
 		{
 			_fondo = new Image(Assets.getTexture("FondoPrincipal"));
+			_fondo.x = -300;
+			_fondo.y = -162.5;
 			addChild(_fondo);
 			
 			_LoCa = new Image(Assets.getTexture("LoCa"));
